@@ -1,0 +1,39 @@
+{
+  "name": "hwss_app",
+  "version": "1.0.0",
+  "description": "Official HWSS Web App",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/faraonc/HWSS_App.git"
+  },
+  "keywords": [
+    "hwss"
+  ],
+  "author": "LK, PG, CF",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/faraonc/HWSS_App/issues"
+  },
+  "homepage": "https://github.com/faraonc/HWSS_App#readme",
+  "dependencies": {
+    "async": "^2.6.0",
+    "body-parser": "^1.18.2",
+    "bootstrap": "^4.0.0",
+    "cookie-parser": "^1.4.3",
+    "express": "^4.16.2",
+    "jquery": "^3.3.1",
+    "jsdom": "^11.6.2",
+    "mongodb": "^3.0.3",
+    "morgan": "^1.9.0",
+    "path": "^0.12.7",
+    "popper.js": "^1.12.9",
+    "serve-favicon": "^2.4.5",
+    "vue": "^2.5.13",
+    "vue2-google-maps": "^0.8.8"
+  }
+}
