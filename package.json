@@ -21,6 +21,7 @@
   },
   "homepage": "https://github.com/faraonc/HWSS_App#readme",
   "dependencies": {
+    "@google/maps": "^0.4.5",
     "async": "^2.6.0",
     "body-parser": "^1.18.2",
     "bootstrap": "^4.0.0",
