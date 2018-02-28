@@ -17,8 +17,8 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'scripts')));
-app.use(express.static(path.join(__dirname, 'styles')));
+app.use('/public', express.static(path.join(__dirname, 'public')));
+app.use('/styles', express.static(path.join(__dirname, 'styles')));
 app.use(express.static(path.join(__dirname, 'templates')));
 
 // catch 404 and forward to error handler
