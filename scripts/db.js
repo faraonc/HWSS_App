@@ -4,7 +4,7 @@ const HWSS_DB = 'HWSS';
 const METADATA = 'METADATA';
 
 
-function extractContributors(query, contributors){
+function extractContributors(query, contributors) {
     console.log("--------------extractContributors executing--------------");
     var pi = [];
     var firstName = [];
@@ -24,41 +24,55 @@ function extractContributors(query, contributors){
     };
 }
 
-function buildQuery(queryParams){
+function buildQuery(queryParams) {
     console.log("--------------buildQuery executing--------------");
     var query = {};
-    if(queryParams.contributors) {
-        var contributors = queryParams.contributors;
-        extractContributors(query, contributors)
+    if (queryParams.pis) {
+        console.log("--------------extract pis executing--------------");
+        query.pi = {
+            $in: queryParams.pis
+        }
     }
-    if(queryParams.regions){
+    if (queryParams.firstNames) {
+        console.log("--------------extract firstNames executing--------------");
+        query.firstName = {
+            $in: queryParams.firstNames
+        }
+    }
+    if (queryParams.regions) {
         console.log("--------------extracting regions executing--------------");
         query.region = {
-            $in: queryParams.regions}
+            $in: queryParams.regions
+        }
     }
-    if(queryParams.dates){
+    if (queryParams.dates) {
         console.log("--------------extracting dates executing--------------");
         query.date = {
-            $in: queryParams.dates}
+            $in: queryParams.dates
+        }
     }
-    if(queryParams.fileTypes){
+    if (queryParams.fileTypes) {
         console.log("--------------extracting fileTypes executing--------------");
         query.dataType = {
-            $in: queryParams.fileTypes}
+            $in: queryParams.fileTypes
+        }
     }
-    if(queryParams.instruments){
+    if (queryParams.instruments) {
         console.log("--------------extracting instruments executing--------------");
         query.sensorName = {
-            $in: queryParams.instruments}
+            $in: queryParams.instruments
+        }
     }
-    if(queryParams.samplingRate){
+    if (queryParams.samplingRates) {
         console.log("--------------extracting samplingRate executing--------------");
         query.samplingRate = {
-            $in: queryParams.samplingRate}
+            $in: queryParams.samplingRates
+        }
     }
     return query;
 }
 
+//http://localhost:3009/query/metadata?pi=Seger,Faraon&firstName=Kerri,Conard
 function queryMetaData(dbName, dbCollection, queryParams, callback) {
     //READ ONLY ACCESS
     new mongo('mongodb://hwss.documents.azure.com:10255/?ssl=true', {
@@ -71,13 +85,14 @@ function queryMetaData(dbName, dbCollection, queryParams, callback) {
         try {
             var dbo = db.db(dbName);
 
-            if(queryParams.all){
-                dbo.collection(dbCollection).find({}).toArray(function(err, result) {
+            if (queryParams.all) {
+                dbo.collection(dbCollection).find({}).toArray(function (err, result) {
                     callback(err, result);
                 });
-            }else{
+            } else {
                 var query = buildQuery(queryParams);
-                dbo.collection(dbCollection).find(query).toArray(function(err, result) {
+                console.log(query);
+                dbo.collection(dbCollection).find(query).toArray(function (err, result) {
                     callback(err, result);
                 });
             }
