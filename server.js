@@ -12,13 +12,14 @@ var port = process.env.PORT || 3009;
 
 
 // uncomment after placing your favicon in /public
-//app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
+app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use('/public', express.static(path.join(__dirname, 'public')));
 app.use('/styles', express.static(path.join(__dirname, 'styles')));
+app.use('/build', express.static(path.join(__dirname, 'build')));
 app.use(express.static(path.join(__dirname, 'templates')));
 
 // catch 404 and forward to error handler
