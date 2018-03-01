@@ -1,13 +1,5 @@
-Setup Streaming File Server
-Setup Static File Server
-Make up Longitude & Latitude
-Populate MongoDB server
-Setup NodeJS Linux VM
+NodeJS Deployment.
+Generate unique identifier per person in MongoDB.
 
-
-
-
-
-
-Azure Pricing
+Azure Pricing Plan
 

@@ -1,0 +1,157 @@
+Setup Azure Cosmos DB
+
+Setup Azure Media Streaming
+    Attached with Storage Account "hwss"
+
+Setup Storage Account "hwss"
+    Three Containers inside:
+        "image"
+        "audio"
+        "video"
+
+
+https://docs.microsoft.com/en-us/azure/app-service/containers/quickstart-nodejs
+THE EXAMPLE PROCESS FOR DEPLOYMENT IS BELOW:
+
+conard@Azure:~$ az webapp deployment user set --user-name faraonc --password ************
+{
+  "additionalProperties": {},
+  "id": null,
+  "kind": null,
+  "name": "web",
+  "publishingPassword": null,
+  "publishingPasswordHash": null,
+  "publishingPasswordHashSalt": null,
+  "publishingUserName": "faraonc",
+  "type": "Microsoft.Web/publishingUsers/web",
+  "userName": null
+}
+conard@Azure:~$ az group create --name myResourceGroup --location "West US"
+{
+  "id": "/subscriptions/858d407d-c4d7-4f7a-9e47-8dee44b3ba3f/resourceGroups/myResourceGroup",
+  "location": "westus",
+  "managedBy": null,
+  "name": "myResourceGroup",
+  "properties": {
+    "provisioningState": "Succeeded"
+  },
+  "tags": null
+}
+conard@Azure:~$ az appservice plan create --name myAppServicePlan --resource-group myResourceGroup --sku S1 --is-linux
+
+{
+  "additionalProperties": {},
+  "adminSiteName": null,
+  "appServicePlanName": "myAppServicePlan",
+  "geoRegion": "West US",
+  "hostingEnvironmentProfile": null,
+  "id": "/subscriptions/858d407d-c4d7-4f7a-9e47-8dee44b3ba3f/resourceGroups/myResourceGroup/providers/Microsoft.Web/serverfarms/myAppServicePlan",
+  "isSpot": false,
+  "kind": "linux",
+  "location": "West US",
+  "maximumNumberOfWorkers": 10,
+  "name": "myAppServicePlan",
+  "numberOfSites": 0,
+  "perSiteScaling": false,
+  "provisioningState": "Succeeded",
+  "reserved": true,
+  "resourceGroup": "myResourceGroup",
+  "sku": {
+    "additionalProperties": {},
+    "capabilities": null,
+    "capacity": 1,
+    "family": "S",
+    "locations": null,
+    "name": "S1",
+    "size": "S1",
+    "skuCapacity": null,
+    "tier": "Standard"
+  },
+  "spotExpirationTime": null,
+  "status": "Ready",
+  "subscription": "858d407d-c4d7-4f7a-9e47-8dee44b3ba3f",
+  "tags": null,
+  "targetWorkerCount": 0,
+  "targetWorkerSizeId": 0,
+  "type": "Microsoft.Web/serverfarms",
+  "workerTierName": null
+}
+
+conard@Azure:~$ az webapp create --resource-group myResourceGroup --plan myAppServicePlan --name TESTWHALE --runtime "NODE|6.9" --deployment-local-git
+Local git is configured with url of 'https://faraonc@testwhale.scm.azurewebsites.net/TESTWHALE.git'
+{
+  "additionalProperties": {},
+  "availabilityState": "Normal",
+  "clientAffinityEnabled": true,
+  "clientCertEnabled": false,
+  "cloningInfo": null,
+  "containerSize": 0,
+  "dailyMemoryTimeQuota": 0,
+  "defaultHostName": "testwhale.azurewebsites.net",
+  "deploymentLocalGitUrl": "https://faraonc@testwhale.scm.azurewebsites.net/TESTWHALE.git",
+  "enabled": true,
+  "enabledHostNames": [
+    "testwhale.azurewebsites.net",
+    "testwhale.scm.azurewebsites.net"
+  ],
+  "ftpPublishingUrl": "ftp://waws-prod-bay-063.ftp.azurewebsites.windows.net/site/wwwroot",
+  "hostNameSslStates": [
+    {
+      "additionalProperties": {
+        "ipBasedSslResult": null,
+        "ipBasedSslState": "NotConfigured",
+        "toUpdateIpBasedSsl": null
+      },
+      "hostType": "Standard",
+      "name": "testwhale.azurewebsites.net",
+      "sslState": "Disabled",
+      "thumbprint": null,
+      "toUpdate": null,
+      "virtualIp": null
+    },
+    {
+      "additionalProperties": {
+        "ipBasedSslResult": null,
+        "ipBasedSslState": "NotConfigured",
+        "toUpdateIpBasedSsl": null
+      },
+      "hostType": "Repository",
+      "name": "testwhale.scm.azurewebsites.net",
+      "sslState": "Disabled",
+      "thumbprint": null,
+      "toUpdate": null,
+      "virtualIp": null
+    }
+  ],
+  "hostNames": [
+    "testwhale.azurewebsites.net"
+  ],
+  "hostNamesDisabled": false,
+  "hostingEnvironmentProfile": null,
+  "httpsOnly": false,
+  "id": "/subscriptions/858d407d-c4d7-4f7a-9e47-8dee44b3ba3f/resourceGroups/myResourceGroup/providers/Microsoft.Web/sites/TESTWHALE",
+  "identity": null,
+  "isDefaultContainer": null,
+  "kind": "app,linux",
+  "lastModifiedTimeUtc": "2018-03-01T00:00:30.010000",
+  "location": "West US",
+  "maxNumberOfWorkers": null,
+  "name": "TESTWHALE",
+  "outboundIpAddresses": "13.93.220.109,13.93.205.56,52.160.105.227,104.209.45.67,13.91.108.234",
+  "possibleOutboundIpAddresses": "13.93.220.109,13.93.205.56,52.160.105.227,104.209.45.67,13.91.108.234",
+  "repositorySiteName": "TESTWHALE",
+  "reserved": true,
+  "resourceGroup": "myResourceGroup",
+  "scmSiteAlsoStopped": false,
+  "serverFarmId": "/subscriptions/858d407d-c4d7-4f7a-9e47-8dee44b3ba3f/resourceGroups/myResourceGroup/providers/Microsoft.Web/serverfarms/myAppServicePlan",
+  "siteConfig": null,
+  "slotSwapStatus": null,
+  "snapshotInfo": null,
+  "state": "Running",
+  "suspendedTill": null,
+  "tags": null,
+  "targetSwapSlot": null,
+  "trafficManagerHostNames": null,
+  "type": "Microsoft.Web/sites",
+  "usageState": "Normal"
+}
