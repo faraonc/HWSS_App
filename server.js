@@ -34,7 +34,12 @@ router.route('/metadata').get(function (req, res) {
             if(err){
 
             }
-            res.json(result);
+            console.log(result);
+            var returnValue = {
+                error: null,
+                result: result
+            }
+            res.json(returnValue);
         })
     })
 });
