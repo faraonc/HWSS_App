@@ -28,20 +28,21 @@ router.get('/', function (req, res) {
 // test route to make sure everything is working (accessed at GET http://localhost:port/query/metadata)
 router.route('/metadata').get(function (req, res) {
     console.log("welcome to metadata");
-    console.log(req.query);
-    clientHandler.serviceQuery(req.query, function (err, result) {
-        db.queryMetaData(db.HWSS_DB, db.METADATA, result, function(err, result){
-            if(err){
-
-            }
-            console.log(result);
-            var returnValue = {
-                error: null,
-                result: result
-            }
-            res.json(returnValue);
+    if (Object.keys(req.query).length !== 0 || req.query.constructor !== Object) {
+        clientHandler.serviceQuery(req.query, function (err, result) {
+            db.queryMetaData(db.HWSS_DB, db.METADATA, result, function (err, result) {
+                var returnQueryResult = {
+                    error: err,
+                    result: result
+                };
+                res.json(returnQueryResult);
+            })
         })
-    })
+    }else{
+        var err = new Error('Not Found');
+        err.status = 404;
+        next(err);
+    }
 });
 
 // register route for http://localhost:port/query/

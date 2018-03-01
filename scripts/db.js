@@ -25,46 +25,38 @@ function extractContributors(query, contributors) {
 }
 
 function buildQuery(queryParams) {
-    console.log("--------------buildQuery executing--------------");
     var query = {};
     if (queryParams.pis) {
-        console.log("--------------extract pis executing--------------");
         query.pi = {
             $in: queryParams.pis
         }
     }
     if (queryParams.firstNames) {
-        console.log("--------------extract firstNames executing--------------");
         query.firstName = {
             $in: queryParams.firstNames
         }
     }
     if (queryParams.regions) {
-        console.log("--------------extracting regions executing--------------");
         query.region = {
             $in: queryParams.regions
         }
     }
     if (queryParams.dates) {
-        console.log("--------------extracting dates executing--------------");
         query.date = {
             $in: queryParams.dates
         }
     }
     if (queryParams.fileTypes) {
-        console.log("--------------extracting fileTypes executing--------------");
         query.dataType = {
             $in: queryParams.fileTypes
         }
     }
     if (queryParams.instruments) {
-        console.log("--------------extracting instruments executing--------------");
         query.sensorName = {
             $in: queryParams.instruments
         }
     }
     if (queryParams.samplingRates) {
-        console.log("--------------extracting samplingRate executing--------------");
         query.samplingRate = {
             $in: queryParams.samplingRates
         }
