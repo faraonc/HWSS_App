@@ -5,16 +5,16 @@
             Select Author
         </button>
 
-        <!--stopPropagation prevents closing of the dropdownmenu when selecting text
-        data-ng-click="$event.stopPropagation()" -->
-        <ul class="dropdown-menu">
+        <!--stopPropagation prevents closing of the dropdownmenu when selecting text -->
+        <ul class="dropdown-menu" v-on:click="$event.stopPropagation()">
             <div class="form-control-wrapper">
                 <input type="text" class="form-control" placeholder="Search">
             </div>
 
-            <label data-ng-repeat="option in authors | orderBy: 'last' | filter: searchQuery">
+            <label v-for="publisher in orderedPublishers">
                 <li class="dropdown-item">
-                    <input type="checkbox" data-ng-click="updateCheckedAuthor(option)">{{option.last}},&nbsp;{{option.first}}&nbsp;{{option.middle}}
+                    <input type="checkbox"
+                           v-on:click="checkedPublisher(publisher)">{{publisher.lastName}}, {{publisher.firstName}}
                 </li>
             </label>
         </ul>
@@ -23,10 +23,23 @@
 
 <script>
     export default {
-        name: "add-publisher"
+        name: "add-publisher",
+        computed: {
+            orderedPublishers: function() {
+                console.log("sorting: ", this.$root.publishers)
+                return _.orderBy(this.$root.publishers, 'lastName')
+            }
+        },
+        methods: {
+            checkedPublisher: function(publisher) {
+                console.log("do something with checked publisher: ", publisher);
+            }
+        }
     }
 </script>
 
 <style scoped>
-
+    .multi-select-dropdown .dropdown-menu {
+        left: 609px;
+    }
 </style>

@@ -36,7 +36,7 @@
 
         <!--dynamically add selected categories-->
         <div class="added-categories">
-            <delete-button v-for="items in selectedCategories" v-bind:category="items.name" v-bind:component="items.component"></delete-button>
+            <add-category-button v-for="items in selectedCategories" v-bind:category="items.name" v-bind:component="items.component"></add-category-button>
         </div>
     </div> <!-- end of category-dropdown-container -->
 </div>

@@ -23,7 +23,7 @@
     cursor: pointer;
 }
 
-.dropdown-menu a{
+.dropdown .dropdown-menu a{
     width: 250px;
     padding: 15px;
 }
@@ -33,7 +33,7 @@
 
 }
 
-.dropdown-menu {
+.dropdown .dropdown-menu {
     left: 46px;
 }
 
@@ -46,6 +46,29 @@
     margin: 40px auto 0 auto;
 }
 
+/******************************************
+    Drop Down Check box styling
+******************************************/
+.added-category input[type=checkbox] {
+    margin-right: 10px;
+    position:relative;
+    top: -2px;
+}
+
+
+/*******************************************
+    Force scrollbar visibility
+*******************************************/
+::-webkit-scrollbar {
+    -webkit-appearance: none;
+    width: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+    border-radius: 5px;
+    background-color: rgba(0,0,0,.5);
+    -webkit-box-shadow: 0 0 1px rgba(255,255,255,.5);
+}
 
 /*******************************************
     Multi Select Searchacle Drop Down Menu
