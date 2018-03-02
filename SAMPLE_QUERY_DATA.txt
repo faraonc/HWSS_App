@@ -1,3 +1,25 @@
+SAMPLE QUERIES:
+
+Parameters:
+    pi
+    firstName
+    region
+    date
+    fileType
+    instrument
+    samplingRate
+
+http://localhost:3009/query/metadata?param1=arg1,arg2&param2=arg1&paramN=argN
+
+Returns all documents
+http://localhost:3009/query/metadata?all
+
+Returns documents from
+http://localhost:3009/query/metadata?pi=Seger,Faraon&firstName=Kerri,Conard
+
+
+
+
 var items = [{
     pi: 'Seger',
     firstName: 'Kerri',

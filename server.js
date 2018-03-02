@@ -15,30 +15,30 @@ var router = express.Router();
 // middleware to use for all requests
 router.use(function (req, res, next) {
     // do logging
-    console.log('Something is happening.');
+    console.log('Routing');
     next(); // make sure we go to the next routes and don't stop here
 });
 
 // test route to make sure everything is working (accessed at GET http://localhost:port/query)
 router.get('/', function (req, res) {
-    // console.log("========== " + req.url + " ==========");
-    res.json({message: 'hooray! welcome to our query api!'});
+    console.log('/query');
+    res.json({message: 'Construction in Progress'});
 });
 
 // test route to make sure everything is working (accessed at GET http://localhost:port/query/metadata)
 router.route('/metadata').get(function (req, res) {
-    console.log("welcome to metadata");
+    console.log('/query/metadata');
     if (Object.keys(req.query).length !== 0 || req.query.constructor !== Object) {
         clientHandler.serviceQuery(req.query, function (err, result) {
             db.queryMetaData(db.HWSS_DB, db.METADATA, result, function (err, result) {
-                var returnQueryResult = {
+                res.json({
                     error: err,
                     result: result
-                };
-                res.json(returnQueryResult);
+                });
+
             })
         })
-    }else{
+    } else {
         var err = new Error('Not Found');
         err.status = 404;
         next(err);

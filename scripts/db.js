@@ -3,27 +3,6 @@ var mongo = require('mongodb').MongoClient;
 const HWSS_DB = 'HWSS';
 const METADATA = 'METADATA';
 
-
-function extractContributors(query, contributors) {
-    console.log("--------------extractContributors executing--------------");
-    var pi = [];
-    var firstName = [];
-    for (var i = 0; i < contributors.length; i++) {
-        var temp = contributors[i].split(' ');
-        // last name is index 0, first name is index 1
-        pi.push(temp[0]);
-        firstName.push(temp[1])
-    }
-
-    query.pi = {
-        $in: pi
-    };
-
-    query.firstName = {
-        $in: firstName
-    };
-}
-
 function buildQuery(queryParams) {
     var query = {};
     if (queryParams.pis) {
@@ -73,8 +52,11 @@ function queryMetaData(dbName, dbCollection, queryParams, callback) {
             password: 'x3vZOYmtOj8KsIItlu23Hx0zXxx1gOjLIxenhixoUjyEXSCrRIHyxuo9LxHLFsSKEZWoT4DxsJ8O99ajATzCjw=='
         }
     }).connect(function (err, db) {
-        if (err) throw err;
         try {
+            if (err) {
+                callback("Unreachable Database", null);
+            }
+
             var dbo = db.db(dbName);
 
             if (queryParams.all) {
@@ -83,18 +65,21 @@ function queryMetaData(dbName, dbCollection, queryParams, callback) {
                 });
             } else {
                 var query = buildQuery(queryParams);
-                console.log(query);
-                dbo.collection(dbCollection).find(query).toArray(function (err, result) {
-                    callback(err, result);
-                });
+                if (Object.keys(query).length !== 0 || query.constructor !== Object) {
+                    console.log(query);
+                    dbo.collection(dbCollection).find(query).toArray(function (err, result) {
+                        callback(err, result);
+                    });
+                } else {
+                    callback("Not Found", null);
+                }
             }
         }
         finally {
-            db.close()
+            db.close();
         }
     });
 }
-
 
 module.exports = {
     METADATA: METADATA,
