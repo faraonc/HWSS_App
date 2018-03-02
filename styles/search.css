@@ -1,0 +1,38 @@
+.container {
+    margin-top: 60px;
+    text-align: center;
+}
+
+.category-dropdown-container {
+    width: 502px;
+    /*background: burlywood;*/
+    margin: 0 auto;
+}
+
+/*******************************************
+    Main Drop Down Menu
+*******************************************/
+#dropdownMenuButton:after {
+    /* controls the carat positioning*/
+    right: -30px;
+    position: relative;
+}
+
+#dropdownMenuButton {
+    width: 250px;
+    cursor: pointer;
+}
+
+.dropdown-menu a{
+    width: 250px;
+    padding: 15px;
+}
+
+.dropdown .search {
+    margin-left: 20px;
+
+}
+
+.dropdown-menu {
+    left: 46px;
+}
