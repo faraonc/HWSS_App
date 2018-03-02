@@ -1,16 +1,3 @@
-//
-// var querySample = {
-//     all: false,
-//     pis: ['Seger', 'Faraon'],
-//     firstNames : ['Kerri', 'Conard'],
-//     regions: ['Pacific Ocean', 'Atlantic Ocean'],
-//     dates: null,
-//     fileTypes: ['a'],
-//     instruments: null,
-//     samplingRates: null
-// };
-
-// TODO i need to return an object to the callback
 function serviceQuery(req, callback) {
     console.log(req);
     var dbFindParams = {
