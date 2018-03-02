@@ -6,6 +6,7 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser'); // use for POST
 var clientHandler = require('./scripts/client_handler');
 var db = require('./scripts/db.js');
+var http_code = require('./scripts/http_code');
 
 var app = express();
 
@@ -31,17 +32,25 @@ router.route('/metadata').get(function (req, res) {
     if (Object.keys(req.query).length !== 0 || req.query.constructor !== Object) {
         clientHandler.serviceQuery(req.query, function (err, result) {
             db.queryMetaData(db.HWSS_DB, db.METADATA, result, function (err, result) {
-                res.json({
+
+                var returnValue = {
                     error: err,
                     result: result
-                });
+                };
+                if (err || result.length === 0) {
+                    res.status(http_code.NOT_FOUND);
+                    returnValue.error = "Not Found";
+                }
+                res.json(returnValue);
 
-            })
+            });
         })
     } else {
-        var err = new Error('Not Found');
-        err.status = 404;
-        next(err);
+        res.status(http_code.NOT_FOUND);
+        res.json({
+            error: "Invalid Query",
+            result: null
+        });
     }
 });
 
@@ -68,7 +77,7 @@ app.use(express.static(path.join(__dirname, 'templates')));
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
     var err = new Error('Not Found');
-    err.status = 404;
+    err.status = http_code.NOT_FOUND;
     next(err);
 });
 

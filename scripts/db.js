@@ -40,6 +40,7 @@ function buildQuery(queryParams) {
             $in: queryParams.samplingRates
         }
     }
+
     return query;
 }
 
@@ -66,7 +67,6 @@ function queryMetaData(dbName, dbCollection, queryParams, callback) {
             } else {
                 var query = buildQuery(queryParams);
                 if (Object.keys(query).length !== 0 || query.constructor !== Object) {
-                    console.log(query);
                     dbo.collection(dbCollection).find(query).toArray(function (err, result) {
                         callback(err, result);
                     });
@@ -86,4 +86,3 @@ module.exports = {
     HWSS_DB: HWSS_DB,
     queryMetaData: queryMetaData
 };
-

@@ -1,5 +1,4 @@
 function serviceQuery(req, callback) {
-    console.log(req);
     var dbFindParams = {
         all: false,
         pis: null,
@@ -38,8 +37,6 @@ function serviceQuery(req, callback) {
             dbFindParams.samplingRates = req.samplingRate.split(',');
         }
     }
-
-    console.log(dbFindParams);
     callback(null, dbFindParams)
 }
 
