@@ -36,3 +36,56 @@
 .dropdown-menu {
     left: 46px;
 }
+
+
+/******************************************
+    Container that holds all added catego
+******************************************/
+.added-categories {
+    /*background: antiquewhite;*/
+    margin: 40px auto 0 auto;
+}
+
+
+/*******************************************
+    Multi Select Searchacle Drop Down Menu
+*******************************************/
+.multi-select-dropdown {
+    display: inline-block;
+    margin:0;
+}
+
+.multi-select-dropdown .dropdown-menu {
+    width: 400px;
+    overflow-y: scroll;
+    max-height: 400px;
+    padding: 0;
+}
+
+.form-control-wrapper {
+    position: sticky;
+    position: -webkit-sticky;
+    top: 0;
+    background: #fff;
+    z-index: 1;
+    height: 49px;
+    width: 390px;
+    padding-top: 8px;
+}
+.multi-select-dropdown .form-control {
+    margin: 0 auto;
+    width: 380px;
+}
+
+.multi-select-dropdown li {
+    padding: 15px;
+}
+
+.multi-select-dropdown label {
+    margin: 0;
+}
+
+.multi-select-dropdown li, .multi-select-dropdown label {
+    cursor: pointer;
+    width: 100%;
+}

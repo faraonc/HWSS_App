@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:v-on="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Search Page</title>
@@ -36,7 +36,7 @@
 
         <!--dynamically add selected categories-->
         <div class="added-categories">
-            <delete-button v-for="items in selectedCategories" v-bind:category="items"></delete-button>
+            <delete-button v-for="items in selectedCategories" v-bind:category="items.name" v-bind:component="items.component"></delete-button>
         </div>
     </div> <!-- end of category-dropdown-container -->
 </div>
