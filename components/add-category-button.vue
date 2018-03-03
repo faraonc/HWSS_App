@@ -31,9 +31,6 @@
     button {
         cursor:pointer;
     }
-    .category{
-        cursor: default;
-    }
     .added-category {
         text-align: left;
         margin-bottom: 20px;

@@ -1,9 +1,26 @@
 jQuery(document).ready(function($){
 
-    Vue.component('delete-button', require('../components/delete-button.vue'));
-    Vue.component('add-publisher', require('../components/add-publisher.vue'))
-    new Vue({
+    Vue.component('add-category-button', require('../components/add-category-button.vue'));
+    Vue.component('add-publisher', require('../components/add-publisher.vue'));
+
+    var CACHED_DB;  // TODO cached DB variable
+
+    var vue = new Vue({
         el: '.container',
+        created: function() {
+            $.ajax({
+                url: "query/metadata?all",
+                dataType: "json",
+                timeout: 5000,
+                success: function(result) {
+                    CACHED_DB = result.result;
+                    getPublishers();
+                },
+                error: function() {
+                    console.log('error with quering DB, consult conard :)')
+                }
+            })
+        },
         data: {
             categories: [
                 {name: 'Publisher', component: 'add-publisher'},
@@ -13,8 +30,9 @@ jQuery(document).ready(function($){
                 {name: 'Region', component: 'add-region'},
                 {name: 'Sampling Rate', component: 'add-sampling-rate'}
             ],
-            selectedCategories: []
-
+            selectedCategories: [],
+            publishers: [],
+            regions: []
         },
         computed: {
             orderedCategories: function() {
@@ -34,6 +52,19 @@ jQuery(document).ready(function($){
                 // console.log("selected: ", this.selectedCategories);
             }
         }
-    })
+    });
+
+
+
+    // parse the global DB
+    function getPublishers() {
+        CACHED_DB.forEach(function(currObj, index) {
+            var temp = {};
+            temp['firstName'] = currObj.firstName;
+            temp['lastName'] = currObj.pi;
+            vue.publishers.push(temp)
+        });
+        vue.publishers = _.uniqBy(vue.publishers, 'lastName')
+    }
 
 }); // end of jquery ready document

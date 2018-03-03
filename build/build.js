@@ -1,32 +1,5 @@
 (function(){function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s}return e})()({1:[function(require,module,exports){
-;(function(){
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-exports.default = {
-    name: "add-publisher"
-};
-})()
-if (module.exports.__esModule) module.exports = module.exports.default
-var __vue__options__ = (typeof module.exports === "function"? module.exports.options: module.exports)
-if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
-__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _vm._m(0)}
-__vue__options__.staticRenderFns = [function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"multi-select-dropdown"},[_c('button',{staticClass:"btn btn-secondary btn-lg dropdown-toggle dropup",attrs:{"type":"button","data-toggle":"dropdown","aria-haspopup":"true","aria-expanded":"false"}},[_vm._v("\n        Select Author\n    ")])])}]
-__vue__options__._scopeId = "data-v-711dd578"
-if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), true)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-711dd578", __vue__options__)
-  } else {
-    hotAPI.reload("data-v-711dd578", __vue__options__)
-  }
-})()}
-},{"vue":4,"vue-hot-reload-api":3}],2:[function(require,module,exports){
-var __vueify_style_dispose__ = require("vueify/lib/insert-css").insert("button[data-v-cc58ddf0] {\n    cursor:pointer;\n}\n.category[data-v-cc58ddf0]{\n    cursor: default;\n}\n.added-category[data-v-cc58ddf0] {\n    text-align: left;\n    margin-bottom: 20px;\n}\n.added-category .btn-danger[data-v-cc58ddf0] {\n    margin-right: 10px;\n}\n\n.added-category .category[data-v-cc58ddf0] {\n    margin-right: 20px;\n    width: 200px;\n}\n\n.added-category .dropdown-toggle[data-v-cc58ddf0] {\n    width: 220px;\n}")
+var __vueify_style_dispose__ = require("vueify/lib/insert-css").insert("button[data-v-609b8fa9] {\n    cursor:pointer;\n}\n.added-category[data-v-609b8fa9] {\n    text-align: left;\n    margin-bottom: 20px;\n}\n.added-category .btn-danger[data-v-609b8fa9] {\n    margin-right: 10px;\n}\n\n.added-category .category[data-v-609b8fa9] {\n    margin-right: 20px;\n    width: 200px;\n}\n\n.added-category .dropdown-toggle[data-v-609b8fa9] {\n    width: 220px;\n}")
 ;(function(){
 'use strict';
 
@@ -55,16 +28,56 @@ var __vue__options__ = (typeof module.exports === "function"? module.exports.opt
 if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
 __vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"added-category"},[_c('button',{staticClass:"btn btn-danger",attrs:{"type":"button","data-type":"minus"},on:{"click":_vm.deleteCategory}},[_c('b',[_vm._v("—")])]),_vm._v(" "),_c('button',{staticClass:"btn btn-secondary btn-lg category",attrs:{"type":"button","disabled":""}},[_vm._v(_vm._s(_vm.category))]),_vm._v(" "),_c(_vm.component,{tag:"my-component"})],1)}
 __vue__options__.staticRenderFns = []
-__vue__options__._scopeId = "data-v-cc58ddf0"
+__vue__options__._scopeId = "data-v-609b8fa9"
 if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   hotAPI.install(require("vue"), true)
   if (!hotAPI.compatible) return
   module.hot.accept()
   module.hot.dispose(__vueify_style_dispose__)
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-cc58ddf0", __vue__options__)
+    hotAPI.createRecord("data-v-609b8fa9", __vue__options__)
   } else {
-    hotAPI.reload("data-v-cc58ddf0", __vue__options__)
+    hotAPI.reload("data-v-609b8fa9", __vue__options__)
+  }
+})()}
+},{"vue":4,"vue-hot-reload-api":3,"vueify/lib/insert-css":5}],2:[function(require,module,exports){
+var __vueify_style_dispose__ = require("vueify/lib/insert-css").insert(".multi-select-dropdown .dropdown-menu[data-v-711dd578] {\n    left: 609px;\n}")
+;(function(){
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.default = {
+    name: "add-publisher",
+    computed: {
+        orderedPublishers: function orderedPublishers() {
+            console.log("sorting: ", this.$root.publishers);
+            return _.orderBy(this.$root.publishers, 'lastName');
+        }
+    },
+    methods: {
+        checkedPublisher: function checkedPublisher(publisher) {
+            console.log("do something with checked publisher: ", publisher);
+        }
+    }
+};
+})()
+if (module.exports.__esModule) module.exports = module.exports.default
+var __vue__options__ = (typeof module.exports === "function"? module.exports.options: module.exports)
+if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
+__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"multi-select-dropdown"},[_c('button',{staticClass:"btn btn-secondary btn-lg dropdown-toggle dropup",attrs:{"type":"button","data-toggle":"dropdown","aria-haspopup":"true","aria-expanded":"false"}},[_vm._v("\n        Select Author\n    ")]),_vm._v(" "),_c('ul',{staticClass:"dropdown-menu",on:{"click":function($event){$event.stopPropagation()}}},[_vm._m(0),_vm._v(" "),_vm._l((_vm.orderedPublishers),function(publisher){return _c('label',[_c('li',{staticClass:"dropdown-item"},[_c('input',{attrs:{"type":"checkbox"},on:{"click":function($event){_vm.checkedPublisher(publisher)}}}),_vm._v(_vm._s(publisher.lastName)+", "+_vm._s(publisher.firstName)+"\n            ")])])})],2)])}
+__vue__options__.staticRenderFns = [function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"form-control-wrapper"},[_c('input',{staticClass:"form-control",attrs:{"type":"text","placeholder":"Search"}})])}]
+__vue__options__._scopeId = "data-v-711dd578"
+if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), true)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  module.hot.dispose(__vueify_style_dispose__)
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-711dd578", __vue__options__)
+  } else {
+    hotAPI.reload("data-v-711dd578", __vue__options__)
   }
 })()}
 },{"vue":4,"vue-hot-reload-api":3,"vueify/lib/insert-css":5}],3:[function(require,module,exports){
@@ -8264,10 +8277,27 @@ exports.insert = function (css) {
 },{}],6:[function(require,module,exports){
 jQuery(document).ready(function($){
 
-    Vue.component('delete-button', require('../components/delete-button.vue'));
-    Vue.component('add-publisher', require('../components/add-publisher.vue'))
-    new Vue({
+    Vue.component('add-category-button', require('../components/add-category-button.vue'));
+    Vue.component('add-publisher', require('../components/add-publisher.vue'));
+
+    var CACHED_DB;  // TODO cached DB variable
+
+    var vue = new Vue({
         el: '.container',
+        created: function() {
+            $.ajax({
+                url: "query/metadata?all",
+                dataType: "json",
+                timeout: 5000,
+                success: function(result) {
+                    CACHED_DB = result.result;
+                    getPublishers();
+                },
+                error: function() {
+                    console.log('error with quering DB, consult conard :)')
+                }
+            })
+        },
         data: {
             categories: [
                 {name: 'Publisher', component: 'add-publisher'},
@@ -8277,8 +8307,9 @@ jQuery(document).ready(function($){
                 {name: 'Region', component: 'add-region'},
                 {name: 'Sampling Rate', component: 'add-sampling-rate'}
             ],
-            selectedCategories: []
-
+            selectedCategories: [],
+            publishers: [],
+            regions: []
         },
         computed: {
             orderedCategories: function() {
@@ -8298,10 +8329,23 @@ jQuery(document).ready(function($){
                 // console.log("selected: ", this.selectedCategories);
             }
         }
-    })
+    });
+
+
+
+    // parse the global DB
+    function getPublishers() {
+        CACHED_DB.forEach(function(currObj, index) {
+            var temp = {};
+            temp['firstName'] = currObj.firstName;
+            temp['lastName'] = currObj.pi;
+            vue.publishers.push(temp)
+        });
+        vue.publishers = _.uniqBy(vue.publishers, 'lastName')
+    }
 
 }); // end of jquery ready document
-},{"../components/add-publisher.vue":1,"../components/delete-button.vue":2}],7:[function(require,module,exports){
+},{"../components/add-category-button.vue":1,"../components/add-publisher.vue":2}],7:[function(require,module,exports){
 // shim for using process in browser
 var process = module.exports = {};
 
