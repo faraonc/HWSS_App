@@ -4,7 +4,7 @@ $(document).ready(function () {
         el: "#map-container",
         data: {
             map: null,
-            navState: false
+            navState: true
         },
         mounted: function () {
             var latLng = new google.maps.LatLng(47.6062, -122.3321);
@@ -22,17 +22,21 @@ $(document).ready(function () {
 
             };
             this.map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+
+            // open the menu by default
+            //TODO transition of texts inside
+            this.$refs.mySideNav.style.width = "500px";
+            this.$refs.main.style.marginLeft = "500px";
+
         },
         methods: {
             toggleNav: function () {
-                var vm = this;
                 if (this.navState){
-                    var vm = this;
-                    vm.$refs.mySideNav.style.width = "0px";
-                    vm.$refs.main.style.marginLeft = "0px";
+                    this.$refs.mySideNav.style.width = "0px";
+                    this.$refs.main.style.marginLeft = "0px";
                 }else{
-                    vm.$refs.mySideNav.style.width = "500px";
-                    vm.$refs.main.style.marginLeft = "500px";
+                    this.$refs.mySideNav.style.width = "500px";
+                    this.$refs.main.style.marginLeft = "500px";
                 }
                 this.navState = !this.navState;
             }

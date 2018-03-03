@@ -15,8 +15,15 @@ html, body {
     top: -40px;
 }
 
+.container {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
 /*Hamburger button*/
-.toggle-nav{
+.toggle-nav {
     margin-top: 2px;
 }
 
@@ -39,20 +46,35 @@ html, body {
     transition: 0.5s;
 }
 
+/*Any links inside the side nav*/
 .sidenav a {
     padding: 8px 8px 8px 8px;
     text-decoration: none;
     font-size: 25px;
-    color: #818181;
+    color: #000;
     display: block;
-    transition: 0.3s;
+    transition: 0.5s;
 }
 
-.sidenav a:hover{
+.sidenav a:hover {
     color: #f1f1f1;
 }
 
-.sidenav .closebtn{
+.sidenav button {
+    margin: 8px;
+    transition: 0.5s;
+}
+
+.sidenav p {
+    padding: 8px 0 8px 0;
+    text-decoration: none;
+    font-size: 32px;
+    color: #000;
+    display: block;
+    transition: 0.5s;
+}
+
+.sidenav .closebtn {
     position: absolute;
     top: 0;
     right: 25px;
@@ -68,7 +90,14 @@ html, body {
 }
 
 /*Responsive for smaller screen*/
-@media screen  and (max-height: 500px){
-    .sidenav {padding-top: 15px}
-    .sidenav a {font-size:18px}
+@media screen  and (max-height: 500px) {
+    .sidenav {
+        padding-top: 15px
+    }
+
+    .sidenav a {
+        font-size: 18px
+    }
 }
+
+
