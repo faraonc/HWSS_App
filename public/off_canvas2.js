@@ -4,7 +4,8 @@ $(document).ready(function () {
         el: "#map-container",
         data: {
             map: null,
-            navState: true
+            navState: true,
+            descState: false
         },
         mounted: function () {
             var latLng = new google.maps.LatLng(47.6062, -122.3321);
@@ -27,6 +28,10 @@ $(document).ready(function () {
         methods: {
             toggleMenu: function () {
                 this.navState = !this.navState;
+            },
+            toggleQueryDesc: function(event){
+                console.log(event)
+                this.descState = !this.descState;
             }
         }
 

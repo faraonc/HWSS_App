@@ -66,7 +66,7 @@ html, body {
 }
 
 /*Styles for contents of the off-canvas menu.*/
-#site-menu p {
+#site-menu > div:first-child > div:first-child > p:first-child {
     padding: 8px 0 8px 0;
     text-decoration: none;
     font-size: 32px;
@@ -95,4 +95,40 @@ html, body {
 .navbar-header .btn-secondary.focus, .btn-secondary:focus {
     -webkit-box-shadow: none !important;
     box-shadow: none !important;
+}
+
+/*Query Entry*/
+.query-entry{
+    text-align: left;
+    line-height: 0.4em;
+}
+
+.query-entry a{
+    color: black;
+}
+
+.query-entry{
+    line-height: 0.4em;
+}
+
+.query-id{
+    position: relative;
+}
+
+.query-id h2:hover{
+    cursor: pointer;
+    color: blue;
+}
+
+.query-id h2{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    height: 30%;
+    width: 50%;
+    margin: -15% 0 0 -25%;
+}
+
+.query-extra{
+    font-size: .9em;
 }

@@ -60,6 +60,33 @@
                 <!--Query Results-->
                 <div class="row text-center">
 
+                    <!--Query Entries-->
+                    <div class="col-sm-12 row query-result">
+
+                        <div class="col-sm-4 query-id">
+                            <h2 v-on:click="toggleQueryDesc">1</h2>
+                        </div>
+
+                        <div class="col-sm-8 query-entry">
+                            <a href="#">
+                                <h4>Conga</h4></a>
+                            <p><b>Date: </b>March 11, 2018</p>
+                            <p><b>Contributor: </b>Seger, Kerri</p>
+                            <p><b>Region: </b>Pacific Ocean</p>
+                            <p><b>File Type: </b>audio/wav</p>
+                            <div class="query-extra" v-show = "descState">
+                                <p><b>Description: </b>CaboMexico</p>
+                                <p><b>Time: </b>112313</p>
+                                <p><b>Sensor Type: </b>Tag</p>
+                                <p><b>Sensor Name: </b>Acousonde</p>
+                                <p><b>Sampling Rate: </b>8000</p>
+                                <p><b>Quality: </b>3</p>
+                                <p><b>GroundType: </b>BreedingMigrating
+                            </div>
+                            <hr>
+                        </div>
+                    </div>
+
 
                 </div>
 
