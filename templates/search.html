@@ -36,10 +36,17 @@
             <button type="button" class="btn btn-secondary btn-lg search">Search</button>
         </div><!-- end of dropdown container-->
 
+        <div class="loader" v-show="loadingCategories === true">
+            <img src="/public/loading.gif">
+        </div>
+
+
         <!--dynamically add selected categories-->
         <div class="added-categories">
             <add-category-button v-for="items in selectedCategories"
                                  v-bind:category="items.name" v-bind:component="items.component"></add-category-button>
+
+            <!--v-bind:category="items.name" v-bind:component="items.component"-->
         </div>
     </div> <!-- end of category-dropdown-container -->
 </div>

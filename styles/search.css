@@ -70,6 +70,13 @@
 /*******************************************
     Multi Select Searchacle Drop Down Menu
 *******************************************/
+.category-dropdown-container .loader {
+    margin-top: 50px;
+}
+
+/*******************************************
+    Multi Select Searchacle Drop Down Menu
+*******************************************/
 .multi-select-dropdown {
     display: inline-block;
     margin: 0 0 0 12px;

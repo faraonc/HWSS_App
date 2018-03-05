@@ -1,10 +1,8 @@
 <template>
     <div class="multi-select-dropdown btn-group">
-        <button class="btn btn-secondary btn-lg dropdown-toggle dropup" type="button"
-                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Select Author
-        </button>
+        <select-button></select-button>
 
+        <!-- TODO implement search filtering-->
         <!--stopPropagation prevents closing of the dropdownmenu when selecting text -->
         <ul class="dropdown-menu" v-on:click="$event.stopPropagation()">
             <div class="form-control-wrapper">
@@ -23,8 +21,14 @@
 </template>
 
 <script>
+
     export default {
         name: "add-publisher",
+        data: function() {
+            return {
+                selectedPublishers: new Set()
+            }
+        },
         computed: {
             orderedPublishers: function() {
                 console.log("sorting: ", this.$root.publishers)
@@ -33,7 +37,7 @@
         },
         methods: {
             checkedPublisher: function(publisher) {
-                console.log("do something with checked publisher: ", publisher);
+                this.$root.processSelected("publishers", this.selectedPublishers, publisher)
             }
         }
     }
