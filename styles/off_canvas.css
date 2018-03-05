@@ -1,0 +1,104 @@
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+/*Container for everything*/
+#map-container {
+    height: 100%;
+}
+
+#map-canvas {
+    height: 100%;
+    z-index: -1;
+    top: -40px;
+}
+
+.container {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+/*Hamburger button*/
+.toggle-nav {
+    margin-top: 2px;
+}
+
+.btn-sm {
+    display: block;
+    width: 500px;
+    font-size: 40px;
+    font-weight: 300;
+}
+
+/*Off-menu canvas*/
+.sidenav {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    overflow-x: hidden;
+    transition: 0.5s;
+}
+
+/*Any links inside the side nav*/
+.sidenav a {
+    padding: 8px 8px 8px 8px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #000;
+    display: block;
+    transition: 0.5s;
+}
+
+.sidenav a:hover {
+    color: #f1f1f1;
+}
+
+.sidenav button {
+    margin: 8px;
+    transition: 0.5s;
+}
+
+.sidenav p {
+    padding: 8px 0 8px 0;
+    text-decoration: none;
+    font-size: 32px;
+    color: #000;
+    display: block;
+    transition: 0.5s;
+}
+
+.sidenav .closebtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+
+}
+
+/*Contains items that are pushed to the right*/
+#main {
+    transition: margin-left 0.5s;
+    height: 100%;
+}
+
+/*Responsive for smaller screen*/
+@media screen  and (max-height: 500px) {
+    .sidenav {
+        padding-top: 15px
+    }
+
+    .sidenav a {
+        font-size: 18px
+    }
+}
+
+
+

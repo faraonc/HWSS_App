@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:v-on="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css"
+          integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="/styles/off_canvas.css">
+    <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyAR-_taeP2epYEzKnldn4xY-2Ek3gJr0oY"></script>
+    <!-- Vue JS-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.13/vue.min.js"
+            integrity="sha256-1Q2q5hg2YXp9fYlM++sIEXOcUb8BRSDUsQ1zXvLBqmA=" crossorigin="anonymous"></script>
+</head>
+<body>
+
+<div class="container">
+    <!--Vue App-->
+    <div id="map-container">
+
+        <!--Insie the Menu-->
+        <div ref="mySideNav" id="mySideNav" class="sidenav">
+
+
+            <!--Button Groups for Edit Category, Sort By-->
+            <div class="row text-center">
+                <div class="col-sm-12">
+                    <p>Humpback Whale Social Sound</p>
+                </div>
+
+                <div class="col-sm-6">
+                    <button class="btn btn-secondary btn-lg" type="button" aria-haspopup="true" aria-expanded="false">
+                        Edit Category
+                    </button>
+                </div>
+                <div class="col-sm-6">
+                    <button class="btn btn-secondary btn-lg" type="button" aria-haspopup="true" aria-expanded="false">
+                        Sort By
+                    </button>
+                </div>
+            </div>
+
+            <hr>
+            <!--Query Results-->
+            <div class="row text-center">
+
+
+            </div>
+
+        </div>
+
+
+        <!--Elements to be pushed to the right-->
+        <div ref="main" id="main">
+            <!--Button to taggler off-canvas menu-->
+            <span @click="toggleNav" class="toggle-nav btn btn-md btn-secondary">&#9776;</span>
+            <div id="map-canvas"></div>
+        </div>
+
+
+    </div>
+    <!--End Vue App-->
+
+</div>
+
+<!-- jQuery first, then Tether, then Bootstrap JS. -->
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"
+        integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb"
+        crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"
+        integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn"
+        crossorigin="anonymous"></script>
+
+<script src="/public/off_canvas.js"></script>
+</body>
+</html>

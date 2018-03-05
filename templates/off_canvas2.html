@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:v-on="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Title</title>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css"
+          integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="/styles/off_canvas2.css">
+    <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyAR-_taeP2epYEzKnldn4xY-2Ek3gJr0oY"></script>
+    <!-- Vue JS-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.13/vue.min.js"
+            integrity="sha256-1Q2q5hg2YXp9fYlM++sIEXOcUb8BRSDUsQ1zXvLBqmA=" crossorigin="anonymous"></script>
+
+    <!-- jQuery first, then Tether, then Bootstrap JS. -->
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"
+            integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb"
+            crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"
+            integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn"
+            crossorigin="anonymous"></script>
+
+    <script src="/public/off_canvas2.js"></script>
+</head>
+<body>
+
+<div id="map-container" class="container">
+
+    <!--Do not change showNav to show-nav, VueJS has a bug.-->
+    <div id="site-wrapper" v-bind:class="{ showNav: navState}">
+
+        <div id="site-canvas">
+
+            <!--Off Canvas Menu-->
+            <div id="site-menu">
+                <div class="row text-center">
+                    <div class="col-sm-12">
+                        <p>Humpback Whale Social Sound</p>
+                    </div>
+
+                    <div class="col-sm-6">
+                        <button class="btn btn-secondary btn-lg" type="button" aria-haspopup="true"
+                                aria-expanded="false">
+                            Edit Category
+                        </button>
+                    </div>
+                    <div class="col-sm-6">
+                        <button class="btn btn-secondary btn-lg" type="button" aria-haspopup="true"
+                                aria-expanded="false">
+                            Sort By
+                        </button>
+                    </div>
+                </div>
+
+                <hr>
+                <!--Query Results-->
+                <div class="row text-center">
+
+
+                </div>
+
+            </div>
+            <!--End Off Canvas Menu-->
+
+            <!--Button for Off Canvas Menu-->
+            <div class="navbar-header">
+                <a href="#" class="toggle-nav btn btn-md btn-secondary" v-on:click="toggleMenu()">&#9776;</a>
+            </div>
+            <!--End Button for Off Canvas Menu-->
+
+            <div id="map-canvas"></div>
+
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>
