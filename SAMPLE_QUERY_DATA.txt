@@ -8,6 +8,7 @@ Parameters:
     fileType
     instrument
     samplingRate
+    dateSort
 
 http://localhost:3009/query/metadata?param1=arg1,arg2&param2=arg1&paramN=argN
 
@@ -16,4 +17,9 @@ http://localhost:3009/query/metadata?all
 
 Returns documents from
 http://localhost:3009/query/metadata?pi=Seger,Faraon&firstName=Kerri,Conard
+
+Sort by date
+http://localhost:3009/query/metadata?all&dateSort=new
+http://localhost:3009/query/metadata?all&dateSort=old
+http://localhost:3009/query/metadata?pi=Seger&dateSort=new
 

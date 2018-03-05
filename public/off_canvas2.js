@@ -39,7 +39,6 @@ $(document).ready(function () {
                     url: "query/metadata?all",
                     timeout: 5000,
                     success: function (response) {
-                        console.log(response);
                         self.queryData.push.apply(self.queryData, response.result);
                     },
                     error: function () {
@@ -51,38 +50,3 @@ $(document).ready(function () {
 
     });
 });
-
-
-// [{
-//     index: 1,
-//     callTypeName: "Conga",
-//     pi: "Seger",
-//     firstName: "Kerri",
-//     date: 20140313,
-//     time: 112313,
-//     groundType: "BreedingMigrating",
-//     regionCountry: "CaboMexico",
-//     region: "Pacific Ocean",
-//     sensorType: "Tag",
-//     sensorName: "Acousonde",
-//     samplingRate: 8000,
-//     quality: 3,
-//     dataType: "audio",
-//     dataFormat: "wav"
-// }, {
-//     index: 2,
-//     callTypeName: "Wookie",
-//     pi: "Ghadimi",
-//     firstName: "Pouria",
-//     date: 20140313,
-//     time: 112313,
-//     groundType: "UberMigrating",
-//     regionCountry: "CaboMexico",
-//     region: "Pacific Ocean",
-//     sensorType: "Tag",
-//     sensorName: "Acousonde",
-//     samplingRate: 8000,
-//     quality: 3,
-//     dataType: "audio",
-//     dataFormat: "wav"
-// }]

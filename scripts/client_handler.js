@@ -7,7 +7,8 @@ function serviceQuery(req, callback) {
         dates: null,
         fileTypes: null,
         instruments: null,
-        samplingRates: null
+        samplingRates: null,
+        dateSort: null
     };
 
     if (req.hasOwnProperty('all')) {
@@ -37,6 +38,14 @@ function serviceQuery(req, callback) {
             dbFindParams.samplingRates = req.samplingRate.split(',');
         }
     }
+
+    if (req.hasOwnProperty('dateSort')) {
+        dbFindParams.dateSort = req.dateSort;
+    //    TODO handle other dateSort input
+    }else{
+        dbFindParams.dateSort = "new"
+    }
+
     callback(null, dbFindParams)
 }
 

@@ -5,41 +5,63 @@ const METADATA = 'METADATA';
 
 function buildQuery(queryParams) {
     var query = {};
-    if (queryParams.pis) {
-        query.pi = {
-            $in: queryParams.pis
+    query.$query = {};
+
+    if (!queryParams.all) {
+        if (queryParams.pis) {
+            query.$query.pi = {
+                $in: queryParams.pis
+            }
+        }
+        if (queryParams.firstNames) {
+            query.$query.firstName = {
+                $in: queryParams.firstNames
+            }
+        }
+        if (queryParams.regions) {
+            query.$query.region = {
+                $in: queryParams.regions
+            }
+        }
+        if (queryParams.dates) {
+            query.$query.date = {
+                $in: queryParams.dates
+            }
+        }
+        if (queryParams.fileTypes) {
+            query.$query.dataType = {
+                $in: queryParams.fileTypes
+            }
+        }
+        if (queryParams.instruments) {
+            query.$query.sensorName = {
+                $in: queryParams.instruments
+            }
+        }
+        if (queryParams.samplingRates) {
+            query.$query.samplingRate = {
+                $in: queryParams.samplingRates
+            }
         }
     }
-    if (queryParams.firstNames) {
-        query.firstName = {
-            $in: queryParams.firstNames
+
+    if (queryParams.dateSort) {
+        if (queryParams.dateSort === "new") {
+            query.$orderby = {
+                date: -1
+            }
+        } else if (queryParams.dateSort === "old") {
+            query.$orderby = {
+                date: 1
+            }
+        }
+    } else {
+        query.$orderby = {
+            date: -1
         }
     }
-    if (queryParams.regions) {
-        query.region = {
-            $in: queryParams.regions
-        }
-    }
-    if (queryParams.dates) {
-        query.date = {
-            $in: queryParams.dates
-        }
-    }
-    if (queryParams.fileTypes) {
-        query.dataType = {
-            $in: queryParams.fileTypes
-        }
-    }
-    if (queryParams.instruments) {
-        query.sensorName = {
-            $in: queryParams.instruments
-        }
-    }
-    if (queryParams.samplingRates) {
-        query.samplingRate = {
-            $in: queryParams.samplingRates
-        }
-    }
+
+    console.log(query);
 
     return query;
 }
@@ -56,16 +78,16 @@ function queryMetaData(dbName, dbCollection, queryParams, callback) {
         try {
             if (err) {
                 callback("Unreachable Database", null);
-            }else {
+            } else {
 
                 var dbo = db.db(dbName);
+                var query = buildQuery(queryParams);
 
                 if (queryParams.all) {
-                    dbo.collection(dbCollection).find({}).toArray(function (err, result) {
+                    dbo.collection(dbCollection).find(query).toArray(function (err, result) {
                         callback(err, result);
                     });
                 } else {
-                    var query = buildQuery(queryParams);
                     if (Object.keys(query).length !== 0 || query.constructor !== Object) {
                         dbo.collection(dbCollection).find(query).toArray(function (err, result) {
                             callback(err, result);

@@ -102,10 +102,6 @@ html, body {
     line-height: 0.4em;
 }
 
-.query-entry a {
-    color: black;
-}
-
 .query-entry {
     line-height: 0.4em;
     font-size: small;
@@ -126,5 +122,7 @@ html, body {
 
 #query-container {
     overflow: auto;
-    max-height: 100vh;
+    /*TODO fix max-height for variable number of queries*/
+    max-height: 83vh;
+    padding-bottom: 5px;
 }
