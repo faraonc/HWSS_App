@@ -23,23 +23,20 @@
     cursor: pointer;
 }
 
-.dropdown .dropdown-menu a{
-    width: 250px;
+.btn-group .dropdown-menu a{
+    width: 248px;
     padding: 15px;
 }
 
-.dropdown .search {
+.btn-group .search {
     margin-left: 20px;
-
+    cursor: pointer;
 }
 
-.dropdown .dropdown-menu {
-    left: 46px;
-}
 
 
 /******************************************
-    Container that holds all added catego
+    Container that holds all added categories
 ******************************************/
 .added-categories {
     /*background: antiquewhite;*/
@@ -75,7 +72,7 @@
 *******************************************/
 .multi-select-dropdown {
     display: inline-block;
-    margin:0;
+    margin: 0 0 0 12px;
 }
 
 .multi-select-dropdown .dropdown-menu {
@@ -100,6 +97,7 @@
     width: 380px;
 }
 
+
 .multi-select-dropdown li {
     padding: 15px;
 }
@@ -111,4 +109,8 @@
 .multi-select-dropdown li, .multi-select-dropdown label {
     cursor: pointer;
     width: 100%;
+}
+
+.multi-select-dropdown .btn{
+    cursor: pointer;
 }

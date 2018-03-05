@@ -1,5 +1,5 @@
 <template>
-    <div class="multi-select-dropdown">
+    <div class="multi-select-dropdown btn-group">
         <button class="btn btn-secondary btn-lg dropdown-toggle dropup" type="button"
                  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             Select Author
@@ -18,6 +18,7 @@
                 </li>
             </label>
         </ul>
+
     </div>
 </template>
 
@@ -39,7 +40,5 @@
 </script>
 
 <style scoped>
-    .multi-select-dropdown .dropdown-menu {
-        left: 609px;
-    }
+
 </style>

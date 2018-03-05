@@ -2,6 +2,7 @@ jQuery(document).ready(function($){
 
     Vue.component('add-category-button', require('../components/add-category-button.vue'));
     Vue.component('add-publisher', require('../components/add-publisher.vue'));
+    Vue.component('delete-button', require('../components/delete-button.vue'));
 
     var CACHED_DB;  // TODO cached DB variable
 
