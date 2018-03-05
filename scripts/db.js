@@ -56,22 +56,23 @@ function queryMetaData(dbName, dbCollection, queryParams, callback) {
         try {
             if (err) {
                 callback("Unreachable Database", null);
-            }
+            }else {
 
-            var dbo = db.db(dbName);
+                var dbo = db.db(dbName);
 
-            if (queryParams.all) {
-                dbo.collection(dbCollection).find({}).toArray(function (err, result) {
-                    callback(err, result);
-                });
-            } else {
-                var query = buildQuery(queryParams);
-                if (Object.keys(query).length !== 0 || query.constructor !== Object) {
-                    dbo.collection(dbCollection).find(query).toArray(function (err, result) {
+                if (queryParams.all) {
+                    dbo.collection(dbCollection).find({}).toArray(function (err, result) {
                         callback(err, result);
                     });
                 } else {
-                    callback("Not Found", null);
+                    var query = buildQuery(queryParams);
+                    if (Object.keys(query).length !== 0 || query.constructor !== Object) {
+                        dbo.collection(dbCollection).find(query).toArray(function (err, result) {
+                            callback(err, result);
+                        });
+                    } else {
+                        callback("Not Found", null);
+                    }
                 }
             }
         }

@@ -24,14 +24,15 @@
             integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn"
             crossorigin="anonymous"></script>
 
-    <script src="/public/off_canvas2.js"></script>
+    <script src="/build/off_canvas2.js"></script>
+
 </head>
 <body>
 
 <div id="map-container" class="container">
 
     <!--Do not change showNav to show-nav, VueJS has a bug.-->
-    <div id="site-wrapper" v-bind:class="{ showNav: navState}">
+    <div id="site-wrapper" :class="{ showNav: navState}">
 
         <div id="site-canvas">
 
@@ -43,14 +44,14 @@
                     </div>
 
                     <div class="col-sm-6">
-                        <button class="btn btn-secondary btn-lg" type="button" aria-haspopup="true"
+                        <button class="btn btn-secondary" type="button" aria-haspopup="true"
                                 aria-expanded="false">
                             Edit Category
                         </button>
                     </div>
                     <div class="col-sm-6">
-                        <button class="btn btn-secondary btn-lg" type="button" aria-haspopup="true"
-                                aria-expanded="false">
+                        <button class="btn btn-secondary" type="button" aria-haspopup="true"
+                                aria-expanded="false" @click="makeQuery()">
                             Sort By
                         </button>
                     </div>
@@ -61,31 +62,8 @@
                 <div class="row text-center">
 
                     <!--Query Entries-->
-                    <div class="col-sm-12 row query-result">
-
-                        <div class="col-sm-4 query-id">
-                            <h2 v-on:click="toggleQueryDesc">1</h2>
-                        </div>
-
-                        <div class="col-sm-8 query-entry">
-                            <a href="#">
-                                <h4>Conga</h4></a>
-                            <p><b>Date: </b>March 11, 2018</p>
-                            <p><b>Contributor: </b>Seger, Kerri</p>
-                            <p><b>Region: </b>Pacific Ocean</p>
-                            <p><b>File Type: </b>audio/wav</p>
-                            <div class="query-extra" v-show = "descState">
-                                <p><b>Description: </b>CaboMexico</p>
-                                <p><b>Time: </b>112313</p>
-                                <p><b>Sensor Type: </b>Tag</p>
-                                <p><b>Sensor Name: </b>Acousonde</p>
-                                <p><b>Sampling Rate: </b>8000</p>
-                                <p><b>Quality: </b>3</p>
-                                <p><b>GroundType: </b>BreedingMigrating
-                            </div>
-                            <hr>
-                        </div>
-                    </div>
+                    <!--change to v-for TODO-->
+                    <q-entry v-for="(query, index) in queryData" :data="query" :index="index"></q-entry>
 
 
                 </div>

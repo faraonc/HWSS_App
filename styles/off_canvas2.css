@@ -67,10 +67,9 @@ html, body {
 
 /*Styles for contents of the off-canvas menu.*/
 #site-menu > div:first-child > div:first-child > p:first-child {
-    padding: 8px 0 8px 0;
     text-decoration: none;
-    font-size: 32px;
-    color: #000;
+    font-size: 20px;
+    color: #2a6d4c;
     display: block;
     transition: 0.5s;
 }
@@ -109,26 +108,19 @@ html, body {
 
 .query-entry{
     line-height: 0.4em;
+    font-size: small;
+}
+
+.query-entry h6{
+    color: #003aa3;
+    font-weight: normal;
 }
 
 .query-id{
     position: relative;
 }
 
-.query-id h2:hover{
+.query-id h6:hover{
     cursor: pointer;
-    color: blue;
 }
 
-.query-id h2{
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    height: 30%;
-    width: 50%;
-    margin: -15% 0 0 -25%;
-}
-
-.query-extra{
-    font-size: .9em;
-}
