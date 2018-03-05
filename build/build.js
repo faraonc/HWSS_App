@@ -1,5 +1,5 @@
 (function(){function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s}return e})()({1:[function(require,module,exports){
-var __vueify_style_dispose__ = require("vueify/lib/insert-css").insert("button[data-v-609b8fa9] {\n    cursor:pointer;\n}\n.added-category[data-v-609b8fa9] {\n    text-align: left;\n    margin-bottom: 20px;\n}\n.added-category .btn-danger[data-v-609b8fa9] {\n    margin-right: 10px;\n}\n\n.added-category .category[data-v-609b8fa9] {\n    margin-right: 20px;\n    width: 200px;\n}\n\n.added-category .dropdown-toggle[data-v-609b8fa9] {\n    width: 220px;\n}")
+var __vueify_style_dispose__ = require("vueify/lib/insert-css").insert("button[data-v-609b8fa9] {\n    cursor:pointer;\n}\n.added-category[data-v-609b8fa9] {\n    text-align: left;\n    margin-bottom: 20px;\n    margin-left: 20px;\n}\n\n/*.added-category .category {*/\n    /*margin-right: 20px;*/\n    /*width: 200px;*/\n/*}*/\n\n/*.added-category .dropdown-toggle {*/\n    /*width: 220px;*/\n/*}*/")
 ;(function(){
 'use strict';
 
@@ -7,26 +7,14 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 exports.default = {
-    name: "delete-button",
-    props: ['category', 'component'],
-    methods: {
-        deleteCategory: function deleteCategory(event) {
-            var deleteVal = event.currentTarget.nextSibling.nextSibling.textContent;
-            var me = this;
-            this.$parent.selectedCategories.forEach(function (category, index) {
-                if (category.name === deleteVal) {
-                    me.$parent.categories.push(category);
-                    me.$parent.selectedCategories.splice(index, 1);
-                }
-            });
-        }
-    }
+    name: "add-category-button",
+    props: ['category', 'component']
 };
 })()
 if (module.exports.__esModule) module.exports = module.exports.default
 var __vue__options__ = (typeof module.exports === "function"? module.exports.options: module.exports)
 if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
-__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"added-category"},[_c('button',{staticClass:"btn btn-danger",attrs:{"type":"button","data-type":"minus"},on:{"click":_vm.deleteCategory}},[_c('b',[_vm._v("—")])]),_vm._v(" "),_c('button',{staticClass:"btn btn-secondary btn-lg category",attrs:{"type":"button","disabled":""}},[_vm._v(_vm._s(_vm.category))]),_vm._v(" "),_c(_vm.component,{tag:"my-component"})],1)}
+__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"added-category"},[_c('delete-button',{attrs:{"category":_vm.category}}),_vm._v(" "),_c(_vm.component,{tag:"my-component"})],1)}
 __vue__options__.staticRenderFns = []
 __vue__options__._scopeId = "data-v-609b8fa9"
 if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
@@ -40,8 +28,7 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
     hotAPI.reload("data-v-609b8fa9", __vue__options__)
   }
 })()}
-},{"vue":4,"vue-hot-reload-api":3,"vueify/lib/insert-css":5}],2:[function(require,module,exports){
-var __vueify_style_dispose__ = require("vueify/lib/insert-css").insert(".multi-select-dropdown .dropdown-menu[data-v-711dd578] {\n    left: 609px;\n}")
+},{"vue":5,"vue-hot-reload-api":4,"vueify/lib/insert-css":6}],2:[function(require,module,exports){
 ;(function(){
 "use strict";
 
@@ -66,21 +53,62 @@ exports.default = {
 if (module.exports.__esModule) module.exports = module.exports.default
 var __vue__options__ = (typeof module.exports === "function"? module.exports.options: module.exports)
 if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
-__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"multi-select-dropdown"},[_c('button',{staticClass:"btn btn-secondary btn-lg dropdown-toggle dropup",attrs:{"type":"button","data-toggle":"dropdown","aria-haspopup":"true","aria-expanded":"false"}},[_vm._v("\n        Select Author\n    ")]),_vm._v(" "),_c('ul',{staticClass:"dropdown-menu",on:{"click":function($event){$event.stopPropagation()}}},[_vm._m(0),_vm._v(" "),_vm._l((_vm.orderedPublishers),function(publisher){return _c('label',[_c('li',{staticClass:"dropdown-item"},[_c('input',{attrs:{"type":"checkbox"},on:{"click":function($event){_vm.checkedPublisher(publisher)}}}),_vm._v(_vm._s(publisher.lastName)+", "+_vm._s(publisher.firstName)+"\n            ")])])})],2)])}
+__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"multi-select-dropdown btn-group"},[_c('button',{staticClass:"btn btn-secondary btn-lg dropdown-toggle dropup",attrs:{"type":"button","data-toggle":"dropdown","aria-haspopup":"true","aria-expanded":"false"}},[_vm._v("\n        Select Author\n    ")]),_vm._v(" "),_c('ul',{staticClass:"dropdown-menu",on:{"click":function($event){$event.stopPropagation()}}},[_vm._m(0),_vm._v(" "),_vm._l((_vm.orderedPublishers),function(publisher){return _c('label',[_c('li',{staticClass:"dropdown-item"},[_c('input',{attrs:{"type":"checkbox"},on:{"click":function($event){_vm.checkedPublisher(publisher)}}}),_vm._v(_vm._s(publisher.lastName)+", "+_vm._s(publisher.firstName)+"\n            ")])])})],2)])}
 __vue__options__.staticRenderFns = [function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"form-control-wrapper"},[_c('input',{staticClass:"form-control",attrs:{"type":"text","placeholder":"Search"}})])}]
 __vue__options__._scopeId = "data-v-711dd578"
 if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   hotAPI.install(require("vue"), true)
   if (!hotAPI.compatible) return
   module.hot.accept()
-  module.hot.dispose(__vueify_style_dispose__)
   if (!module.hot.data) {
     hotAPI.createRecord("data-v-711dd578", __vue__options__)
   } else {
     hotAPI.reload("data-v-711dd578", __vue__options__)
   }
 })()}
-},{"vue":4,"vue-hot-reload-api":3,"vueify/lib/insert-css":5}],3:[function(require,module,exports){
+},{"vue":5,"vue-hot-reload-api":4}],3:[function(require,module,exports){
+var __vueify_style_dispose__ = require("vueify/lib/insert-css").insert(".btn-danger[data-v-cc58ddf0] {\n    cursor: pointer;\n    margin-right: 10px;\n}")
+;(function(){
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.default = {
+    name: "delete-button",
+    props: ['category'],
+    methods: {
+        deleteCategory: function deleteCategory(event) {
+            var deleteVal = event.currentTarget.nextSibling.nextSibling.textContent;
+            var me = this;
+            this.$root.selectedCategories.forEach(function (category, index) {
+                if (category.name === deleteVal) {
+                    me.$root.categories.push(category);
+                    me.$root.selectedCategories.splice(index, 1);
+                }
+            });
+        }
+    }
+};
+})()
+if (module.exports.__esModule) module.exports = module.exports.default
+var __vue__options__ = (typeof module.exports === "function"? module.exports.options: module.exports)
+if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
+__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('span',[_c('button',{staticClass:"btn btn-danger",attrs:{"type":"button","data-type":"minus"},on:{"click":_vm.deleteCategory}},[_c('b',[_vm._v("—")])]),_vm._v(" "),_c('button',{staticClass:"btn btn-secondary btn-lg category",attrs:{"type":"button","disabled":""}},[_vm._v(_vm._s(_vm.category))])])}
+__vue__options__.staticRenderFns = []
+__vue__options__._scopeId = "data-v-cc58ddf0"
+if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), true)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  module.hot.dispose(__vueify_style_dispose__)
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-cc58ddf0", __vue__options__)
+  } else {
+    hotAPI.reload("data-v-cc58ddf0", __vue__options__)
+  }
+})()}
+},{"vue":5,"vue-hot-reload-api":4,"vueify/lib/insert-css":6}],4:[function(require,module,exports){
 var Vue // late bind
 var version
 var map = (window.__VUE_HOT_MAP__ = Object.create(null))
@@ -322,7 +350,7 @@ exports.reload = tryWrap(function (id, options) {
   })
 })
 
-},{}],4:[function(require,module,exports){
+},{}],5:[function(require,module,exports){
 (function (process,global){
 /*!
  * Vue.js v2.5.13
@@ -8249,7 +8277,7 @@ Vue$3.nextTick(function () {
 module.exports = Vue$3;
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"_process":7}],5:[function(require,module,exports){
+},{"_process":8}],6:[function(require,module,exports){
 var inserted = exports.cache = {}
 
 function noop () {}
@@ -8274,11 +8302,12 @@ exports.insert = function (css) {
   }
 }
 
-},{}],6:[function(require,module,exports){
+},{}],7:[function(require,module,exports){
 jQuery(document).ready(function($){
 
     Vue.component('add-category-button', require('../components/add-category-button.vue'));
     Vue.component('add-publisher', require('../components/add-publisher.vue'));
+    Vue.component('delete-button', require('../components/delete-button.vue'));
 
     var CACHED_DB;  // TODO cached DB variable
 
@@ -8345,7 +8374,7 @@ jQuery(document).ready(function($){
     }
 
 }); // end of jquery ready document
-},{"../components/add-category-button.vue":1,"../components/add-publisher.vue":2}],7:[function(require,module,exports){
+},{"../components/add-category-button.vue":1,"../components/add-publisher.vue":2,"../components/delete-button.vue":3}],8:[function(require,module,exports){
 // shim for using process in browser
 var process = module.exports = {};
 
@@ -8531,4 +8560,4 @@ process.chdir = function (dir) {
 };
 process.umask = function() { return 0; };
 
-},{}]},{},[6]);
+},{}]},{},[7]);

@@ -20,11 +20,13 @@
 <div class="container">
     <h1>Search</h1>
     <div class="category-dropdown-container">
-        <div class="dropdown">
+        <div class="btn-group">
             <!-- 'Add Category' Dropdown -->
-            <button class="btn btn-secondary btn-lg dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <button class="btn btn-secondary btn-lg dropdown-toggle" type="button" id="dropdownMenuButton"
+                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 Add Category
             </button>
+
             <!-- Dropdown menu options-->
             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                 <a class="dropdown-item" href="#" v-on:click="addCategory" v-for="category in orderedCategories">{{category.name}}</a>
@@ -36,7 +38,8 @@
 
         <!--dynamically add selected categories-->
         <div class="added-categories">
-            <add-category-button v-for="items in selectedCategories" v-bind:category="items.name" v-bind:component="items.component"></add-category-button>
+            <add-category-button v-for="items in selectedCategories"
+                                 v-bind:category="items.name" v-bind:component="items.component"></add-category-button>
         </div>
     </div> <!-- end of category-dropdown-container -->
 </div>
