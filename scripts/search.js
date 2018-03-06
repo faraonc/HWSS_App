@@ -1,44 +1,25 @@
 jQuery(document).ready(function($){
 
-    Vue.component('add-category-button', require('../components/add-category-button.vue'));
-    Vue.component('select-button', require('../components/select-button.vue'));
 
-    // TODO put this as import from vue component add-category-button instead of global?
-    Vue.component('add-publisher', require('../components/add-publisher.vue'));
-    Vue.component('add-file-type', require('../components/add-file-type.vue'));
+    Vue.component('search-page', require('../components/search/search-page.vue'));
 
-    var CACHED_DB;  // TODO cached DB variable, the WHOLE database, use query later
+    // var CACHED_DB;  // TODO cached DB variable, the WHOLE database, use query later
 
     // TODO implement date last, this one is tricky
     var vue = new Vue({
-        el: '.container',
-        created: function() {
-            var self = this;
-            self.loadingCategories = true;
-            var self = this;
-            $.ajax({
-                url: "query/metadata?all",
-                dataType: "json",
-                timeout: 5000,
-                success: function(result) {
-                    CACHED_DB = result.result;
-                    self.parseData();
-                    self.loadingCategories = false;
-                },
-                error: function() {
-                    console.log('error with quering DB, consult conard :)')
-                }
-            })
-        },
+        el: '#searchPage',
         data: {
             categories: [
-                {name: 'Publisher', component: 'add-publisher'},
-                {name: 'Date', component: 'add-date'},
-                {name: 'File Type', component: 'add-file-type'},
-                {name: 'Instrument', component: 'add-instrument'},
-                {name: 'Region', component: 'add-region'},
-                {name: 'Sampling Rate', component: 'add-sampling-rate'}
+                {name: 'Publishers', component: 'add-publisher'},
+                // {name: 'Date', component: 'add-date'},
+                {name: 'File Types', component: 'add-file-type'},
+                {name: 'Instruments', component: 'add-instrument'},
+                {name: 'Regions', component: 'add-region'},
+                {name: 'Sampling Rates', component: 'add-sampling-rate'}
             ],
+            CACHED_DB: {},
+            addCategoryBtnMsg: '',
+            errorMsg: '',
             selectedCategories: [],
             publishers: [],
             fileTypes: [],
@@ -46,6 +27,8 @@ jQuery(document).ready(function($){
             regions: [],
             samplingRates: [],
             loadingCategories: false,
+            disableSearch: false,
+            disableCategoryBtn: false,
             queries: {}
         },
         computed: {
@@ -87,7 +70,7 @@ jQuery(document).ready(function($){
                 var temp_regions = new Set();
                 var temp_sampling_rate = new Set();
 
-                CACHED_DB.forEach(function(currObj){
+                this.CACHED_DB.forEach(function(currObj){
                     var temp_publishers = {};
 
                     temp_publishers['firstName'] = currObj.firstName;
@@ -113,9 +96,33 @@ jQuery(document).ready(function($){
                 });
                 self.publishers = _.uniqBy(self.publishers, 'lastName');
                 self.fileTypes = Array.from(temp_file_types);
-                self.instrument = Array.from(temp_instruments);
+                self.instruments = Array.from(temp_instruments);
                 self.regions = Array.from(temp_regions);
-                self.samplingRate = Array.from(temp_sampling_rate);
+                self.samplingRates = Array.from(temp_sampling_rate);
+            },
+            beginSearch: function() {
+                var self = this;
+                var needToSelect = [];
+                for (var i in this.selectedCategories) {
+                    var name = this.selectedCategories[i].name.charAt(0).toLowerCase() +
+                        this.selectedCategories[i].name.slice(1).replace(' ', '');
+                    if(this.queries.hasOwnProperty(name)) {
+                        if(this.queries[name].size === 0){
+                            needToSelect.push(this.selectedCategories[i].name);
+                        }
+                    }
+                    else {
+                        needToSelect.push(this.selectedCategories[i].name);
+                    }
+                }
+                console.log(needToSelect)
+                if(needToSelect.length >0) {
+                    this.errorMsg = '*Please select: ' + needToSelect.join(', ');
+                }
+                else {
+                    this.errorMsg = '';
+                }
+
             }
         }
     });

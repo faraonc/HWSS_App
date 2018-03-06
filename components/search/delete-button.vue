@@ -1,8 +1,8 @@
 <template>
     <span>
-        <button type="button" class="btn btn-danger" data-type="minus"
+        <button type="button" class="btn btn-danger btn-sm" data-type="minus"
                 v-on:click="deleteCategory"><b>&#8212;</b></button>
-        <button type="button" class="btn btn-secondary btn-lg category" disabled>{{category}}</button>
+        <button type="button" class="btn btn-secondary category" disabled>{{category}}</button>
     </span>
 </template>
 
@@ -14,12 +14,13 @@
             deleteCategory: function(event) {
                 var deleteVal = event.currentTarget.nextSibling.nextSibling.textContent;
                 var me = this;
-                this.$root.selectedCategories.forEach(function(category, index) {
+                this.$root.selectedCategories.forEach(function(category, index) {  //TODO break if equaled, change to for loop
                     if(category.name === deleteVal) {
                         me.$root.categories.push(category);           // add back to list of available categories
                         me.$root.selectedCategories.splice(index, 1); // remove from list of added categories
                     }
                 });
+                this.$root.errorMsg = '';
             }
         }
     }
@@ -29,6 +30,9 @@
     .btn-danger {
         cursor: pointer;
         margin-right: 10px;
+    }
+    .category {
+        width: 182px;
     }
 
 </style>

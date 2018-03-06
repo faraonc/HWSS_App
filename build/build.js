@@ -1,20 +1,44 @@
 (function(){function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s}return e})()({1:[function(require,module,exports){
-var __vueify_style_dispose__ = require("vueify/lib/insert-css").insert("button[data-v-609b8fa9] {\n    cursor:pointer;\n}\n.added-category[data-v-609b8fa9] {\n    text-align: left;\n    margin-bottom: 20px;\n}")
+var __vueify_style_dispose__ = require("vueify/lib/insert-css").insert("button[data-v-19e90d0a] {\n    cursor:pointer;\n}\n.added-category[data-v-19e90d0a] {\n    text-align: left;\n    margin: 0 auto 20px auto;\n    max-width: 343px;\n}")
 ;(function(){
-"use strict";
+'use strict';
 
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _deleteButton = require("../components/delete-button.vue");
+var _deleteButton = require('./delete-button.vue');
 
 var _deleteButton2 = _interopRequireDefault(_deleteButton);
+
+var _selectButton = require('./select-button.vue');
+
+var _selectButton2 = _interopRequireDefault(_selectButton);
+
+var _addPublisher = require('./add-publisher.vue');
+
+var _addPublisher2 = _interopRequireDefault(_addPublisher);
+
+var _addFileType = require('./add-file-type.vue');
+
+var _addFileType2 = _interopRequireDefault(_addFileType);
+
+var _addInstrument = require('./add-instrument.vue');
+
+var _addInstrument2 = _interopRequireDefault(_addInstrument);
+
+var _addRegion = require('./add-region.vue');
+
+var _addRegion2 = _interopRequireDefault(_addRegion);
+
+var _addSamplingRate = require('./add-sampling-rate.vue');
+
+var _addSamplingRate2 = _interopRequireDefault(_addSamplingRate);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.default = {
-    components: { DeleteButton: _deleteButton2.default },
+    components: { DeleteButton: _deleteButton2.default, SelectButton: _selectButton2.default, AddPublisher: _addPublisher2.default, AddFileType: _addFileType2.default, AddInstrument: _addInstrument2.default, AddRegion: _addRegion2.default, AddSamplingRate: _addSamplingRate2.default },
     name: "add-category-button",
     props: ['category', 'component']
 };
@@ -22,21 +46,21 @@ exports.default = {
 if (module.exports.__esModule) module.exports = module.exports.default
 var __vue__options__ = (typeof module.exports === "function"? module.exports.options: module.exports)
 if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
-__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"added-category"},[_c('delete-button',{attrs:{"category":_vm.category}}),_vm._v(" "),_c(_vm.component,{tag:"my-component"})],1)}
+__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"added-category"},[_c('delete-button',{attrs:{"category":_vm.category}}),_vm._v(" "),_c('div',{staticClass:"multi-select-dropdown btn-group"},[_c('select-button'),_vm._v(" "),_c('ul',{staticClass:"dropdown-menu",on:{"click":function($event){$event.stopPropagation()}}},[_c(_vm.component,{tag:"my-component"})],1)],1)],1)}
 __vue__options__.staticRenderFns = []
-__vue__options__._scopeId = "data-v-609b8fa9"
+__vue__options__._scopeId = "data-v-19e90d0a"
 if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   hotAPI.install(require("vue"), true)
   if (!hotAPI.compatible) return
   module.hot.accept()
   module.hot.dispose(__vueify_style_dispose__)
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-609b8fa9", __vue__options__)
+    hotAPI.createRecord("data-v-19e90d0a", __vue__options__)
   } else {
-    hotAPI.reload("data-v-609b8fa9", __vue__options__)
+    hotAPI.reload("data-v-19e90d0a", __vue__options__)
   }
 })()}
-},{"../components/delete-button.vue":4,"vue":7,"vue-hot-reload-api":6,"vueify/lib/insert-css":8}],2:[function(require,module,exports){
+},{"./add-file-type.vue":2,"./add-instrument.vue":3,"./add-publisher.vue":4,"./add-region.vue":5,"./add-sampling-rate.vue":6,"./delete-button.vue":7,"./select-button.vue":9,"vue":11,"vue-hot-reload-api":10,"vueify/lib/insert-css":12}],2:[function(require,module,exports){
 ;(function(){
 "use strict";
 
@@ -47,13 +71,19 @@ exports.default = {
     name: "add-file-type",
     data: function data() {
         return {
+            search: '',
             selectedFileTypes: new Set()
         };
     },
     computed: {
-        orderedFileTypes: function orderedFileTypes() {
-            return this.$root.fileTypes.sort();
+        filteredFileTypes: function filteredFileTypes() {
+            var _this = this;
+
+            return this.$root.fileTypes.sort().filter(function (types) {
+                return types.toLowerCase().includes(_this.search.toLowerCase());
+            });
         }
+
     },
     methods: {
         checkedFileType: function checkedFileType(fileType) {
@@ -65,22 +95,69 @@ exports.default = {
 if (module.exports.__esModule) module.exports = module.exports.default
 var __vue__options__ = (typeof module.exports === "function"? module.exports.options: module.exports)
 if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
-__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"multi-select-dropdown btn-group"},[_c('select-button'),_vm._v(" "),_c('ul',{staticClass:"dropdown-menu",on:{"click":function($event){$event.stopPropagation()}}},[_vm._m(0),_vm._v(" "),_vm._l((_vm.orderedFileTypes),function(fileType){return _c('label',[_c('li',{staticClass:"dropdown-item"},[_c('input',{attrs:{"type":"checkbox"},on:{"click":function($event){_vm.checkedFileType(fileType)}}}),_vm._v(_vm._s(fileType)+"\n            ")])])})],2)],1)}
-__vue__options__.staticRenderFns = [function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"form-control-wrapper"},[_c('input',{staticClass:"form-control",attrs:{"type":"text"}})])}]
-__vue__options__._scopeId = "data-v-7a1b2cb3"
+__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('span',[_c('div',{staticClass:"form-control-wrapper"},[_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.search),expression:"search"}],staticClass:"form-control",attrs:{"type":"text","placeholder":"Search"},domProps:{"value":(_vm.search)},on:{"input":function($event){if($event.target.composing){ return; }_vm.search=$event.target.value}}})]),_vm._v(" "),_vm._l((_vm.filteredFileTypes),function(fileType){return _c('label',[_c('li',{staticClass:"dropdown-item"},[_c('input',{attrs:{"type":"checkbox"},on:{"click":function($event){_vm.checkedFileType(fileType)}}}),_vm._v(_vm._s(fileType)+"\n        ")])])})],2)}
+__vue__options__.staticRenderFns = []
+__vue__options__._scopeId = "data-v-252686d4"
 if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   hotAPI.install(require("vue"), true)
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-7a1b2cb3", __vue__options__)
+    hotAPI.createRecord("data-v-252686d4", __vue__options__)
   } else {
-    hotAPI.reload("data-v-7a1b2cb3", __vue__options__)
+    hotAPI.reload("data-v-252686d4", __vue__options__)
   }
 })()}
-},{"vue":7,"vue-hot-reload-api":6}],3:[function(require,module,exports){
+},{"vue":11,"vue-hot-reload-api":10}],3:[function(require,module,exports){
 ;(function(){
 "use strict";
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.default = {
+    name: "add-instrument",
+    data: function data() {
+        return {
+            search: '',
+            selectedInstruments: new Set()
+        };
+    },
+    computed: {
+        orderedInstruments: function orderedInstruments() {
+            var _this = this;
+
+            return this.$root.instruments.sort().filter(function (instrument) {
+                return instrument.toLowerCase().includes(_this.search.toLowerCase());
+            });
+        }
+    },
+    methods: {
+        checkedInstrument: function checkedInstrument(instrument) {
+            this.$root.processSelected("instruments", this.selectedInstruments, instrument);
+        }
+    }
+};
+})()
+if (module.exports.__esModule) module.exports = module.exports.default
+var __vue__options__ = (typeof module.exports === "function"? module.exports.options: module.exports)
+if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
+__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('span',[_c('div',{staticClass:"form-control-wrapper"},[_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.search),expression:"search"}],staticClass:"form-control",attrs:{"type":"text","placeholder":"Search"},domProps:{"value":(_vm.search)},on:{"input":function($event){if($event.target.composing){ return; }_vm.search=$event.target.value}}})]),_vm._v(" "),_vm._l((_vm.orderedInstruments),function(instrument){return _c('label',[_c('li',{staticClass:"dropdown-item"},[_c('input',{attrs:{"type":"checkbox"},on:{"click":function($event){_vm.checkedInstrument(instrument)}}}),_vm._v(_vm._s(instrument)+"\n        ")])])})],2)}
+__vue__options__.staticRenderFns = []
+__vue__options__._scopeId = "data-v-17c76c4e"
+if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), true)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-17c76c4e", __vue__options__)
+  } else {
+    hotAPI.reload("data-v-17c76c4e", __vue__options__)
+  }
+})()}
+},{"vue":11,"vue-hot-reload-api":10}],4:[function(require,module,exports){
+;(function(){
+'use strict';
 
 Object.defineProperty(exports, "__esModule", {
     value: true
@@ -89,13 +166,17 @@ exports.default = {
     name: "add-publisher",
     data: function data() {
         return {
+            search: '',
             selectedPublishers: new Set()
         };
     },
     computed: {
-        orderedPublishers: function orderedPublishers() {
-            console.log("sorting: ", this.$root.publishers);
-            return _.orderBy(this.$root.publishers, 'lastName');
+        filteredPublishers: function filteredPublishers() {
+            var _this = this;
+
+            return _.orderBy(this.$root.publishers, 'lastName').filter(function (name) {
+                return name.firstName.toLowerCase().includes(_this.search.toLowerCase()) || name.lastName.toLowerCase().includes(_this.search.toLowerCase());
+            });
         }
     },
     methods: {
@@ -108,23 +189,117 @@ exports.default = {
 if (module.exports.__esModule) module.exports = module.exports.default
 var __vue__options__ = (typeof module.exports === "function"? module.exports.options: module.exports)
 if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
-__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"multi-select-dropdown btn-group"},[_c('select-button'),_vm._v(" "),_c('ul',{staticClass:"dropdown-menu",on:{"click":function($event){$event.stopPropagation()}}},[_vm._m(0),_vm._v(" "),_vm._l((_vm.orderedPublishers),function(publisher){return _c('label',[_c('li',{staticClass:"dropdown-item"},[_c('input',{attrs:{"type":"checkbox"},on:{"click":function($event){_vm.checkedPublisher(publisher)}}}),_vm._v(_vm._s(publisher.lastName)+", "+_vm._s(publisher.firstName)+"\n            ")])])})],2)],1)}
-__vue__options__.staticRenderFns = [function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"form-control-wrapper"},[_c('input',{staticClass:"form-control",attrs:{"type":"text","placeholder":"Search"}})])}]
-__vue__options__._scopeId = "data-v-711dd578"
+__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('span',[_c('div',{staticClass:"form-control-wrapper"},[_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.search),expression:"search"}],staticClass:"form-control",attrs:{"type":"text","placeholder":"Search"},domProps:{"value":(_vm.search)},on:{"input":function($event){if($event.target.composing){ return; }_vm.search=$event.target.value}}})]),_vm._v(" "),_vm._l((_vm.filteredPublishers),function(publisher){return _c('label',[_c('li',{staticClass:"dropdown-item"},[_c('input',{attrs:{"type":"checkbox"},on:{"click":function($event){_vm.checkedPublisher(publisher)}}}),_vm._v(_vm._s(publisher.lastName)+", "+_vm._s(publisher.firstName)+"\n        ")])])})],2)}
+__vue__options__.staticRenderFns = []
+__vue__options__._scopeId = "data-v-727c6f65"
 if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   hotAPI.install(require("vue"), true)
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-711dd578", __vue__options__)
+    hotAPI.createRecord("data-v-727c6f65", __vue__options__)
   } else {
-    hotAPI.reload("data-v-711dd578", __vue__options__)
+    hotAPI.reload("data-v-727c6f65", __vue__options__)
   }
 })()}
-},{"vue":7,"vue-hot-reload-api":6}],4:[function(require,module,exports){
-var __vueify_style_dispose__ = require("vueify/lib/insert-css").insert(".btn-danger[data-v-cc58ddf0] {\n    cursor: pointer;\n    margin-right: 10px;\n}")
+},{"vue":11,"vue-hot-reload-api":10}],5:[function(require,module,exports){
 ;(function(){
 "use strict";
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.default = {
+    name: "add-region",
+    data: function data() {
+        return {
+            search: '',
+            selectedRegions: new Set()
+        };
+    },
+    computed: {
+        orderedRegions: function orderedRegions() {
+            var _this = this;
+
+            return this.$root.regions.sort().filter(function (region) {
+                return region.toLowerCase().includes(_this.search.toLowerCase());
+            });
+        }
+    },
+    methods: {
+        checkedRegion: function checkedRegion(region) {
+            this.$root.processSelected("regions", this.selectedRegions, region);
+        }
+    }
+};
+})()
+if (module.exports.__esModule) module.exports = module.exports.default
+var __vue__options__ = (typeof module.exports === "function"? module.exports.options: module.exports)
+if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
+__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('span',[_c('div',{staticClass:"form-control-wrapper"},[_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.search),expression:"search"}],staticClass:"form-control",attrs:{"type":"text","placeholder":"Search"},domProps:{"value":(_vm.search)},on:{"input":function($event){if($event.target.composing){ return; }_vm.search=$event.target.value}}})]),_vm._v(" "),_vm._l((_vm.orderedRegions),function(region){return _c('label',[_c('li',{staticClass:"dropdown-item"},[_c('input',{attrs:{"type":"checkbox"},on:{"click":function($event){_vm.checkedRegion(region)}}}),_vm._v(_vm._s(region)+"\n        ")])])})],2)}
+__vue__options__.staticRenderFns = []
+__vue__options__._scopeId = "data-v-3b2a3f4a"
+if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), true)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-3b2a3f4a", __vue__options__)
+  } else {
+    hotAPI.reload("data-v-3b2a3f4a", __vue__options__)
+  }
+})()}
+},{"vue":11,"vue-hot-reload-api":10}],6:[function(require,module,exports){
+;(function(){
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.default = {
+    name: "add-sampling-rate",
+    data: function data() {
+        return {
+            search: '',
+            selectedSamplingRates: new Set()
+        };
+    },
+    computed: {
+        filteredSamplingRates: function filteredSamplingRates() {
+            var _this = this;
+
+            return _.sortBy(this.$root.samplingRates).filter(function (rates) {
+                return rates.toString().includes(_this.search);
+            });
+        }
+    },
+    methods: {
+        checkedSamplingRate: function checkedSamplingRate(samplingRate) {
+            this.$root.processSelected("samplingRates", this.selectedSamplingRates, samplingRate);
+        }
+    }
+};
+})()
+if (module.exports.__esModule) module.exports = module.exports.default
+var __vue__options__ = (typeof module.exports === "function"? module.exports.options: module.exports)
+if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
+__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('span',[_c('div',{staticClass:"form-control-wrapper"},[_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.search),expression:"search"}],staticClass:"form-control",attrs:{"type":"text","placeholder":"Search"},domProps:{"value":(_vm.search)},on:{"input":function($event){if($event.target.composing){ return; }_vm.search=$event.target.value}}})]),_vm._v(" "),_vm._l((_vm.filteredSamplingRates),function(samplingRate){return _c('label',[_c('li',{staticClass:"dropdown-item"},[_c('input',{attrs:{"type":"checkbox"},on:{"click":function($event){_vm.checkedSamplingRate(samplingRate)}}}),_vm._v(_vm._s(samplingRate)+"\n        ")])])})],2)}
+__vue__options__.staticRenderFns = []
+__vue__options__._scopeId = "data-v-4bc44222"
+if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), true)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-4bc44222", __vue__options__)
+  } else {
+    hotAPI.reload("data-v-4bc44222", __vue__options__)
+  }
+})()}
+},{"vue":11,"vue-hot-reload-api":10}],7:[function(require,module,exports){
+var __vueify_style_dispose__ = require("vueify/lib/insert-css").insert(".btn-danger[data-v-44deeb29] {\n    cursor: pointer;\n    margin-right: 10px;\n}\n.category[data-v-44deeb29] {\n    width: 182px;\n}")
+;(function(){
+'use strict';
 
 Object.defineProperty(exports, "__esModule", {
     value: true
@@ -142,6 +317,7 @@ exports.default = {
                     me.$root.selectedCategories.splice(index, 1);
                 }
             });
+            this.$root.errorMsg = '';
         }
     }
 };
@@ -149,21 +325,84 @@ exports.default = {
 if (module.exports.__esModule) module.exports = module.exports.default
 var __vue__options__ = (typeof module.exports === "function"? module.exports.options: module.exports)
 if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
-__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('span',[_c('button',{staticClass:"btn btn-danger",attrs:{"type":"button","data-type":"minus"},on:{"click":_vm.deleteCategory}},[_c('b',[_vm._v("—")])]),_vm._v(" "),_c('button',{staticClass:"btn btn-secondary btn-lg category",attrs:{"type":"button","disabled":""}},[_vm._v(_vm._s(_vm.category))])])}
+__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('span',[_c('button',{staticClass:"btn btn-danger btn-sm",attrs:{"type":"button","data-type":"minus"},on:{"click":_vm.deleteCategory}},[_c('b',[_vm._v("—")])]),_vm._v(" "),_c('button',{staticClass:"btn btn-secondary category",attrs:{"type":"button","disabled":""}},[_vm._v(_vm._s(_vm.category))])])}
 __vue__options__.staticRenderFns = []
-__vue__options__._scopeId = "data-v-cc58ddf0"
+__vue__options__._scopeId = "data-v-44deeb29"
 if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   hotAPI.install(require("vue"), true)
   if (!hotAPI.compatible) return
   module.hot.accept()
   module.hot.dispose(__vueify_style_dispose__)
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-cc58ddf0", __vue__options__)
+    hotAPI.createRecord("data-v-44deeb29", __vue__options__)
   } else {
-    hotAPI.reload("data-v-cc58ddf0", __vue__options__)
+    hotAPI.reload("data-v-44deeb29", __vue__options__)
   }
 })()}
-},{"vue":7,"vue-hot-reload-api":6,"vueify/lib/insert-css":8}],5:[function(require,module,exports){
+},{"vue":11,"vue-hot-reload-api":10,"vueify/lib/insert-css":12}],8:[function(require,module,exports){
+;(function(){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _addCategoryButton = require('./add-category-button.vue');
+
+var _addCategoryButton2 = _interopRequireDefault(_addCategoryButton);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = {
+    components: { AddCategoryButton: _addCategoryButton2.default },
+    name: "search-page",
+    created: function created() {
+        var self = this.$root;
+        self.addCategoryBtnMsg = 'Processing...';
+        self.disableSearch = true;
+        self.disableCategoryBtn = true;
+        self.loadingCategories = true;
+        $.ajax({
+            url: "query/metadata?all",
+            dataType: "json",
+            timeout: 5000,
+            success: function success(result) {
+                self.CACHED_DB = result.result;
+                self.parseData();
+                self.loadingCategories = false;
+                self.disableSearch = false;
+                self.disableCategoryBtn = false;
+                self.addCategoryBtnMsg = 'Add Category';
+            },
+            error: function error() {
+                console.log('error with quering DB, consult conard :)');
+            }
+        });
+    },
+    methods: {
+        addCategory: function addCategory(event) {
+            this.$root.addCategory(event);
+        }
+    }
+};
+})()
+if (module.exports.__esModule) module.exports = module.exports.default
+var __vue__options__ = (typeof module.exports === "function"? module.exports.options: module.exports)
+if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
+__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"container",attrs:{"id":"searchPage"}},[_c('h1',[_vm._v("Search")]),_vm._v(" "),_c('div',{staticClass:"category-dropdown-container"},[_c('div',{staticClass:"btn-group"},[_c('button',{staticClass:"btn btn-secondary btn-lg dropdown-toggle",attrs:{"type":"button","id":"dropdownMenuButton","data-toggle":"dropdown","aria-haspopup":"true","aria-expanded":"false","disabled":this.$root.disableCategoryBtn === true}},[_vm._v("\n                "+_vm._s(this.$root.addCategoryBtnMsg)+"\n            ")]),_vm._v(" "),_c('div',{staticClass:"dropdown-menu",attrs:{"aria-labelledby":"dropdownMenuButton"}},_vm._l((this.$root.orderedCategories),function(category){return _c('a',{staticClass:"dropdown-item",attrs:{"href":"#"},on:{"click":_vm.addCategory}},[_vm._v(_vm._s(category.name))])})),_vm._v(" "),_c('button',{staticClass:"btn btn-secondary btn-lg search",attrs:{"type":"button","disabled":this.$root.disableSearch === true},on:{"click":this.$root.beginSearch}},[_vm._v("\n                Search\n            ")])]),_vm._v(" "),_c('div',{staticClass:"error-msg"},[_vm._v(_vm._s(this.$root.errorMsg))]),_vm._v(" "),_c('div',{directives:[{name:"show",rawName:"v-show",value:(this.$root.loadingCategories === true),expression:"this.$root.loadingCategories === true"}],staticClass:"loader"},[_c('img',{attrs:{"src":"/public/loading.gif"}})]),_vm._v(" "),_c('div',{staticClass:"added-categories"},_vm._l((this.$root.selectedCategories),function(items){return _c('add-category-button',{attrs:{"category":items.name,"component":items.component}})}))])])}
+__vue__options__.staticRenderFns = []
+__vue__options__._scopeId = "data-v-5b0f0869"
+if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), true)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-5b0f0869", __vue__options__)
+  } else {
+    hotAPI.reload("data-v-5b0f0869", __vue__options__)
+  }
+})()}
+},{"./add-category-button.vue":1,"vue":11,"vue-hot-reload-api":10}],9:[function(require,module,exports){
 ;(function(){
 "use strict";
 
@@ -177,20 +416,20 @@ exports.default = {
 if (module.exports.__esModule) module.exports = module.exports.default
 var __vue__options__ = (typeof module.exports === "function"? module.exports.options: module.exports)
 if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
-__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('button',{staticClass:"btn btn-secondary btn-lg dropdown-toggle dropup",attrs:{"type":"button","data-toggle":"dropdown","aria-haspopup":"true","aria-expanded":"false"}},[_vm._v("\n    Select\n")])}
+__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('button',{staticClass:"btn btn-secondary dropdown-toggle dropup select",attrs:{"type":"button","data-toggle":"dropdown","aria-haspopup":"true","aria-expanded":"false"}},[_vm._v("\n    Select\n")])}
 __vue__options__.staticRenderFns = []
-__vue__options__._scopeId = "data-v-1f0655d2"
+__vue__options__._scopeId = "data-v-c8efa190"
 if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   hotAPI.install(require("vue"), true)
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-1f0655d2", __vue__options__)
+    hotAPI.createRecord("data-v-c8efa190", __vue__options__)
   } else {
-    hotAPI.reload("data-v-1f0655d2", __vue__options__)
+    hotAPI.reload("data-v-c8efa190", __vue__options__)
   }
 })()}
-},{"vue":7,"vue-hot-reload-api":6}],6:[function(require,module,exports){
+},{"vue":11,"vue-hot-reload-api":10}],10:[function(require,module,exports){
 var Vue // late bind
 var version
 var map = (window.__VUE_HOT_MAP__ = Object.create(null))
@@ -432,7 +671,7 @@ exports.reload = tryWrap(function (id, options) {
   })
 })
 
-},{}],7:[function(require,module,exports){
+},{}],11:[function(require,module,exports){
 (function (process,global){
 /*!
  * Vue.js v2.5.13
@@ -8359,7 +8598,7 @@ Vue$3.nextTick(function () {
 module.exports = Vue$3;
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"_process":10}],8:[function(require,module,exports){
+},{"_process":14}],12:[function(require,module,exports){
 var inserted = exports.cache = {}
 
 function noop () {}
@@ -8384,48 +8623,29 @@ exports.insert = function (css) {
   }
 }
 
-},{}],9:[function(require,module,exports){
+},{}],13:[function(require,module,exports){
 jQuery(document).ready(function($){
 
-    Vue.component('add-category-button', require('../components/add-category-button.vue'));
-    Vue.component('select-button', require('../components/select-button.vue'));
 
-    // TODO put this as import from vue component add-category-button instead of global?
-    Vue.component('add-publisher', require('../components/add-publisher.vue'));
-    Vue.component('add-file-type', require('../components/add-file-type.vue'));
+    Vue.component('search-page', require('../components/search/search-page.vue'));
 
-    var CACHED_DB;  // TODO cached DB variable, the WHOLE database, use query later
+    // var CACHED_DB;  // TODO cached DB variable, the WHOLE database, use query later
 
     // TODO implement date last, this one is tricky
     var vue = new Vue({
-        el: '.container',
-        created: function() {
-            var self = this;
-            self.loadingCategories = true;
-            var self = this;
-            $.ajax({
-                url: "query/metadata?all",
-                dataType: "json",
-                timeout: 5000,
-                success: function(result) {
-                    CACHED_DB = result.result;
-                    self.parseData();
-                    self.loadingCategories = false;
-                },
-                error: function() {
-                    console.log('error with quering DB, consult conard :)')
-                }
-            })
-        },
+        el: '#searchPage',
         data: {
             categories: [
-                {name: 'Publisher', component: 'add-publisher'},
-                {name: 'Date', component: 'add-date'},
-                {name: 'File Type', component: 'add-file-type'},
-                {name: 'Instrument', component: 'add-instrument'},
-                {name: 'Region', component: 'add-region'},
-                {name: 'Sampling Rate', component: 'add-sampling-rate'}
+                {name: 'Publishers', component: 'add-publisher'},
+                // {name: 'Date', component: 'add-date'},
+                {name: 'File Types', component: 'add-file-type'},
+                {name: 'Instruments', component: 'add-instrument'},
+                {name: 'Regions', component: 'add-region'},
+                {name: 'Sampling Rates', component: 'add-sampling-rate'}
             ],
+            CACHED_DB: {},
+            addCategoryBtnMsg: '',
+            errorMsg: '',
             selectedCategories: [],
             publishers: [],
             fileTypes: [],
@@ -8433,6 +8653,8 @@ jQuery(document).ready(function($){
             regions: [],
             samplingRates: [],
             loadingCategories: false,
+            disableSearch: false,
+            disableCategoryBtn: false,
             queries: {}
         },
         computed: {
@@ -8466,7 +8688,6 @@ jQuery(document).ready(function($){
                     currentSet.add(selected);
                 }
                 this.queries[queryType] = currentSet;
-                console.log("currentSet: ", Array.from(currentSet));
             },
             parseData: function() {
                 var self = this;
@@ -8475,7 +8696,7 @@ jQuery(document).ready(function($){
                 var temp_regions = new Set();
                 var temp_sampling_rate = new Set();
 
-                CACHED_DB.forEach(function(currObj){
+                this.CACHED_DB.forEach(function(currObj){
                     var temp_publishers = {};
 
                     temp_publishers['firstName'] = currObj.firstName;
@@ -8501,15 +8722,39 @@ jQuery(document).ready(function($){
                 });
                 self.publishers = _.uniqBy(self.publishers, 'lastName');
                 self.fileTypes = Array.from(temp_file_types);
-                self.instrument = Array.from(temp_instruments);
+                self.instruments = Array.from(temp_instruments);
                 self.regions = Array.from(temp_regions);
-                self.samplingRate = Array.from(temp_sampling_rate);
+                self.samplingRates = Array.from(temp_sampling_rate);
+            },
+            beginSearch: function() {
+                var self = this;
+                var needToSelect = [];
+                for (var i in this.selectedCategories) {
+                    var name = this.selectedCategories[i].name.charAt(0).toLowerCase() +
+                        this.selectedCategories[i].name.slice(1).replace(' ', '');
+                    if(this.queries.hasOwnProperty(name)) {
+                        if(this.queries[name].size === 0){
+                            needToSelect.push(this.selectedCategories[i].name);
+                        }
+                    }
+                    else {
+                        needToSelect.push(this.selectedCategories[i].name);
+                    }
+                }
+                console.log(needToSelect)
+                if(needToSelect.length >0) {
+                    this.errorMsg = '*Please select: ' + needToSelect.join(', ');
+                }
+                else {
+                    this.errorMsg = '';
+                }
+
             }
         }
     });
 
 }); // end of jquery ready document
-},{"../components/add-category-button.vue":1,"../components/add-file-type.vue":2,"../components/add-publisher.vue":3,"../components/select-button.vue":5}],10:[function(require,module,exports){
+},{"../components/search/search-page.vue":8}],14:[function(require,module,exports){
 // shim for using process in browser
 var process = module.exports = {};
 
@@ -8695,4 +8940,4 @@ process.chdir = function (dir) {
 };
 process.umask = function() { return 0; };
 
-},{}]},{},[9]);
+},{}]},{},[13]);
