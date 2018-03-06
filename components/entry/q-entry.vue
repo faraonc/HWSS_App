@@ -8,9 +8,9 @@
         <div class="col-sm-10 query-entry">
             <h6><a :href="item.url" target="_blank">{{ item.callTypeName }}</a></h6>
             <p><b>Publisher: </b>{{ item.pi }}, {{ item.firstName }}</p>
-            <p>{{ convertDate }} - {{ item.time }}</p>
+            <p>{{ convertDate }} - {{ convertTime }}</p>
             <p>{{ item.groundType }} - {{ item.regionCountry }} - {{ item.region }}</p>
-            <p>{{ item.sensorType }} - {{ item.sensorName }} - {{ item.samplingRate }} Hz - Q{{ item.quality }} - {{
+            <p>{{ item.sensorType }} - {{ item.sensorName }} - {{ item.samplingRate }}Hz - Q{{ item.quality }} - {{
                 getfileType }}/{{ item.dataFormat
                 }}</p>
 
@@ -57,11 +57,18 @@
                         return "other"
                 }
             },
-            convertDate: function(){
-                var year        = this.item.date.toString().substring(0,4);
-                var month       = this.item.date.toString().substring(4,6);
-                var day         = this.item.date.toString().substring(6,8);
-                return new Date(year, month-1, day).toDateString();
+            convertDate: function () {
+                var year = this.item.date.toString().substring(0, 4);
+                var month = this.item.date.toString().substring(4, 6);
+                var day = this.item.date.toString().substring(6, 8);
+                return new Date(year, month - 1, day).toDateString();
+            },
+            convertTime: function(){
+                var time = [];
+                time.push(this.item.time.toString().substring(0,2));
+                time.push(this.item.time.toString().substring(2,4));
+                time.push(this.item.time.toString().substring(4,6));
+                return time.join(":")
             }
         },
         methods: {

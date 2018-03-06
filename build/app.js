@@ -35,6 +35,13 @@ exports.default = {
             var month = this.item.date.toString().substring(4, 6);
             var day = this.item.date.toString().substring(6, 8);
             return new Date(year, month - 1, day).toDateString();
+        },
+        convertTime: function convertTime() {
+            var time = [];
+            time.push(this.item.time.toString().substring(0, 2));
+            time.push(this.item.time.toString().substring(2, 4));
+            time.push(this.item.time.toString().substring(4, 6));
+            return time.join(":");
         }
     },
     methods: {
@@ -47,20 +54,93 @@ exports.default = {
 if (module.exports.__esModule) module.exports = module.exports.default
 var __vue__options__ = (typeof module.exports === "function"? module.exports.options: module.exports)
 if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
-__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"col-sm-12 row query-result"},[_c('div',{staticClass:"col-sm-2 query-id"},[_c('h5',{class:[{queryIdMedia: _vm.isAudio || _vm.isImage }],on:{"click":function($event){_vm.showMedia()}}},[_vm._v(_vm._s(_vm.index + 1))])]),_vm._v(" "),_c('div',{staticClass:"col-sm-10 query-entry"},[_c('h6',[_c('a',{attrs:{"href":_vm.item.url,"target":"_blank"}},[_vm._v(_vm._s(_vm.item.callTypeName))])]),_vm._v(" "),_c('p',[_c('b',[_vm._v("Publisher: ")]),_vm._v(_vm._s(_vm.item.pi)+", "+_vm._s(_vm.item.firstName))]),_vm._v(" "),_c('p',[_vm._v(_vm._s(_vm.convertDate)+" - "+_vm._s(_vm.item.time))]),_vm._v(" "),_c('p',[_vm._v(_vm._s(_vm.item.groundType)+" - "+_vm._s(_vm.item.regionCountry)+" - "+_vm._s(_vm.item.region))]),_vm._v(" "),_c('p',[_vm._v(_vm._s(_vm.item.sensorType)+" - "+_vm._s(_vm.item.sensorName)+" - "+_vm._s(_vm.item.samplingRate)+" Hz - Q"+_vm._s(_vm.item.quality)+" - "+_vm._s(_vm.getfileType)+"/"+_vm._s(_vm.item.dataFormat))]),_vm._v(" "),(_vm.isShowing && _vm.isAudio)?_c('div',[_c('audio',{attrs:{"controls":""}},[_c('source',{attrs:{"src":_vm.item.url}})])]):_vm._e(),_vm._v(" "),(_vm.isShowing && _vm.isImage)?_c('div',[_c('img',{attrs:{"src":_vm.item.url}})]):_vm._e(),_vm._v(" "),_c('hr')])])}
+__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"col-sm-12 row query-result"},[_c('div',{staticClass:"col-sm-2 query-id"},[_c('h5',{class:[{queryIdMedia: _vm.isAudio || _vm.isImage }],on:{"click":function($event){_vm.showMedia()}}},[_vm._v(_vm._s(_vm.index + 1))])]),_vm._v(" "),_c('div',{staticClass:"col-sm-10 query-entry"},[_c('h6',[_c('a',{attrs:{"href":_vm.item.url,"target":"_blank"}},[_vm._v(_vm._s(_vm.item.callTypeName))])]),_vm._v(" "),_c('p',[_c('b',[_vm._v("Publisher: ")]),_vm._v(_vm._s(_vm.item.pi)+", "+_vm._s(_vm.item.firstName))]),_vm._v(" "),_c('p',[_vm._v(_vm._s(_vm.convertDate)+" - "+_vm._s(_vm.convertTime))]),_vm._v(" "),_c('p',[_vm._v(_vm._s(_vm.item.groundType)+" - "+_vm._s(_vm.item.regionCountry)+" - "+_vm._s(_vm.item.region))]),_vm._v(" "),_c('p',[_vm._v(_vm._s(_vm.item.sensorType)+" - "+_vm._s(_vm.item.sensorName)+" - "+_vm._s(_vm.item.samplingRate)+"Hz - Q"+_vm._s(_vm.item.quality)+" - "+_vm._s(_vm.getfileType)+"/"+_vm._s(_vm.item.dataFormat))]),_vm._v(" "),(_vm.isShowing && _vm.isAudio)?_c('div',[_c('audio',{attrs:{"controls":""}},[_c('source',{attrs:{"src":_vm.item.url}})])]):_vm._e(),_vm._v(" "),(_vm.isShowing && _vm.isImage)?_c('div',[_c('img',{attrs:{"src":_vm.item.url}})]):_vm._e(),_vm._v(" "),_c('hr')])])}
 __vue__options__.staticRenderFns = []
-__vue__options__._scopeId = "data-v-25365348"
+__vue__options__._scopeId = "data-v-1e73fcaa"
 if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   hotAPI.install(require("vue"), true)
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-25365348", __vue__options__)
+    hotAPI.createRecord("data-v-1e73fcaa", __vue__options__)
   } else {
-    hotAPI.reload("data-v-25365348", __vue__options__)
+    hotAPI.reload("data-v-1e73fcaa", __vue__options__)
   }
 })()}
-},{"vue":3,"vue-hot-reload-api":2}],2:[function(require,module,exports){
+},{"vue":4,"vue-hot-reload-api":3}],2:[function(require,module,exports){
+;(function(){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+
+Vue.component('q-entry', require('../entry/q-entry.vue'));
+
+exports.default = {
+    name: "map-component",
+    data: function data() {
+        return {
+            map: null,
+            navState: true,
+            descState: false,
+            queryData: []
+        };
+    },
+    mounted: function mounted() {
+        var latLng = new google.maps.LatLng(47.6062, -122.3321);
+        var mapOptions = {
+            zoom: 3,
+            center: latLng,
+            mapTypeId: google.maps.MapTypeId.SATELLITE,
+
+            panControl: false,
+            streetViewControl: false,
+
+            mapTypeControlOptions: { mapTypeIds: [] }
+
+        };
+        this.map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+    },
+    methods: {
+        toggleMenu: function toggleMenu() {
+            this.navState = !this.navState;
+        },
+        makeQuery: function makeQuery(event) {
+            var self = this;
+            $.ajax({
+                dataType: "json",
+                url: "query/metadata?all",
+                timeout: 10000,
+                success: function success(response) {
+                    self.queryData.push.apply(self.queryData, response.result);
+                },
+                error: function error() {
+                    alert("Unable to read data from: " + "query/metadata?all");
+                }
+            });
+        }
+    }
+};
+})()
+if (module.exports.__esModule) module.exports = module.exports.default
+var __vue__options__ = (typeof module.exports === "function"? module.exports.options: module.exports)
+if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
+__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"container",attrs:{"id":"map-container"}},[_c('div',{class:{ showNav: _vm.navState},attrs:{"id":"site-wrapper"}},[_c('div',{attrs:{"id":"site-canvas"}},[_c('div',{attrs:{"id":"site-menu"}},[_c('div',{staticClass:"row text-center"},[_vm._m(0),_vm._v(" "),_vm._m(1),_vm._v(" "),_c('div',{staticClass:"col-sm-6"},[_c('button',{staticClass:"btn btn-secondary",attrs:{"type":"button","aria-haspopup":"true","aria-expanded":"false"},on:{"click":function($event){_vm.makeQuery()}}},[_vm._v("\n                            Sort By\n                        ")])])]),_vm._v(" "),_c('hr'),_vm._v(" "),_c('div',{staticClass:"row text-center",attrs:{"id":"query-container"}},_vm._l((_vm.queryData),function(query,index){return _c('q-entry',{attrs:{"item":query,"index":index}})}))]),_vm._v(" "),_c('div',{staticClass:"navbar-header"},[_c('a',{staticClass:"toggle-nav btn btn-md btn-secondary",attrs:{"href":"#"},on:{"click":function($event){_vm.toggleMenu()}}},[_vm._v("☰")])]),_vm._v(" "),_c('div',{attrs:{"id":"map-canvas"}})])])])}
+__vue__options__.staticRenderFns = [function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"col-sm-12"},[_c('p',[_vm._v("Humpback Whale Social Sound")])])},function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"col-sm-6"},[_c('button',{staticClass:"btn btn-secondary",attrs:{"type":"button","aria-haspopup":"true","aria-expanded":"false"}},[_vm._v("\n                            Edit Category\n                        ")])])}]
+__vue__options__._scopeId = "data-v-2c6090ea"
+if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), true)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-2c6090ea", __vue__options__)
+  } else {
+    hotAPI.reload("data-v-2c6090ea", __vue__options__)
+  }
+})()}
+},{"../entry/q-entry.vue":1,"vue":4,"vue-hot-reload-api":3}],3:[function(require,module,exports){
 var Vue // late bind
 var version
 var map = (window.__VUE_HOT_MAP__ = Object.create(null))
@@ -302,7 +382,7 @@ exports.reload = tryWrap(function (id, options) {
   })
 })
 
-},{}],3:[function(require,module,exports){
+},{}],4:[function(require,module,exports){
 (function (process,global){
 /*!
  * Vue.js v2.5.13
@@ -8229,61 +8309,17 @@ Vue$3.nextTick(function () {
 module.exports = Vue$3;
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"_process":5}],4:[function(require,module,exports){
+},{"_process":6}],5:[function(require,module,exports){
 $(document).ready(function () {
 
-    Vue.component('q-entry', require('../components/q-entry.vue'));
-
+    Vue.component('map-component', require('../components/map/map-component.vue'));
     new Vue({
         el: "#map-container",
-        data: {
-            map: null,
-            navState: true,
-            descState: false,
-            queryData: []
-        },
-        mounted: function () {
-            var latLng = new google.maps.LatLng(47.6062, -122.3321);
-            var mapOptions = {
-                zoom: 3,
-                center: latLng,
-                mapTypeId: google.maps.MapTypeId.SATELLITE,
-
-                // disables the yellow man
-                panControl: false,
-                streetViewControl: false,
-
-                // disables other types of MAP, forces to only use Satellite view
-                mapTypeControlOptions: {mapTypeIds: []}
-
-            };
-            this.map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
-
-        },
-        methods: {
-            toggleMenu: function () {
-                this.navState = !this.navState;
-            },
-            makeQuery: function (event) {
-                var self = this;
-                $.ajax({
-                    dataType: "json",
-                    url: "query/metadata?all",
-                    timeout: 5000,
-                    success: function (response) {
-                        self.queryData.push.apply(self.queryData, response.result);
-                    },
-                    error: function () {
-                        alert("Unable to read data from: " + "query/metadata?all");
-                    }
-                });
-            }
-        }
+        data: {}
 
     });
 });
-
-},{"../components/q-entry.vue":1}],5:[function(require,module,exports){
+},{"../components/map/map-component.vue":2}],6:[function(require,module,exports){
 // shim for using process in browser
 var process = module.exports = {};
 
@@ -8469,4 +8505,4 @@ process.chdir = function (dir) {
 };
 process.umask = function() { return 0; };
 
-},{}]},{},[4]);
+},{}]},{},[5]);

@@ -1,10 +1,9 @@
 $(document).ready(function () {
 
+    Vue.component('map-component', require('../components/map/map-component.vue'));
     new Vue({
-        el: "#app",
-        data: {
-            message: "Hello Beautiful World!"
-        }
+        el: "#map-container",
+        data: {}
 
     });
 });
