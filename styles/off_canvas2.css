@@ -112,11 +112,23 @@ html, body {
     font-weight: normal;
 }
 
+.query-entry h6:hover {
+    color: #2a6d4c;
+    cursor: pointer;
+}
+
 .query-id {
     position: relative;
 }
 
-.query-id h6:hover {
+.query-id h5 {
+    color: #003aa3;
+    font-weight: normal;
+}
+
+
+.queryIdMedia:hover{
+    color: #2a6d4c;
     cursor: pointer;
 }
 
