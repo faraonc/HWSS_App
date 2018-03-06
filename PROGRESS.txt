@@ -77,7 +77,7 @@ conard@Azure:~$ az appservice plan create --name myAppServicePlan --resource-gro
   "workerTierName": null
 }
 
-conard@Azure:~$ az webapp create --resource-group myResourceGroup --plan myAppServicePlan --name TESTWHALE --runtime "NODE|6.9" --deployment-local-git
+conard@Azure:~$ az webapp create --resource-group myResourceGroup --plan myAppServicePlan --name TESTWHALE --runtime "NODE|9.4" --deployment-local-git
 Local git is configured with url of 'https://faraonc@testwhale.scm.azurewebsites.net/TESTWHALE.git'
 {
   "additionalProperties": {},
