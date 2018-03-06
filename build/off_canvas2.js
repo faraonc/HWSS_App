@@ -7,7 +7,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = {
     name: "q-entry",
-    props: ["data", "index"],
+    props: ["item", "index"],
     data: function data() {
         return {
             isShowing: false,
@@ -17,7 +17,7 @@ exports.default = {
     },
     computed: {
         getfileType: function getfileType() {
-            switch (this.data.dataType) {
+            switch (this.item.dataType) {
                 case 'i':
                     this.isImage = true;
                     return "image";
@@ -29,6 +29,12 @@ exports.default = {
                 default:
                     return "other";
             }
+        },
+        convertDate: function convertDate() {
+            var year = this.item.date.toString().substring(0, 4);
+            var month = this.item.date.toString().substring(4, 6);
+            var day = this.item.date.toString().substring(6, 8);
+            return new Date(year, month - 1, day).toDateString();
         }
     },
     methods: {
@@ -41,7 +47,7 @@ exports.default = {
 if (module.exports.__esModule) module.exports = module.exports.default
 var __vue__options__ = (typeof module.exports === "function"? module.exports.options: module.exports)
 if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
-__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"col-sm-12 row query-result"},[_c('div',{staticClass:"col-sm-2 query-id"},[_c('h5',{class:[{queryIdMedia: _vm.isAudio || _vm.isImage }],on:{"click":function($event){_vm.showMedia()}}},[_vm._v(_vm._s(_vm.index + 1))])]),_vm._v(" "),_c('div',{staticClass:"col-sm-10 query-entry"},[_c('h6',[_c('a',{attrs:{"href":_vm.data.url,"target":"_blank"}},[_vm._v(_vm._s(_vm.data.callTypeName))])]),_vm._v(" "),_c('p',[_c('b',[_vm._v("Contributor: ")]),_vm._v(_vm._s(_vm.data.pi)+", "+_vm._s(_vm.data.firstName))]),_vm._v(" "),_c('p',[_vm._v(_vm._s(_vm.data.date)+" - "+_vm._s(_vm.data.time))]),_vm._v(" "),_c('p',[_vm._v(_vm._s(_vm.data.groundType)+" - "+_vm._s(_vm.data.regionCountry)+" - "+_vm._s(_vm.data.region))]),_vm._v(" "),_c('p',[_vm._v(_vm._s(_vm.data.sensorType)+" - "+_vm._s(_vm.data.sensorName)+" - "+_vm._s(_vm.data.samplingRate)+"Hz - "+_vm._s(_vm.data.quality)+" - "+_vm._s(_vm.getfileType)+"/"+_vm._s(_vm.data.dataFormat))]),_vm._v(" "),(_vm.isShowing && _vm.isAudio)?_c('div',[_c('audio',{attrs:{"controls":""}},[_c('source',{attrs:{"src":_vm.data.url}})])]):_vm._e(),_vm._v(" "),(_vm.isShowing && _vm.isImage)?_c('div',[_c('img',{attrs:{"src":_vm.data.url}})]):_vm._e(),_vm._v(" "),_c('hr')])])}
+__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"col-sm-12 row query-result"},[_c('div',{staticClass:"col-sm-2 query-id"},[_c('h5',{class:[{queryIdMedia: _vm.isAudio || _vm.isImage }],on:{"click":function($event){_vm.showMedia()}}},[_vm._v(_vm._s(_vm.index + 1))])]),_vm._v(" "),_c('div',{staticClass:"col-sm-10 query-entry"},[_c('h6',[_c('a',{attrs:{"href":_vm.item.url,"target":"_blank"}},[_vm._v(_vm._s(_vm.item.callTypeName))])]),_vm._v(" "),_c('p',[_c('b',[_vm._v("Publisher: ")]),_vm._v(_vm._s(_vm.item.pi)+", "+_vm._s(_vm.item.firstName))]),_vm._v(" "),_c('p',[_vm._v(_vm._s(_vm.convertDate)+" - "+_vm._s(_vm.item.time))]),_vm._v(" "),_c('p',[_vm._v(_vm._s(_vm.item.groundType)+" - "+_vm._s(_vm.item.regionCountry)+" - "+_vm._s(_vm.item.region))]),_vm._v(" "),_c('p',[_vm._v(_vm._s(_vm.item.sensorType)+" - "+_vm._s(_vm.item.sensorName)+" - "+_vm._s(_vm.item.samplingRate)+" Hz - Q"+_vm._s(_vm.item.quality)+" - "+_vm._s(_vm.getfileType)+"/"+_vm._s(_vm.item.dataFormat))]),_vm._v(" "),(_vm.isShowing && _vm.isAudio)?_c('div',[_c('audio',{attrs:{"controls":""}},[_c('source',{attrs:{"src":_vm.item.url}})])]):_vm._e(),_vm._v(" "),(_vm.isShowing && _vm.isImage)?_c('div',[_c('img',{attrs:{"src":_vm.item.url}})]):_vm._e(),_vm._v(" "),_c('hr')])])}
 __vue__options__.staticRenderFns = []
 __vue__options__._scopeId = "data-v-25365348"
 if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")

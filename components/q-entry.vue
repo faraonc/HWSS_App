@@ -6,22 +6,22 @@
         </div>
 
         <div class="col-sm-10 query-entry">
-            <h6><a :href="data.url" target="_blank">{{ data.callTypeName }}</a></h6>
-            <p><b>Contributor: </b>{{ data.pi }}, {{ data.firstName }}</p>
-            <p>{{ data.date }} - {{ data.time }}</p>
-            <p>{{ data.groundType }} - {{ data.regionCountry }} - {{ data.region }}</p>
-            <p>{{ data.sensorType }} - {{ data.sensorName }} - {{ data.samplingRate }}Hz - {{ data.quality }} - {{
-                getfileType }}/{{ data.dataFormat
+            <h6><a :href="item.url" target="_blank">{{ item.callTypeName }}</a></h6>
+            <p><b>Publisher: </b>{{ item.pi }}, {{ item.firstName }}</p>
+            <p>{{ convertDate }} - {{ item.time }}</p>
+            <p>{{ item.groundType }} - {{ item.regionCountry }} - {{ item.region }}</p>
+            <p>{{ item.sensorType }} - {{ item.sensorName }} - {{ item.samplingRate }} Hz - Q{{ item.quality }} - {{
+                getfileType }}/{{ item.dataFormat
                 }}</p>
 
             <div v-if="isShowing && isAudio">
                 <audio controls>
-                    <source :src="data.url">
+                    <source :src="item.url">
                 </audio>
             </div>
 
             <div v-if="isShowing && isImage">
-                <img :src="data.url">
+                <img :src="item.url">
             </div>
 
 
@@ -34,7 +34,7 @@
     // noinspection JSAnnotator
     export default {
         name: "q-entry",
-        props: ["data", "index"],
+        props: ["item", "index"],
         data: function () {
             return {
                 isShowing: false,
@@ -44,7 +44,7 @@
         },
         computed: {
             getfileType: function () {
-                switch (this.data.dataType) {
+                switch (this.item.dataType) {
                     case 'i':
                         this.isImage = true;
                         return "image";
@@ -56,6 +56,12 @@
                     default:
                         return "other"
                 }
+            },
+            convertDate: function(){
+                var year        = this.item.date.toString().substring(0,4);
+                var month       = this.item.date.toString().substring(4,6);
+                var day         = this.item.date.toString().substring(6,8);
+                return new Date(year, month-1, day).toDateString();
             }
         },
         methods: {

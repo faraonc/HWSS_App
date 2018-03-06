@@ -113,7 +113,7 @@ html, body {
 }
 
 .query-entry h6:hover {
-    color: #2a6d4c;
+    color: #45be87;
     cursor: pointer;
 }
 
@@ -126,9 +126,8 @@ html, body {
     font-weight: normal;
 }
 
-
-.queryIdMedia:hover{
-    color: #2a6d4c;
+.queryIdMedia:hover {
+    color: #45be87;
     cursor: pointer;
 }
 
