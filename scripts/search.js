@@ -1,7 +1,7 @@
 jQuery(document).ready(function($){
 
 
-    Vue.component('search-page', require('../components/search-page.vue'));
+    Vue.component('search-page', require('../components/search/search-page.vue'));
 
     // var CACHED_DB;  // TODO cached DB variable, the WHOLE database, use query later
 

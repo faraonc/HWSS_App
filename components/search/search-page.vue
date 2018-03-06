@@ -40,7 +40,7 @@
 </template>
 
 <script>
-    import AddCategoryButton from '../components/search/add-category-button.vue';
+    import AddCategoryButton from './add-category-button.vue';
     export default {
         components: {AddCategoryButton},
         name: "search-page",
