@@ -97,30 +97,44 @@ html, body {
 }
 
 /*Query Entry*/
-.query-entry{
+.query-entry {
     text-align: left;
     line-height: 0.4em;
 }
 
-.query-entry a{
-    color: black;
-}
-
-.query-entry{
+.query-entry {
     line-height: 0.4em;
     font-size: small;
 }
 
-.query-entry h6{
+.query-entry h6 {
     color: #003aa3;
     font-weight: normal;
 }
 
-.query-id{
-    position: relative;
-}
-
-.query-id h6:hover{
+.query-entry h6:hover {
+    color: #2a6d4c;
     cursor: pointer;
 }
 
+.query-id {
+    position: relative;
+}
+
+.query-id h5 {
+    color: #003aa3;
+    font-weight: normal;
+}
+
+
+.queryIdMedia:hover{
+    color: #2a6d4c;
+    cursor: pointer;
+}
+
+#query-container {
+    overflow: auto;
+    /*TODO fix max-height for variable number of queries*/
+    max-height: 83vh;
+    padding-bottom: 5px;
+}
