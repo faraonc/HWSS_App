@@ -16,9 +16,6 @@
 
     export default {
         name: "add-publisher",
-        created: function() {
-            this.$root.categoryAddedByUser.add(this.$options.name);
-        },
         data: function () {
             return {
                 search: '',

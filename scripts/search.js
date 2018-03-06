@@ -1,35 +1,13 @@
 jQuery(document).ready(function($){
 
-    Vue.component('add-category-button', require('../components/search/add-category-button.vue'));
 
-    var CACHED_DB;  // TODO cached DB variable, the WHOLE database, use query later
+    Vue.component('search-page', require('../components/search-page.vue'));
+
+    // var CACHED_DB;  // TODO cached DB variable, the WHOLE database, use query later
 
     // TODO implement date last, this one is tricky
     var vue = new Vue({
         el: '#searchPage',
-        created: function() {
-            var self = this;
-            self.addCategoryBtnMsg = 'Processing...';
-            self.disableSearch = true;
-            self.disableCategoryBtn = true;
-            self.loadingCategories = true;
-            $.ajax({
-                url: "query/metadata?all",
-                dataType: "json",
-                timeout: 5000,
-                success: function(result) {
-                    CACHED_DB = result.result;
-                    self.parseData();
-                    self.loadingCategories = false;
-                    self.disableSearch = false;
-                    self.disableCategoryBtn = false;
-                    self.addCategoryBtnMsg = 'Add Category';
-                },
-                error: function() {
-                    console.log('error with quering DB, consult conard :)')
-                }
-            })
-        },
         data: {
             categories: [
                 {name: 'Publishers', component: 'add-publisher'},
@@ -39,6 +17,7 @@ jQuery(document).ready(function($){
                 {name: 'Regions', component: 'add-region'},
                 {name: 'Sampling Rates', component: 'add-sampling-rate'}
             ],
+            CACHED_DB: {},
             addCategoryBtnMsg: '',
             errorMsg: '',
             selectedCategories: [],
@@ -91,7 +70,7 @@ jQuery(document).ready(function($){
                 var temp_regions = new Set();
                 var temp_sampling_rate = new Set();
 
-                CACHED_DB.forEach(function(currObj){
+                this.CACHED_DB.forEach(function(currObj){
                     var temp_publishers = {};
 
                     temp_publishers['firstName'] = currObj.firstName;

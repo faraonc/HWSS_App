@@ -14,9 +14,6 @@
 <script>
     export default {
         name: "add-sampling-rate",
-        created: function() {
-            this.$root.categoryAddedByUser.add(this.$options.name);
-        },
         data: function() {
             return {
                 search: '',
