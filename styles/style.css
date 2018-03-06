@@ -137,3 +137,8 @@ html, body {
     max-height: 83vh;
     padding-bottom: 5px;
 }
+
+img{
+    height: 200px;
+    width: 350px;
+}

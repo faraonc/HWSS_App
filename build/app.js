@@ -102,6 +102,13 @@ exports.default = {
 
         };
         this.map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+
+        var uluru = { lat: -14.900935, lng: -6.579443 };
+        var theMap = this.map;
+        var marker = new google.maps.Marker({
+            position: uluru,
+            map: theMap
+        });
     },
     methods: {
         toggleMenu: function toggleMenu() {
@@ -8313,6 +8320,7 @@ module.exports = Vue$3;
 $(document).ready(function () {
 
     Vue.component('map-component', require('../components/map/map-component.vue'));
+
     new Vue({
         el: "#map-container",
         data: {}
