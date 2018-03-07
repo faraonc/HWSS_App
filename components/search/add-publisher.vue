@@ -6,7 +6,7 @@
         <label v-for="publisher in filteredPublishers">
             <li class="dropdown-item">
                 <input type="checkbox"
-                       v-on:click="checkedPublisher(publisher)">{{publisher.lastName}}, {{publisher.firstName}}
+                       @click="processSelection(publisher)">{{publisher.lastName}}, {{publisher.firstName}}
             </li>
         </label>
     </span>
@@ -16,6 +16,7 @@
 
     export default {
         name: "add-publisher",
+        props: ['itemList'],
         data: function () {
             return {
                 search: '',
@@ -24,15 +25,15 @@
         },
         computed: {
             filteredPublishers: function () {
-                return _.orderBy(this.$root.publishers, 'lastName').filter( name => {
+                return _.orderBy(this.itemList, 'lastName').filter( name => {
                     return name.firstName.toLowerCase().includes(this.search.toLowerCase()) ||
                     name.lastName.toLowerCase().includes(this.search.toLowerCase())
                 });
             }
         },
         methods: {
-            checkedPublisher: function (publisher) {
-                this.$root.processSelected("publishers", this.selectedPublishers, publisher)
+            processSelection: function(publisher) {
+                this.$emit('checkedItem', "publishers", this.selectedPublishers, publisher)
             }
         }
     }

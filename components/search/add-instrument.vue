@@ -5,7 +5,7 @@
         </div>
         <label v-for="instrument in orderedInstruments">
             <li class="dropdown-item" >
-                <input type="checkbox" v-on:click="checkedInstrument(instrument)">{{instrument}}
+                <input type="checkbox" @click="processSelection(instrument)">{{instrument}}
             </li>
         </label>
     </span>
@@ -14,6 +14,7 @@
 <script>
     export default {
         name: "add-instrument",
+        props: ['itemList'],
         data: function() {
             return {
                 search: '',
@@ -22,14 +23,14 @@
         },
         computed: {
             orderedInstruments: function() {
-                return this.$root.instruments.sort().filter(instrument => {
+                return this.itemList.sort().filter(instrument => {
                     return instrument.toLowerCase().includes(this.search.toLowerCase());
                 });
             }
         },
         methods: {
-            checkedInstrument: function(instrument) {
-                this.$root.processSelected("instruments", this.selectedInstruments, instrument)
+            processSelection: function(instrument) {
+                this.$emit('checkedItem', "instruments", this.selectedInstruments, instrument)
             }
         }
     }

@@ -5,7 +5,7 @@
         </div>
         <label v-for="samplingRate in filteredSamplingRates">
             <li class="dropdown-item" >
-                <input type="checkbox" v-on:click="checkedSamplingRate(samplingRate)">{{samplingRate}}
+                <input type="checkbox" @click="processSelection(samplingRate)">{{samplingRate}}
             </li>
         </label>
     </span>
@@ -14,6 +14,7 @@
 <script>
     export default {
         name: "add-sampling-rate",
+        props: ['itemList'],
         data: function() {
             return {
                 search: '',
@@ -22,12 +23,12 @@
         },
         computed: {
             filteredSamplingRates: function() {
-                return _.sortBy(this.$root.samplingRates).filter(rates => rates.toString().includes(this.search))
+                return _.sortBy(this.itemList).filter(rates => rates.toString().includes(this.search))
             }
         },
         methods: {
-            checkedSamplingRate: function(samplingRate) {
-                this.$root.processSelected("samplingRates", this.selectedSamplingRates, samplingRate);
+            processSelection: function(samplingRate) {
+                this.$emit('checkedItem', "samplingRates", this.selectedSamplingRates, samplingRate)
             }
         }
     }

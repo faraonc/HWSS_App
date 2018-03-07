@@ -5,7 +5,7 @@
         </div>
         <label v-for="region in orderedRegions">
             <li class="dropdown-item" >
-                <input type="checkbox" v-on:click="checkedRegion(region)">{{region}}
+                <input type="checkbox" @click="processSelection(region)">{{region}}
             </li>
         </label>
     </span>
@@ -14,6 +14,7 @@
 <script>
     export default {
         name: "add-region",
+        props: ['itemList'],
         data: function() {
             return {
                 search: '',
@@ -22,14 +23,14 @@
         },
         computed: {
             orderedRegions: function() {
-                return this.$root.regions.sort().filter(region => {
+                return this.itemList.sort().filter(region => {
                     return region.toLowerCase().includes(this.search.toLowerCase());
                 });
             }
         },
         methods: {
-            checkedRegion: function(region) {
-                this.$root.processSelected("regions", this.selectedRegions, region)
+            processSelection: function(region) {
+                this.$emit('checkedItem', "regions", this.selectedRegions, region)
             }
         }
     }

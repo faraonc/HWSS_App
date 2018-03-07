@@ -10,17 +10,20 @@
     <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
 
     <!-- Our CSS -->
-    <link rel="stylesheet" href="/styles/search.css">
+    <!--<link rel="stylesheet" href="/styles/search.css">-->
+    <link rel="stylesheet" href="/styles/style.css">
 
     <!-- VueJS, GoogleMap API-->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.13/vue.min.js"
-            integrity="sha256-1Q2q5hg2YXp9fYlM++sIEXOcUb8BRSDUsQ1zXvLBqmA=" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
     <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyAR-_taeP2epYEzKnldn4xY-2Ek3gJr0oY"></script>
 </head>
 <body>
 <!------------------------------------ START -------------------------------------->
-    <div class="container" id="searchPage">
-        <search-page></search-page>
+
+
+    <div class="container" id="app">
+        <router-view></router-view>
     </div>
 
 
@@ -39,6 +42,5 @@
 <!-- Our scripts -->
 <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.5/lodash.min.js"></script>
 <script src="/build/build.js"></script>
-
 </body>
 </html>

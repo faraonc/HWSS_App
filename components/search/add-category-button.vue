@@ -1,6 +1,6 @@
 <template>
     <div class="added-category">
-        <delete-button v-bind:category="category"></delete-button>
+        <delete-button v-bind:category="category" @delete="$emit('delete', $event)"></delete-button>
         <!--<my-component v-bind:is="component"></my-component>-->
 
         <div class="multi-select-dropdown btn-group">
@@ -8,7 +8,7 @@
 
             <ul class="dropdown-menu" v-on:click="$event.stopPropagation()">
 
-                <my-component v-bind:is="component"></my-component>
+                <my-component v-bind:is="component" v-bind:itemList="itemList" @checkedItem="processSelection"></my-component>
 
             </ul>
         </div>
@@ -27,7 +27,12 @@
     export default {
         components: {DeleteButton, SelectButton, AddPublisher, AddFileType, AddInstrument, AddRegion, AddSamplingRate},
         name: "add-category-button",
-        props: ['category', 'component']
+        props: ['category', 'component', 'itemList'],
+        methods: {
+            processSelection: function(categoryType, currentSet, selectedItem) {
+                this.$emit('checkedItem', categoryType, currentSet, selectedItem);
+            }
+        }
     }
 </script>
 
