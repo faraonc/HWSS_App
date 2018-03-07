@@ -67,7 +67,7 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
     hotAPI.reload("data-v-7489a86d", __vue__options__)
   }
 })()}
-},{"vue":13,"vue-hot-reload-api":12}],2:[function(require,module,exports){
+},{"vue":14,"vue-hot-reload-api":13}],2:[function(require,module,exports){
 ;(function(){
 'use strict';
 
@@ -80,12 +80,14 @@ Vue.component('q-entry', require('../entry/q-entry.vue'));
 
 exports.default = {
     name: "map-component",
+    prop: ['queries'],
     data: function data() {
         return {
             map: null,
             navState: true,
             descState: false,
-            queryData: []
+            queryData: [],
+            queries: {}
         };
     },
     mounted: function mounted() {
@@ -116,6 +118,7 @@ exports.default = {
         },
         makeQuery: function makeQuery(event) {
             var self = this;
+            console.log("made it: ", this.$route.params.queries);
             $.ajax({
                 dataType: "json",
                 url: "query/metadata?all",
@@ -147,7 +150,36 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
     hotAPI.reload("data-v-01fe2d4d", __vue__options__)
   }
 })()}
-},{"../entry/q-entry.vue":1,"vue":13,"vue-hot-reload-api":12}],3:[function(require,module,exports){
+},{"../entry/q-entry.vue":1,"vue":14,"vue-hot-reload-api":13}],3:[function(require,module,exports){
+var __vueify_style_dispose__ = require("vueify/lib/insert-css").insert("h1[data-v-06ab6908] {\n    text-align: center;\n    margin-top: 100px;\n}")
+;(function(){
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.default = {
+    name: "not-found"
+};
+})()
+if (module.exports.__esModule) module.exports = module.exports.default
+var __vue__options__ = (typeof module.exports === "function"? module.exports.options: module.exports)
+if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
+__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _vm._m(0)}
+__vue__options__.staticRenderFns = [function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',[_c('h1',[_vm._v("Page Not Found")])])}]
+__vue__options__._scopeId = "data-v-06ab6908"
+if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), true)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  module.hot.dispose(__vueify_style_dispose__)
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-06ab6908", __vue__options__)
+  } else {
+    hotAPI.reload("data-v-06ab6908", __vue__options__)
+  }
+})()}
+},{"vue":14,"vue-hot-reload-api":13,"vueify/lib/insert-css":15}],4:[function(require,module,exports){
 var __vueify_style_dispose__ = require("vueify/lib/insert-css").insert("button[data-v-19e90d0a] {\n    cursor:pointer;\n}\n.added-category[data-v-19e90d0a] {\n    text-align: left;\n    margin: 0 auto 20px auto;\n    max-width: 343px;\n}")
 ;(function(){
 'use strict';
@@ -214,7 +246,7 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
     hotAPI.reload("data-v-19e90d0a", __vue__options__)
   }
 })()}
-},{"./add-file-type.vue":4,"./add-instrument.vue":5,"./add-publisher.vue":6,"./add-region.vue":7,"./add-sampling-rate.vue":8,"./delete-button.vue":9,"./select-button.vue":11,"vue":13,"vue-hot-reload-api":12,"vueify/lib/insert-css":14}],4:[function(require,module,exports){
+},{"./add-file-type.vue":5,"./add-instrument.vue":6,"./add-publisher.vue":7,"./add-region.vue":8,"./add-sampling-rate.vue":9,"./delete-button.vue":10,"./select-button.vue":12,"vue":14,"vue-hot-reload-api":13,"vueify/lib/insert-css":15}],5:[function(require,module,exports){
 ;(function(){
 'use strict';
 
@@ -263,7 +295,7 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
     hotAPI.reload("data-v-252686d4", __vue__options__)
   }
 })()}
-},{"vue":13,"vue-hot-reload-api":12}],5:[function(require,module,exports){
+},{"vue":14,"vue-hot-reload-api":13}],6:[function(require,module,exports){
 ;(function(){
 'use strict';
 
@@ -311,7 +343,7 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
     hotAPI.reload("data-v-17c76c4e", __vue__options__)
   }
 })()}
-},{"vue":13,"vue-hot-reload-api":12}],6:[function(require,module,exports){
+},{"vue":14,"vue-hot-reload-api":13}],7:[function(require,module,exports){
 ;(function(){
 'use strict';
 
@@ -359,7 +391,7 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
     hotAPI.reload("data-v-727c6f65", __vue__options__)
   }
 })()}
-},{"vue":13,"vue-hot-reload-api":12}],7:[function(require,module,exports){
+},{"vue":14,"vue-hot-reload-api":13}],8:[function(require,module,exports){
 ;(function(){
 'use strict';
 
@@ -407,7 +439,7 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
     hotAPI.reload("data-v-3b2a3f4a", __vue__options__)
   }
 })()}
-},{"vue":13,"vue-hot-reload-api":12}],8:[function(require,module,exports){
+},{"vue":14,"vue-hot-reload-api":13}],9:[function(require,module,exports){
 ;(function(){
 'use strict';
 
@@ -455,7 +487,7 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
     hotAPI.reload("data-v-4bc44222", __vue__options__)
   }
 })()}
-},{"vue":13,"vue-hot-reload-api":12}],9:[function(require,module,exports){
+},{"vue":14,"vue-hot-reload-api":13}],10:[function(require,module,exports){
 var __vueify_style_dispose__ = require("vueify/lib/insert-css").insert(".btn-danger[data-v-44deeb29] {\n    cursor: pointer;\n    margin-right: 10px;\n}\n.category[data-v-44deeb29] {\n    width: 182px;\n}")
 ;(function(){
 "use strict";
@@ -485,15 +517,15 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
     hotAPI.reload("data-v-44deeb29", __vue__options__)
   }
 })()}
-},{"vue":13,"vue-hot-reload-api":12,"vueify/lib/insert-css":14}],10:[function(require,module,exports){
+},{"vue":14,"vue-hot-reload-api":13,"vueify/lib/insert-css":15}],11:[function(require,module,exports){
 ;(function(){
-'use strict';
+"use strict";
 
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _addCategoryButton = require('./add-category-button.vue');
+var _addCategoryButton = require("./add-category-button.vue");
 
 var _addCategoryButton2 = _interopRequireDefault(_addCategoryButton);
 
@@ -503,6 +535,7 @@ exports.default = {
     components: { AddCategoryButton: _addCategoryButton2.default },
     name: "search-page",
     created: function created() {
+        console.log("created#@%RWEFSFSDFDSFDSFDSFDSFDS");
         var self = this;
         self.addCategoryBtnMsg = 'Processing...';
         self.disableSearch = true;
@@ -671,7 +704,7 @@ exports.default = {
                 this.errorMsg = '*Please select: ' + needToSelect.join(', ');
             } else {
                 this.errorMsg = '';
-                this.$router.push('/map');
+                this.$router.push({ name: 'map', params: { queries: this.queries } });
             }
         }
     }
@@ -693,7 +726,7 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
     hotAPI.reload("data-v-5b0f0869", __vue__options__)
   }
 })()}
-},{"./add-category-button.vue":3,"vue":13,"vue-hot-reload-api":12}],11:[function(require,module,exports){
+},{"./add-category-button.vue":4,"vue":14,"vue-hot-reload-api":13}],12:[function(require,module,exports){
 ;(function(){
 "use strict";
 
@@ -720,7 +753,7 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
     hotAPI.reload("data-v-c8efa190", __vue__options__)
   }
 })()}
-},{"vue":13,"vue-hot-reload-api":12}],12:[function(require,module,exports){
+},{"vue":14,"vue-hot-reload-api":13}],13:[function(require,module,exports){
 var Vue // late bind
 var version
 var map = (window.__VUE_HOT_MAP__ = Object.create(null))
@@ -962,7 +995,7 @@ exports.reload = tryWrap(function (id, options) {
   })
 })
 
-},{}],13:[function(require,module,exports){
+},{}],14:[function(require,module,exports){
 (function (process,global){
 /*!
  * Vue.js v2.5.13
@@ -8889,7 +8922,7 @@ Vue$3.nextTick(function () {
 module.exports = Vue$3;
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"_process":16}],14:[function(require,module,exports){
+},{"_process":17}],15:[function(require,module,exports){
 var inserted = exports.cache = {}
 
 function noop () {}
@@ -8914,32 +8947,30 @@ exports.insert = function (css) {
   }
 }
 
-},{}],15:[function(require,module,exports){
+},{}],16:[function(require,module,exports){
 
 jQuery(document).ready(function($){
 
-    const routes = [
-        {path:'/map', component: Vue.component('map-component', require('../components/map/map-component.vue')) },
-        {path:'/search', component: Vue.component('search-page', require('../components/search/search-page.vue')) }
-
-    ];
-
     const router = new VueRouter({
-        routes
+        // mode: 'history',
+        routes: [
+            {path:'/map', name: 'map', component: Vue.component('map-component', require('../components/map/map-component.vue')), props: true },
+            {path:'', component: Vue.component('search-page', require('../components/search/search-page.vue')) },
+            {path:'*', component: Vue.component('not-found', require('../components/not-found.vue'))}
+        ]
     });
 
     // var CACHED_DB;  // TODO cached DB variable, the WHOLE database, use query later?
 
-    // TODO implement date last, this one is tricky
     var vue = new Vue({
         router,
         created: function() {
-            this.$router.push('/search');
+            this.$router.push('');
         }
     }).$mount('#app');
 
 }); // end of jquery ready document
-},{"../components/map/map-component.vue":2,"../components/search/search-page.vue":10}],16:[function(require,module,exports){
+},{"../components/map/map-component.vue":2,"../components/not-found.vue":3,"../components/search/search-page.vue":11}],17:[function(require,module,exports){
 // shim for using process in browser
 var process = module.exports = {};
 
@@ -9125,4 +9156,4 @@ process.chdir = function (dir) {
 };
 process.umask = function() { return 0; };
 
-},{}]},{},[15]);
+},{}]},{},[16]);

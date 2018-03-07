@@ -138,7 +138,7 @@ html, body {
     padding-bottom: 5px;
 }
 
-img{
+#map-container img{
     height: 200px;
     width: 350px;
 }

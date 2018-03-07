@@ -1,6 +1,5 @@
 <template>
     <div id="map-container" class="container">
-
         <!--Do not change showNav to show-nav, VueJS has a bug.-->
         <div id="site-wrapper" :class="{ showNav: navState}">
 
@@ -62,12 +61,14 @@
     export default {
         //TODO enclose component with ID #map-container
         name: "map-component",
+        prop: ['queries'],
         data: function () {
             return {
                 map: null,
                 navState: true,
                 descState: false,
-                queryData: []
+                queryData: [],
+                queries: {}
             }
         },
         mounted: function () {
@@ -101,6 +102,7 @@
             },
             makeQuery: function (event) {
                 var self = this;
+                console.log("made it: ", this.$route.params.queries)
                 $.ajax({
                     dataType: "json",
                     url: "query/metadata?all",
