@@ -8920,7 +8920,7 @@ jQuery(document).ready(function($){
 
     const routes = [
         {path:'/map', component: Vue.component('map-component', require('../components/map/map-component.vue')) },
-        {path:'/search', component: Vue.component('search-page', require('../components/search/search-page.vue')) }
+        {path:'/', component: Vue.component('search-page', require('../components/search/search-page.vue')) }
 
     ];
 
