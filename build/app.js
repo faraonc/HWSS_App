@@ -26,7 +26,7 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
     hotAPI.reload("data-v-1890430f", __vue__options__)
   }
 })()}
-},{"vue":15,"vue-hot-reload-api":14}],2:[function(require,module,exports){
+},{"vue":16,"vue-hot-reload-api":15}],2:[function(require,module,exports){
 ;(function(){
 'use strict';
 
@@ -40,7 +40,7 @@ Vue.component('q-image', require('./q-image.vue'));
 
 exports.default = {
     name: "q-entry",
-    props: ["item", "index"],
+    props: ["item", "index", "start", "end", "markers"],
     data: function data() {
         return {
             isShowing: false,
@@ -89,6 +89,10 @@ exports.default = {
         },
         qEntryNormalize: function qEntryNormalize(string) {
             return string.replace(/([A-Z])/g, ' $1');
+        },
+        goToMarker: function goToMarker() {
+            google.maps.event.trigger(this.markers[this.index], 'center');
+            google.maps.event.trigger(this.markers[this.index], 'click');
         }
     }
 };
@@ -96,7 +100,7 @@ exports.default = {
 if (module.exports.__esModule) module.exports = module.exports.default
 var __vue__options__ = (typeof module.exports === "function"? module.exports.options: module.exports)
 if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
-__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"col-sm-12 row query-result"},[_c('div',{staticClass:"col-sm-2 query-id"},[_c('h5',[_vm._v(_vm._s(_vm.index + 1))])]),_vm._v(" "),_c('div',{staticClass:"col-sm-10 query-entry"},[_c('h6',{on:{"click":function($event){_vm.showMedia()}}},[_vm._v(_vm._s(_vm.item.callTypeName))]),_vm._v(" "),_c('p',[_c('b',[_vm._v("Publisher: ")]),_vm._v(_vm._s(_vm.item.pi)+", "+_vm._s(_vm.item.firstName))]),_vm._v(" "),_c('p',[_vm._v(_vm._s(_vm.convertDate))]),_vm._v(" "),_c('p',[_vm._v(_vm._s(_vm.qEntryNormalize(_vm.item.groundType))+" - "+_vm._s(_vm.qEntryNormalize(_vm.item.regionCountry))+" - "+_vm._s(_vm.item.region))]),_vm._v(" "),_c('p',[_vm._v(_vm._s(_vm.item.sensorType)+" - "+_vm._s(_vm.item.sensorName)+" - "+_vm._s(_vm.item.samplingRate)+"Hz - Q"+_vm._s(_vm.item.quality)+" - "+_vm._s(_vm.extractMedia))]),_vm._v(" "),(_vm.isShowing)?_c('div',[_vm._l((_vm.item.audio_url),function(audio){return _c('q-audio',{attrs:{"audio":audio}})}),_vm._v(" "),_vm._l((_vm.item.image_url),function(image){return _c('q-image',{attrs:{"image":image}})})],2):_vm._e(),_vm._v(" "),_c('hr')])])}
+__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"col-sm-12 row query-result"},[_c('div',{staticClass:"col-sm-2 query-id"},[_c('h5',{on:{"click":function($event){_vm.goToMarker()}}},[_vm._v(_vm._s(_vm.start + _vm.index + 1))])]),_vm._v(" "),_c('div',{staticClass:"col-sm-10 query-entry"},[_c('h6',{on:{"click":function($event){_vm.showMedia()}}},[_vm._v(_vm._s(_vm.item.callTypeName))]),_vm._v(" "),_c('p',[_c('b',[_vm._v("Publisher: ")]),_vm._v(_vm._s(_vm.item.pi)+", "+_vm._s(_vm.item.firstName))]),_vm._v(" "),_c('p',[_vm._v(_vm._s(_vm.convertDate))]),_vm._v(" "),_c('p',[_vm._v(_vm._s(_vm.qEntryNormalize(_vm.item.groundType))+" - "+_vm._s(_vm.qEntryNormalize(_vm.item.regionCountry))+" - "+_vm._s(_vm.item.region))]),_vm._v(" "),_c('p',[_vm._v(_vm._s(_vm.item.sensorType)+" - "+_vm._s(_vm.item.sensorName)+" - "+_vm._s(_vm.item.samplingRate)+"Hz - Q"+_vm._s(_vm.item.quality)+" - "+_vm._s(_vm.extractMedia))]),_vm._v(" "),(_vm.isShowing)?_c('div',[_vm._l((_vm.item.audio_url),function(audio){return _c('q-audio',{attrs:{"audio":audio}})}),_vm._v(" "),_vm._l((_vm.item.image_url),function(image){return _c('q-image',{attrs:{"image":image}})})],2):_vm._e(),_vm._v(" "),_c('hr')])])}
 __vue__options__.staticRenderFns = []
 __vue__options__._scopeId = "data-v-1e73fcaa"
 if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
@@ -109,7 +113,7 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
     hotAPI.reload("data-v-1e73fcaa", __vue__options__)
   }
 })()}
-},{"./q-audio.vue":1,"./q-image.vue":3,"vue":15,"vue-hot-reload-api":14}],3:[function(require,module,exports){
+},{"./q-audio.vue":1,"./q-image.vue":3,"vue":16,"vue-hot-reload-api":15}],3:[function(require,module,exports){
 ;(function(){
 "use strict";
 
@@ -137,7 +141,7 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
     hotAPI.reload("data-v-4dfdf3d8", __vue__options__)
   }
 })()}
-},{"vue":15,"vue-hot-reload-api":14}],4:[function(require,module,exports){
+},{"vue":16,"vue-hot-reload-api":15}],4:[function(require,module,exports){
 ;(function(){
 'use strict';
 
@@ -150,6 +154,7 @@ Vue.component('q-entry', require('../entry/q-entry.vue'));
 
 exports.default = {
     name: "map-component",
+    prop: ['queries'],
     data: function data() {
         return {
             map: null,
@@ -157,7 +162,10 @@ exports.default = {
             descState: false,
             markerPlaced: false,
             queryData: [],
-            markers: []
+            markers: [],
+            currTen: [],
+            startTen: 0,
+            endTen: 10
         };
     },
     mounted: function mounted() {
@@ -183,12 +191,21 @@ exports.default = {
         },
         makeQuery: function makeQuery(event) {
             var self = this;
+            console.log("made it: ", this.$route.params.queries);
+
             $.ajax({
                 dataType: "json",
                 url: "query/metadata?all",
                 timeout: 10000,
                 success: function success(response) {
                     self.queryData.push.apply(self.queryData, response.result);
+                    if (self.queryData.length < 10) {
+                        self.endTen = self.queryData.length;
+                    }
+
+                    for (var i = 0; i < self.endTen; i++) {
+                        self.currTen.push(self.queryData[i]);
+                    }
 
                     if (self.markerPlaced) {
                         self.removeMarkers();
@@ -204,63 +221,87 @@ exports.default = {
             var infowindow = new google.maps.InfoWindow({
                 content: ''
             });
-            for (var i = 0; i < this.queryData.length; i++) {
-
-                var mapInstance = this.map;
-
-                var y = this.queryData[i].date / 10000,
-                    m = this.queryData[i].date % 10000 / 100,
-                    d = this.queryData[i].date % 100,
-                    h = this.queryData[i].time / 10000,
-                    n = this.queryData[i].time % 10000 / 100,
-                    s = this.queryData[i].time % 100;
+            for (var i = 0; i < this.currTen.length; i++) {
+                var y = this.currTen[i].date / 10000,
+                    m = this.currTen[i].date % 10000 / 100,
+                    d = this.currTen[i].date % 100,
+                    h = this.currTen[i].time / 10000,
+                    n = this.currTen[i].time % 10000 / 100,
+                    s = this.currTen[i].time % 100;
                 var date = new Date(y, m, d, h, n, s).toUTCString();
 
                 var mapNormalize = function mapNormalize(string) {
                     return string.replace(/([A-Z])/g, ' $1');
                 };
 
-                var contentString = ['<div class="col-sm-12 row query-result container"><div class="col-sm-2 query-id"><h5>', i + 1, '</h5></div><div class="col-sm-10 query-entry"><h6>', this.queryData[i].callTypeName, '</h6><p>', this.queryData[i].pi, ', ', this.queryData[i].firstName, '</p><p>', date, '</p><p>', mapNormalize(this.queryData[i].groundType), ' - ', mapNormalize(this.queryData[i].regionCountry), '</p><hr></div>'];
+                var contentString = ['<div class="col-sm-12 row query-result container"><div class="col-sm-2 query-id"><h5>', this.startTen + i + 1, '</h5></div><div class="col-sm-10 query-entry"><h6>', this.currTen[i].callTypeName, '</h6><p>', this.currTen[i].pi, ', ', this.currTen[i].firstName, '</p><p>', date, '</p><p>', mapNormalize(this.currTen[i].groundType), ' - ', mapNormalize(this.currTen[i].regionCountry), '</p><hr></div>'];
 
-                if (this.queryData[i].dataType === 'a') {
-                    contentString.push('<audio controls><source src="' + this.queryData[i].url + '"></audio>');
-                } else if (this.queryData[i].dataType === 'i') {
-                    contentString.push('<img src="' + this.queryData[i].url + '">');
+                if (this.currTen[i].dataType === 'a') {
+                    contentString.push('<audio controls><source src="' + this.currTen[i].url + '"></audio>');
+                } else if (this.currTen[i].dataType === 'i') {
+                    contentString.push('<img src="' + this.currTen[i].url + '">');
                 }
 
                 contentString.push('</div>');
 
-                this.placeMarkers(this.queryData[i].lat, this.queryData[i].long, mapInstance, infowindow, contentString.join(''));
+                this.placeMarkers(this.currTen[i].lat, this.currTen[i].long, infowindow, contentString.join(''));
             }
 
             this.markerPlaced = true;
         },
-        placeMarkers: function placeMarkers(lat, long, mapInstance, infowindow, contentString) {
+        placeMarkers: function placeMarkers(lat, long, infowindow, contentString) {
 
+            var self = this;
             var marker = new google.maps.Marker({
                 position: { lat: lat, lng: long },
-                map: mapInstance,
+                map: self.map,
                 animation: google.maps.Animation.DROP
             });
 
             marker.addListener('click', function () {
                 infowindow.close();
                 infowindow.setContent("<div id='infowindow'>" + contentString + "</div>");
-                infowindow.open(mapInstance, marker);
+                infowindow.open(self.map, marker);
             });
 
-            google.maps.event.addListener(mapInstance, 'click', function () {
-                infowindow.close(mapInstance, marker);
+            google.maps.event.addListener(self.map, 'click', function () {
+                infowindow.close(self.map, marker);
+            });
+
+            marker.addListener('center', function () {
+                self.map.setCenter(this.getPosition());
             });
 
             this.markers.push(marker);
         },
         removeMarkers: function removeMarkers() {
-            for (var i = 0; i < this.markers.length; i++) {
+            for (var i = this.startTen; i < this.endTen; i++) {
                 this.markers[i].setMap(null);
             }
-            this.markers = [];
+            while (this.markers.length > 0) {
+                this.markers.pop();
+            }
             this.markerPlaced = false;
+        },
+        nextTen: function nextTen() {
+            if (this.markerPlaced) {
+                this.removeMarkers();
+            }
+            this.startTen = this.endTen;
+            if (this.queryData.length - this.endTen < 10) {
+                this.endTen = this.queryData.length;
+            } else {
+                this.endTen += 10;
+            }
+            while (this.currTen.length > 0) {
+                this.currTen.pop();
+            }
+
+            for (var i = this.startTen; i < this.endTen; i++) {
+                this.currTen.push(this.queryData[i]);
+            }
+            console.log(this.currTen);
+            this.createInfoMarker();
         }
     }
 };
@@ -268,8 +309,8 @@ exports.default = {
 if (module.exports.__esModule) module.exports = module.exports.default
 var __vue__options__ = (typeof module.exports === "function"? module.exports.options: module.exports)
 if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
-__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"container",attrs:{"id":"map-container"}},[_c('div',{class:{ showNav: _vm.navState},attrs:{"id":"site-wrapper"}},[_c('div',{attrs:{"id":"site-canvas"}},[_c('div',{attrs:{"id":"site-menu"}},[_c('div',{staticClass:"row text-center"},[_vm._m(0),_vm._v(" "),_vm._m(1),_vm._v(" "),_c('div',{staticClass:"col-sm-6"},[_c('button',{staticClass:"btn btn-secondary",attrs:{"type":"button","aria-haspopup":"true","aria-expanded":"false"},on:{"click":function($event){_vm.makeQuery()}}},[_vm._v("\n                            Sort By\n                        ")])])]),_vm._v(" "),_c('hr'),_vm._v(" "),_c('div',{staticClass:"row text-center",attrs:{"id":"query-container"}},_vm._l((_vm.queryData),function(query,index){return _c('q-entry',{attrs:{"item":query,"index":index}})}))]),_vm._v(" "),_c('div',{staticClass:"navbar-header"},[_c('a',{staticClass:"toggle-nav btn btn-md btn-secondary",attrs:{"href":"#"},on:{"click":function($event){_vm.toggleMenu()}}},[_vm._v("☰")])]),_vm._v(" "),_c('div',{attrs:{"id":"map-canvas"}})])])])}
-__vue__options__.staticRenderFns = [function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"col-sm-12"},[_c('p',[_vm._v("Humpback Whale Social Sound")])])},function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"col-sm-6"},[_c('button',{staticClass:"btn btn-secondary",attrs:{"type":"button","aria-haspopup":"true","aria-expanded":"false"}},[_vm._v("\n                            Edit Category\n                        ")])])}]
+__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"container",attrs:{"id":"map-container"}},[_c('div',{class:{ showNav: _vm.navState},attrs:{"id":"site-wrapper"}},[_c('div',{attrs:{"id":"site-canvas"}},[_c('div',{attrs:{"id":"site-menu"}},[_c('div',{staticClass:"row text-center"},[_vm._m(0),_vm._v(" "),_c('div',{staticClass:"col-sm-4"},[_c('button',{staticClass:"btn btn-secondary",attrs:{"type":"button","aria-haspopup":"true","aria-expanded":"false"},on:{"click":function($event){_vm.makeQuery()}}},[_vm._v("\n                            Sort By\n                        ")])]),_vm._v(" "),_vm._m(1),_vm._v(" "),_c('div',{staticClass:"col-sm-4"},[_c('button',{staticClass:"btn btn-secondary",attrs:{"type":"button","aria-haspopup":"true","aria-expanded":"false"},on:{"click":function($event){_vm.nextTen()}}},[_vm._v("\n                            Next\n                        ")])])]),_vm._v(" "),_c('hr'),_vm._v(" "),_c('div',{staticClass:"row text-center",attrs:{"id":"query-container"}},_vm._l((_vm.currTen),function(query,index){return _c('q-entry',{attrs:{"item":query,"index":index,"start":_vm.startTen,"end":_vm.endTen,"markers":_vm.markers}})}))]),_vm._v(" "),_c('div',{staticClass:"navbar-header"},[_c('a',{staticClass:"toggle-nav btn btn-md btn-secondary",attrs:{"href":"#"},on:{"click":function($event){_vm.toggleMenu()}}},[_vm._v("☰")])]),_vm._v(" "),_c('div',{attrs:{"id":"map-canvas"}})])])])}
+__vue__options__.staticRenderFns = [function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"col-sm-12"},[_c('p',[_vm._v("Humpback Whale Social Sound")])])},function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"col-sm-4"},[_c('button',{staticClass:"btn btn-secondary",attrs:{"type":"button","aria-haspopup":"true","aria-expanded":"false"}},[_vm._v("\n                            Previous\n                        ")])])}]
 __vue__options__._scopeId = "data-v-2c6090ea"
 if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   hotAPI.install(require("vue"), true)
@@ -281,7 +322,36 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
     hotAPI.reload("data-v-2c6090ea", __vue__options__)
   }
 })()}
-},{"../entry/q-entry.vue":2,"vue":15,"vue-hot-reload-api":14}],5:[function(require,module,exports){
+},{"../entry/q-entry.vue":2,"vue":16,"vue-hot-reload-api":15}],5:[function(require,module,exports){
+var __vueify_style_dispose__ = require("vueify/lib/insert-css").insert("h1[data-v-4dde188c] {\n    text-align: center;\n    margin-top: 100px;\n}")
+;(function(){
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.default = {
+    name: "not-found"
+};
+})()
+if (module.exports.__esModule) module.exports = module.exports.default
+var __vue__options__ = (typeof module.exports === "function"? module.exports.options: module.exports)
+if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
+__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _vm._m(0)}
+__vue__options__.staticRenderFns = [function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',[_c('h1',[_vm._v("Page Not Found")])])}]
+__vue__options__._scopeId = "data-v-4dde188c"
+if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), true)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  module.hot.dispose(__vueify_style_dispose__)
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-4dde188c", __vue__options__)
+  } else {
+    hotAPI.reload("data-v-4dde188c", __vue__options__)
+  }
+})()}
+},{"vue":16,"vue-hot-reload-api":15,"vueify/lib/insert-css":17}],6:[function(require,module,exports){
 var __vueify_style_dispose__ = require("vueify/lib/insert-css").insert("button[data-v-2dfc288c] {\n    cursor:pointer;\n}\n.added-category[data-v-2dfc288c] {\n    text-align: left;\n    margin: 0 auto 20px auto;\n    max-width: 343px;\n}")
 ;(function(){
 'use strict';
@@ -348,7 +418,7 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
     hotAPI.reload("data-v-2dfc288c", __vue__options__)
   }
 })()}
-},{"./add-file-type.vue":6,"./add-instrument.vue":7,"./add-publisher.vue":8,"./add-region.vue":9,"./add-sampling-rate.vue":10,"./delete-button.vue":11,"./select-button.vue":13,"vue":15,"vue-hot-reload-api":14,"vueify/lib/insert-css":16}],6:[function(require,module,exports){
+},{"./add-file-type.vue":7,"./add-instrument.vue":8,"./add-publisher.vue":9,"./add-region.vue":10,"./add-sampling-rate.vue":11,"./delete-button.vue":12,"./select-button.vue":14,"vue":16,"vue-hot-reload-api":15,"vueify/lib/insert-css":17}],7:[function(require,module,exports){
 ;(function(){
 'use strict';
 
@@ -397,7 +467,7 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
     hotAPI.reload("data-v-1e8cebd6", __vue__options__)
   }
 })()}
-},{"vue":15,"vue-hot-reload-api":14}],7:[function(require,module,exports){
+},{"vue":16,"vue-hot-reload-api":15}],8:[function(require,module,exports){
 ;(function(){
 'use strict';
 
@@ -445,7 +515,7 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
     hotAPI.reload("data-v-4b2da78c", __vue__options__)
   }
 })()}
-},{"vue":15,"vue-hot-reload-api":14}],8:[function(require,module,exports){
+},{"vue":16,"vue-hot-reload-api":15}],9:[function(require,module,exports){
 ;(function(){
 'use strict';
 
@@ -493,7 +563,7 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
     hotAPI.reload("data-v-6be2d467", __vue__options__)
   }
 })()}
-},{"vue":15,"vue-hot-reload-api":14}],9:[function(require,module,exports){
+},{"vue":16,"vue-hot-reload-api":15}],10:[function(require,module,exports){
 ;(function(){
 'use strict';
 
@@ -541,7 +611,7 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
     hotAPI.reload("data-v-6b872ace", __vue__options__)
   }
 })()}
-},{"vue":15,"vue-hot-reload-api":14}],10:[function(require,module,exports){
+},{"vue":16,"vue-hot-reload-api":15}],11:[function(require,module,exports){
 ;(function(){
 'use strict';
 
@@ -589,7 +659,7 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
     hotAPI.reload("data-v-3fe5f2f1", __vue__options__)
   }
 })()}
-},{"vue":15,"vue-hot-reload-api":14}],11:[function(require,module,exports){
+},{"vue":16,"vue-hot-reload-api":15}],12:[function(require,module,exports){
 var __vueify_style_dispose__ = require("vueify/lib/insert-css").insert(".btn-danger[data-v-3e45502b] {\n    cursor: pointer;\n    margin-right: 10px;\n}\n.category[data-v-3e45502b] {\n    width: 182px;\n}")
 ;(function(){
 "use strict";
@@ -619,15 +689,15 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
     hotAPI.reload("data-v-3e45502b", __vue__options__)
   }
 })()}
-},{"vue":15,"vue-hot-reload-api":14,"vueify/lib/insert-css":16}],12:[function(require,module,exports){
+},{"vue":16,"vue-hot-reload-api":15,"vueify/lib/insert-css":17}],13:[function(require,module,exports){
 ;(function(){
-'use strict';
+"use strict";
 
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _addCategoryButton = require('./add-category-button.vue');
+var _addCategoryButton = require("./add-category-button.vue");
 
 var _addCategoryButton2 = _interopRequireDefault(_addCategoryButton);
 
@@ -637,6 +707,7 @@ exports.default = {
     components: { AddCategoryButton: _addCategoryButton2.default },
     name: "search-page",
     created: function created() {
+        console.log("created#@%RWEFSFSDFDSFDSFDSFDSFDS");
         var self = this;
         self.addCategoryBtnMsg = 'Processing...';
         self.disableSearch = true;
@@ -805,7 +876,7 @@ exports.default = {
                 this.errorMsg = '*Please select: ' + needToSelect.join(', ');
             } else {
                 this.errorMsg = '';
-                this.$router.push('/map');
+                this.$router.push({ name: 'map', params: { queries: this.queries } });
             }
         }
     }
@@ -827,7 +898,7 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
     hotAPI.reload("data-v-6d6ec5eb", __vue__options__)
   }
 })()}
-},{"./add-category-button.vue":5,"vue":15,"vue-hot-reload-api":14}],13:[function(require,module,exports){
+},{"./add-category-button.vue":6,"vue":16,"vue-hot-reload-api":15}],14:[function(require,module,exports){
 ;(function(){
 "use strict";
 
@@ -854,7 +925,7 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
     hotAPI.reload("data-v-d622d78c", __vue__options__)
   }
 })()}
-},{"vue":15,"vue-hot-reload-api":14}],14:[function(require,module,exports){
+},{"vue":16,"vue-hot-reload-api":15}],15:[function(require,module,exports){
 var Vue // late bind
 var version
 var map = (window.__VUE_HOT_MAP__ = Object.create(null))
@@ -1096,7 +1167,7 @@ exports.reload = tryWrap(function (id, options) {
   })
 })
 
-},{}],15:[function(require,module,exports){
+},{}],16:[function(require,module,exports){
 (function (process,global){
 /*!
  * Vue.js v2.5.13
@@ -9023,7 +9094,7 @@ Vue$3.nextTick(function () {
 module.exports = Vue$3;
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"_process":18}],16:[function(require,module,exports){
+},{"_process":19}],17:[function(require,module,exports){
 var inserted = exports.cache = {}
 
 function noop () {}
@@ -9048,32 +9119,30 @@ exports.insert = function (css) {
   }
 }
 
-},{}],17:[function(require,module,exports){
+},{}],18:[function(require,module,exports){
 
 jQuery(document).ready(function($){
 
-    const routes = [
-        {path:'/map', component: Vue.component('map-component', require('../components/map/map-component.vue')) },
-        {path:'/search', component: Vue.component('search-page', require('../components/search/search-page.vue')) }
-
-    ];
-
     const router = new VueRouter({
-        routes
+        // mode: 'history',
+        routes: [
+            {path:'/map', name: 'map', component: Vue.component('map-component', require('../components/map/map-component.vue')), props: true },
+            {path:'', component: Vue.component('search-page', require('../components/search/search-page.vue')) },
+            {path:'*', component: Vue.component('not-found', require('../components/not-found.vue'))}
+        ]
     });
 
     // var CACHED_DB;  // TODO cached DB variable, the WHOLE database, use query later?
 
-    // TODO implement date last, this one is tricky
     var vue = new Vue({
         router,
         created: function() {
-            this.$router.push('/search');
+            this.$router.push('');
         }
     }).$mount('#app');
 
 }); // end of jquery ready document
-},{"../components/map/map-component.vue":4,"../components/search/search-page.vue":12}],18:[function(require,module,exports){
+},{"../components/map/map-component.vue":4,"../components/not-found.vue":5,"../components/search/search-page.vue":13}],19:[function(require,module,exports){
 // shim for using process in browser
 var process = module.exports = {};
 
@@ -9259,4 +9328,4 @@ process.chdir = function (dir) {
 };
 process.umask = function() { return 0; };
 
-},{}]},{},[17]);
+},{}]},{},[18]);

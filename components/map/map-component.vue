@@ -13,16 +13,24 @@
                             <p>Humpback Whale Social Sound</p>
                         </div>
 
-                        <div class="col-sm-6">
-                            <button class="btn btn-secondary" type="button" aria-haspopup="true"
-                                    aria-expanded="false">
-                                Edit Category
-                            </button>
-                        </div>
-                        <div class="col-sm-6">
+                        <div class="col-sm-4">
                             <button class="btn btn-secondary" type="button" aria-haspopup="true"
                                     aria-expanded="false" @click="makeQuery()">
                                 Sort By
+                            </button>
+                        </div>
+
+                        <div class="col-sm-4">
+                            <button class="btn btn-secondary" type="button" aria-haspopup="true"
+                                    aria-expanded="false">
+                                Previous
+                            </button>
+                        </div>
+
+                        <div class="col-sm-4">
+                            <button class="btn btn-secondary" type="button" aria-haspopup="true"
+                                    aria-expanded="false" @click="nextTen()">
+                                Next
                             </button>
                         </div>
                     </div>
@@ -32,7 +40,8 @@
                     <div id="query-container" class="row text-center">
 
                         <!--Query Entries-->
-                        <q-entry v-for="(query, index) in queryData" :item="query" :index="index"></q-entry>
+                        <q-entry v-for="(query, index) in currTen" :item="query" :index="index" :start="startTen" :end="endTen"
+                                 :markers="markers"></q-entry>
 
 
                     </div>
@@ -62,6 +71,7 @@
     export default {
         //TODO enclose component with ID #map-container
         name: "map-component",
+        prop: ['queries'],
         data: function () {
             return {
                 map: null,
@@ -69,7 +79,10 @@
                 descState: false,
                 markerPlaced: false,
                 queryData: [],
-                markers: []
+                markers: [],
+                currTen: [],
+                startTen: 0,
+                endTen: 10
             }
         },
         mounted: function () {
@@ -100,12 +113,21 @@
             makeQuery: function (event) {
                 //TODO find a marker
                 var self = this;
+                console.log("made it: ", this.$route.params.queries);
+
                 $.ajax({
                     dataType: "json",
                     url: "query/metadata?all",
                     timeout: 10000,
                     success: function (response) {
                         self.queryData.push.apply(self.queryData, response.result);
+                        if(self.queryData.length < 10){
+                            self.endTen = self.queryData.length;
+                        }
+
+                        for(var i = 0; i < self.endTen; i++){
+                            self.currTen.push(self.queryData[i])
+                        }
 
                         //check if any markers in the map
                         if (self.markerPlaced) {
@@ -122,16 +144,13 @@
                 var infowindow = new google.maps.InfoWindow({
                     content: ''
                 });
-                for (var i = 0; i < this.queryData.length; i++) {
-
-                    var mapInstance = this.map;
-
-                    var y = this.queryData[i].date / 10000,
-                        m = this.queryData[i].date % 10000 / 100,
-                        d = this.queryData[i].date % 100,
-                        h = this.queryData[i].time / 10000,
-                        n = this.queryData[i].time % 10000 / 100,
-                        s = this.queryData[i].time % 100;
+                for (var i = 0; i < this.currTen.length; i++) {
+                    var y = this.currTen[i].date / 10000,
+                        m = this.currTen[i].date % 10000 / 100,
+                        d = this.currTen[i].date % 100,
+                        h = this.currTen[i].time / 10000,
+                        n = this.currTen[i].time % 10000 / 100,
+                        s = this.currTen[i].time % 100;
                     var date = new Date(y, m, d, h, n, s).toUTCString();
 
                     var mapNormalize = function (string) {
@@ -140,64 +159,93 @@
 
                     var contentString = [
                         '<div class="col-sm-12 row query-result container"><div class="col-sm-2 query-id"><h5>',
-                        (i + 1),
+                        (this.startTen + i + 1),
                         '</h5></div><div class="col-sm-10 query-entry"><h6>',
-                        this.queryData[i].callTypeName,
+                        this.currTen[i].callTypeName,
                         '</h6><p>',
-                        this.queryData[i].pi,
+                        this.currTen[i].pi,
                         ', ',
-                        this.queryData[i].firstName,
+                        this.currTen[i].firstName,
                         '</p><p>',
                         date,
                         '</p><p>',
-                        mapNormalize(this.queryData[i].groundType),
+                        mapNormalize(this.currTen[i].groundType),
                         ' - ',
-                        mapNormalize(this.queryData[i].regionCountry),
+                        mapNormalize(this.currTen[i].regionCountry),
                         '</p><hr></div>'
                     ];
 
                     //TODO re-arrange
-                    if (this.queryData[i].dataType === 'a') {
-                        contentString.push('<audio controls><source src="' + this.queryData[i].url + '"></audio>');
-                    } else if (this.queryData[i].dataType === 'i') {
-                        contentString.push('<img src="' + this.queryData[i].url + '">');
+                    if (this.currTen[i].dataType === 'a') {
+                        contentString.push('<audio controls><source src="' + this.currTen[i].url + '"></audio>');
+                    } else if (this.currTen[i].dataType === 'i') {
+                        contentString.push('<img src="' + this.currTen[i].url + '">');
                     }
 
                     contentString.push('</div>');
 
-                    this.placeMarkers(this.queryData[i].lat, this.queryData[i].long, mapInstance, infowindow, contentString.join(''));
+                    this.placeMarkers(this.currTen[i].lat, this.currTen[i].long, infowindow, contentString.join(''));
 
                 }
                 // google.maps.event.addDomListener(window, 'load', this.mapOptions);
                 this.markerPlaced = true;
 
             },
-            placeMarkers: function (lat, long, mapInstance, infowindow, contentString) {
+            placeMarkers: function (lat, long, infowindow, contentString) {
 
+                var self = this;
                 var marker = new google.maps.Marker({
                     position: {lat: lat, lng: long},
-                    map: mapInstance,
+                    map: self.map,
                     animation: google.maps.Animation.DROP
                 });
 
                 marker.addListener('click', function () {
                     infowindow.close(); // Close previously opened infowindow
                     infowindow.setContent("<div id='infowindow'>" + contentString + "</div>");
-                    infowindow.open(mapInstance, marker);
+                    infowindow.open(self.map, marker);
                 });
 
-                google.maps.event.addListener(mapInstance, 'click', function () {
-                    infowindow.close(mapInstance, marker);
+                google.maps.event.addListener(self.map, 'click', function () {
+                    infowindow.close(self.map, marker);
+                });
+
+                marker.addListener('center', function () {
+                    self.map.setCenter(this.getPosition());
                 });
 
                 this.markers.push(marker);
             },
             removeMarkers: function () {
-                for (var i = 0; i < this.markers.length; i++) {
+                for (var i = this.startTen; i < this.endTen; i++) {
                     this.markers[i].setMap(null);
                 }
-                this.markers = [];
+                while(this.markers.length > 0) {
+                    this.markers.pop();
+                }
                 this.markerPlaced = false;
+            },
+            nextTen: function(){
+                if (this.markerPlaced) {
+                    this.removeMarkers();
+                }
+                this.startTen = this.endTen;
+                if(this.queryData.length - this.endTen < 10){
+                    this.endTen = this.queryData.length;
+                }else {
+                    this.endTen += 10;
+                }
+                while(this.currTen.length > 0) {
+                    this.currTen.pop();
+                }
+
+                for(var i = this.startTen; i < this.endTen; i++){
+                    this.currTen.push(this.queryData[i]);
+                }
+                console.log(this.currTen);
+                this.createInfoMarker();
+
+
             }
         }
     }

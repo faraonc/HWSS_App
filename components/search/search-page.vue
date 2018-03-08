@@ -46,6 +46,7 @@
         components: {AddCategoryButton},
         name: "search-page",
         created: function() {
+            console.log("created#@%RWEFSFSDFDSFDSFDSFDSFDS")
             var self = this;
             self.addCategoryBtnMsg = 'Processing...';
             self.disableSearch = true;
@@ -208,7 +209,7 @@
                 }
                 else {
                     this.errorMsg = '';
-                    this.$router.push('/map');
+                    this.$router.push({name:'map', params: {queries: this.queries}});
                 }
 
             }

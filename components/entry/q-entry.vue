@@ -2,7 +2,7 @@
     <div class="col-sm-12 row query-result">
 
         <div class="col-sm-2 query-id">
-            <h5>{{ index + 1 }}</h5>
+            <h5 @click="goToMarker()">{{ start + index + 1 }}</h5>
         </div>
 
         <div class="col-sm-10 query-entry">
@@ -32,7 +32,7 @@
     // noinspection JSAnnotator
     export default {
         name: "q-entry",
-        props: ["item", "index"],
+        props: ["item", "index", "start", "end", "markers"],
         data: function () {
             return {
                 isShowing: false,
@@ -82,6 +82,12 @@
             },
             qEntryNormalize: function (string) {
                 return string.replace(/([A-Z])/g, ' $1');
+            },
+            goToMarker: function () {
+                // this.map.setCenter(this.markers[this.index].getPosition());
+                google.maps.event.trigger(this.markers[this.index], 'center');
+                google.maps.event.trigger(this.markers[this.index], 'click');
+
             }
         }
     }
