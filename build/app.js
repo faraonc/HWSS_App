@@ -446,7 +446,7 @@ exports.default = {
     },
     methods: {
         processSelection: function processSelection(fileType) {
-            this.$emit('checkedItem', "fileTypes", this.selectedFileTypes, fileType);
+            this.$emit('checkedItem', "fileType", this.selectedFileTypes, fileType);
         }
     }
 };
@@ -494,7 +494,7 @@ exports.default = {
     },
     methods: {
         processSelection: function processSelection(instrument) {
-            this.$emit('checkedItem', "instruments", this.selectedInstruments, instrument);
+            this.$emit('checkedItem', "instrument", this.selectedInstruments, instrument);
         }
     }
 };
@@ -542,7 +542,7 @@ exports.default = {
     },
     methods: {
         processSelection: function processSelection(publisher) {
-            this.$emit('checkedItem', "publishers", this.selectedPublishers, publisher);
+            this.$emit('checkedItem', "publisher", this.selectedPublishers, publisher);
         }
     }
 };
@@ -590,7 +590,7 @@ exports.default = {
     },
     methods: {
         processSelection: function processSelection(region) {
-            this.$emit('checkedItem', "regions", this.selectedRegions, region);
+            this.$emit('checkedItem', "region", this.selectedRegions, region);
         }
     }
 };
@@ -638,7 +638,7 @@ exports.default = {
     },
     methods: {
         processSelection: function processSelection(samplingRate) {
-            this.$emit('checkedItem', "samplingRates", this.selectedSamplingRates, samplingRate);
+            this.$emit('checkedItem', "samplingRate", this.selectedSamplingRates, samplingRate);
         }
     }
 };
@@ -714,48 +714,40 @@ exports.default = {
         self.loadingCategories = true;
 
         var queryResult = [],
-            queryDeferred,
+            deferred,
             queryDeffereds = [];
 
         $(document).ajaxStop(function () {
-            self.processResults(ccResult, "cc");
-            self.processResults(mcResult, "mc");
-            self.normalizeHeader();
-            self.fillEmptySlots(self.ccGens, self.ccHeaders);
-            self.fillEmptySlots(self.mcGens, self.mcHeaders);
-            self.loadingMC = false;
-            self.loadingCC = false;
-            self.disableSelect = false;
-            self.selectButtonMsg = "Select Collection";
+            self.parseData(queryResult);
+            self.pushToCategoryList();
+            self.loadingCategories = false;
+            self.disableSearch = false;
+            self.disableCategoryBtn = false;
+            self.addCategoryBtnMsg = 'Add Category';
             $(this).off("ajaxStop");
         });
 
         for (var i = 0; i < self.categories.length; i++) {
-            deferred = $.ajax({
-                url: "query/metadata?" + self.categories[i].query,
-                dataType: "json",
-                success: function success(result) {
-                    queryResult.push(result);
-                }
-            });
-            queryDeffereds.push(queryDeferred);
+            if (self.categories[i].query !== "") {
+                deferred = $.ajax({
+                    url: "query/metadata?" + self.categories[i].query,
+                    dataType: "json",
+                    success: function success(result) {
+                        queryResult.push(result.result);
+                    }
+                });
+                queryDeffereds.push(deferred);
+            }
         }
-
-        self.parseData();
-        self.loadingCategories = false;
-        self.disableSearch = false;
-        self.disableCategoryBtn = false;
-        self.addCategoryBtnMsg = 'Add Category';
     },
     data: function data() {
         return {
-            categories: [{ name: 'Publishers', component: 'add-publisher', query: 'uniqNames' }, { name: 'File Types', component: 'add-file-type', query: 'uniqFileTypes' }, { name: 'Instruments', component: 'add-instrument', query: 'uniqInstruments' }, { name: 'Regions', component: 'add-region', query: 'uniqRegions' }, { name: 'Sampling Rates', component: 'add-sampling-rate', query: 'uniqSamplingRates' }],
-            CACHED_DB: {},
+            categories: [{ name: 'Publishers', component: 'add-publisher', query: 'uniqNames' }, { name: 'File Types', component: 'add-file-type', query: '' }, { name: 'Instruments', component: 'add-instrument', query: 'uniqInstruments' }, { name: 'Regions', component: 'add-region', query: 'uniqRegions' }, { name: 'Sampling Rates', component: 'add-sampling-rate', query: 'uniqSamplingRates' }],
             addCategoryBtnMsg: '',
             errorMsg: '',
             selectedCategories: [],
             publishers: [],
-            fileTypes: [],
+            fileTypes: ['Audios', 'Videos', 'Files', 'Images'],
             instruments: [],
             regions: [],
             samplingRates: [],
@@ -782,7 +774,6 @@ exports.default = {
         },
         deleteCategory: function deleteCategory(event) {
             var deleteVal = event.currentTarget.nextSibling.nextSibling.textContent;
-            console.log("value: ", deleteVal);
 
             var self = this;
             self.selectedCategories.forEach(function (category, index) {
@@ -829,53 +820,46 @@ exports.default = {
             }
             this.queries[queryType] = currentSet;
             console.log("after (parent): ", currentSet);
+            console.log("query: ", this.queries);
         },
-        parseData: function parseData() {
-            console.log("hello");
+        parseData: function parseData(queryResult) {
             var self = this;
-            var temp_file_types = new Set();
-            var temp_instruments = new Set();
-            var temp_regions = new Set();
-            var temp_sampling_rate = new Set();
 
-            this.CACHED_DB.forEach(function (currObj) {
-                var temp_publishers = {};
-
-                temp_publishers['firstName'] = currObj.firstName;
-                temp_publishers['lastName'] = currObj.pi;
-
-                var dataType = currObj.dataType;
-                if (dataType === 'i') {
-                    temp_file_types.add("Images");
-                } else if (dataType === 's') {
-                    temp_file_types.add("Source Codes");
-                } else if (dataType === 'a') {
-                    temp_file_types.add("Audio");
+            queryResult.forEach(function (currObj) {
+                var tag = currObj[0];
+                if (tag === "regions") {
+                    self.regions = currObj.slice(1);
+                } else if (tag === "instruments") {
+                    self.instruments = currObj.slice(1);
+                } else if (tag === "samplingRates") {
+                    self.samplingRates = currObj.slice(1);
+                } else {
+                    self.publishers = currObj;
                 }
-
-                temp_instruments.add(currObj.sensorName);
-                temp_regions.add(currObj.region);
-                temp_sampling_rate.add(currObj.samplingRate);
-
-                self.publishers.push(temp_publishers);
             });
-            self.publishers = _.uniqBy(self.publishers, 'lastName');
-            self.categories[0].itemList = self.publishers;
-
-            self.fileTypes = Array.from(temp_file_types);
-            self.categories[1].itemList = self.fileTypes;
-
-            self.instruments = Array.from(temp_instruments);
-            self.categories[2].itemList = self.instruments;
-
-            self.regions = Array.from(temp_regions);
-            self.categories[3].itemList = self.regions;
-
-            self.samplingRates = Array.from(temp_sampling_rate);
-            self.categories[4].itemList = self.samplingRates;
+        },
+        pushToCategoryList: function pushToCategoryList() {
+            var self = this;
+            this.categories.forEach(function (currObj) {
+                switch (currObj.query) {
+                    case "uniqNames":
+                        currObj.itemList = self.publishers;
+                        break;
+                    case "":
+                        currObj.itemList = self.fileTypes;
+                        break;
+                    case "uniqInstruments":
+                        currObj.itemList = self.instruments;
+                        break;
+                    case "uniqRegions":
+                        currObj.itemList = self.regions;
+                        break;
+                    case "uniqSamplingRates":
+                        currObj.itemList = self.samplingRates;
+                }
+            });
         },
         beginSearch: function beginSearch() {
-            console.log(this.queries);
             var self = this;
             var needToSelect = [];
             for (var i in this.selectedCategories) {
@@ -893,8 +877,12 @@ exports.default = {
                 this.errorMsg = '*Please select: ' + needToSelect.join(', ');
             } else {
                 this.errorMsg = '';
+                this.buildQueryString();
                 this.$router.push({ name: 'map', params: { queries: this.queries } });
             }
+        },
+        buildQueryString: function buildQueryString() {
+            console.log("Query: ", this.queries);
         }
     }
 };

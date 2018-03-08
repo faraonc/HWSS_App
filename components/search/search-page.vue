@@ -53,11 +53,12 @@
             self.loadingCategories = true;
 
             // query for all categories
-            var queryResult = [], queryDeferred, queryDeffereds = [];
+            var queryResult = [], deferred, queryDeffereds = [];
 
-            // runs when all ajax queries for mc/cc gens are finished, and resets it back
+            // when ajax calls are finished
             $(document).ajaxStop(function () {
                 self.parseData(queryResult);
+                self.pushToCategoryList();
                 self.loadingCategories = false;
                 self.disableSearch = false;
                 self.disableCategoryBtn = false;
@@ -67,14 +68,16 @@
 
             // start querying
             for (var i = 0; i < self.categories.length; i++) {
-                deferred = $.ajax({
-                    url: "query/metadata?" + self.categories[i].query,
-                    dataType: "json",
-                    success: function (result) {
-                        queryResult.push(result);
-                    }
-                });
-                queryDeffereds.push(queryDeferred);
+                if(self.categories[i].query !== "") {
+                    deferred = $.ajax({
+                        url: "query/metadata?" + self.categories[i].query,
+                        dataType: "json",
+                        success: function (result) {
+                            queryResult.push(result.result);
+                        }
+                    });
+                    queryDeffereds.push(deferred);
+                }
             }
         },
         data: function() {
@@ -82,7 +85,7 @@
                 categories: [
                     {name: 'Publishers', component: 'add-publisher', query: 'uniqNames'},
                     // {name: 'Date', component: 'add-date'},
-                    {name: 'File Types', component: 'add-file-type', query: 'uniqFileTypes'},
+                    {name: 'File Types', component: 'add-file-type', query: ''},
                     {name: 'Instruments', component: 'add-instrument', query: 'uniqInstruments'},
                     {name: 'Regions', component: 'add-region', query: 'uniqRegions'},
                     {name: 'Sampling Rates', component: 'add-sampling-rate', query: 'uniqSamplingRates'}
@@ -143,52 +146,47 @@
                 }
                 this.queries[queryType] = currentSet;
                 console.log("after (parent): ", currentSet);
+                console.log("query: ", this.queries);
             },
             parseData: function(queryResult) {
                 var self = this;
-                var temp_file_types = new Set();
-                var temp_instruments = new Set();
-                var temp_regions = new Set();
-                var temp_sampling_rate = new Set();
 
                 queryResult.forEach(function(currObj){
-                    var temp_publishers = {};
-
-                    temp_publishers['firstName'] = currObj.firstName;
-                    temp_publishers['lastName'] = currObj.pi;
-
-                    // TODO change dataType key from shorthand to actual, i = images, so i dont have to convert here
-                    var dataType = currObj.dataType;
-                    if(dataType === 'i') {
-                        temp_file_types.add("Images");
+                    var tag = currObj[0];
+                    if(tag === "regions") {
+                        self.regions = currObj.slice(1);
                     }
-                    else if(dataType === 's') {
-                        temp_file_types.add("Source Codes");
+                    else if(tag === "instruments") {
+                        self.instruments = currObj.slice(1);
                     }
-                    else if(dataType === 'a') {
-                        temp_file_types.add("Audio")
+                    else if(tag === "samplingRates"){
+                        self.samplingRates = currObj.slice(1);
                     }
-
-                    temp_instruments.add(currObj.sensorName);
-                    temp_regions.add(currObj.region);
-                    temp_sampling_rate.add(currObj.samplingRate);
-
-                    self.publishers.push(temp_publishers);
+                    else {
+                        self.publishers = currObj;
+                    }
                 });
-                self.publishers = _.uniqBy(self.publishers, 'lastName');
-                self.categories[0].itemList = self.publishers;
-
-                self.fileTypes = Array.from(temp_file_types);
-                self.categories[1].itemList = self.fileTypes;
-
-                self.instruments = Array.from(temp_instruments);
-                self.categories[2].itemList = self.instruments;
-
-                self.regions = Array.from(temp_regions);
-                self.categories[3].itemList = self.regions;
-
-                self.samplingRates = Array.from(temp_sampling_rate);
-                self.categories[4].itemList = self.samplingRates;
+            },
+            pushToCategoryList: function() {
+                var self = this;
+                this.categories.forEach(function(currObj) {
+                    switch(currObj.query) {
+                        case "uniqNames":
+                            currObj.itemList = self.publishers;
+                            break;
+                        case "":
+                            currObj.itemList = self.fileTypes;
+                            break;
+                        case "uniqInstruments":
+                            currObj.itemList = self.instruments;
+                            break;
+                        case "uniqRegions":
+                            currObj.itemList = self.regions;
+                            break;
+                        case "uniqSamplingRates":
+                            currObj.itemList = self.samplingRates;
+                    }
+                });
             },
             beginSearch: function() {
                 var self = this;
@@ -211,9 +209,13 @@
                 }
                 else {
                     this.errorMsg = '';
+                    this.buildQueryString();
                     this.$router.push({name:'map', params: {queries: this.queries}});
                 }
 
+            },
+            buildQueryString: function() {
+                console.log("Query: ", this.queries);
             }
         }
     }

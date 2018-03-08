@@ -30,7 +30,7 @@
         },
         methods: {
             processSelection: function(instrument) {
-                this.$emit('checkedItem', "instruments", this.selectedInstruments, instrument)
+                this.$emit('checkedItem', "instrument", this.selectedInstruments, instrument)
             }
         }
     }

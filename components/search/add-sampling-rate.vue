@@ -28,7 +28,7 @@
         },
         methods: {
             processSelection: function(samplingRate) {
-                this.$emit('checkedItem', "samplingRates", this.selectedSamplingRates, samplingRate)
+                this.$emit('checkedItem', "samplingRate", this.selectedSamplingRates, samplingRate)
             }
         }
     }

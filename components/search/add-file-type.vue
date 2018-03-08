@@ -31,7 +31,7 @@
         },
         methods: {
             processSelection: function(fileType) {
-                this.$emit('checkedItem', "fileTypes", this.selectedFileTypes, fileType)
+                this.$emit('checkedItem', "fileType", this.selectedFileTypes, fileType)
             }
         }
     }

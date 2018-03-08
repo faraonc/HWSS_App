@@ -133,6 +133,11 @@ function queryMetaData(dbName, dbCollection, queryParams, callback) {
                         result.forEach(function(curr) {
                            data.push(curr._id);
                         });
+
+                        if(queryParams.uniqRegions) {data.unshift("regions")}
+                        else if(queryParams.uniqInstruments) {data.unshift("instruments")}
+                        else {data.unshift("samplingRates")}
+
                         callback(err, data);
                     });
                 }

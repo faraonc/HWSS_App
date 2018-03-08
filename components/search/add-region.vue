@@ -30,7 +30,7 @@
         },
         methods: {
             processSelection: function(region) {
-                this.$emit('checkedItem', "regions", this.selectedRegions, region)
+                this.$emit('checkedItem', "region", this.selectedRegions, region)
             }
         }
     }

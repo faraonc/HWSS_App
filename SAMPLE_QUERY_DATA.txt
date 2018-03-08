@@ -12,20 +12,26 @@ Parameters:
 
 http://localhost:3009/query/metadata?param1=arg1,arg2&param2=arg1&paramN=argN
 
-Return all categories:
+
+Return ALL categories:
 http://localhost:3009/query/metadata?categories
 
-Return all uniq regions:
+
+Return ALL uniq regions:
 http://localhost:3009/query/metadata?uniqRegions
 
-Return all uniq authors:
+
+Return ALL uniq authors:
 http://localhost:3009/query/metadata?uniqNames
 
-Returns all documents
+
+Returns ALL documents
 http://localhost:3009/query/metadata?all
+
 
 Returns documents from
 http://localhost:3009/query/metadata?pi=Seger,Faraon&firstName=Kerri,Conard
+
 
 Sort by date
 http://localhost:3009/query/metadata?all&dateSort=new

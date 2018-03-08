@@ -33,7 +33,7 @@
         },
         methods: {
             processSelection: function(publisher) {
-                this.$emit('checkedItem', "publishers", this.selectedPublishers, publisher)
+                this.$emit('checkedItem', "publisher", this.selectedPublishers, publisher)
             }
         }
     }
