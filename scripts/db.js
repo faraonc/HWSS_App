@@ -6,6 +6,8 @@ const METADATA = 'METADATA';
 function buildQuery(queryParams) {
     var query = {};
     query.$query = {};
+    var pass = false;
+
 
     if (!queryParams.all) {
         if (queryParams.pis) {
@@ -45,7 +47,24 @@ function buildQuery(queryParams) {
         }
     }
 
-    if (queryParams.dateSort) {
+
+
+    if (queryParams.uniqNames){
+        query = {$group: {_id:{lastName:'$pi', firstName:'$firstName'}}};
+    }
+    else if(queryParams.uniqRegions){
+        query = {$group: {_id: '$region'}};
+    }
+    else if(queryParams.uniqInstruments){
+        query = {$group: {_id: '$sensorName'}};
+    }
+    else if(queryParams.uniqSamplingRates){
+        query = {$group: {_id: '$samplingRate'}};
+    }
+    else if(queryParams.uniqFileTypes){
+        query = {$group: {_id: {image:'$image_url', audio:'$audio_url', video:'$video_url',file:'$file_url'}}};
+    }
+    else if (queryParams.dateSort) {
         if (queryParams.dateSort === "new") {
             query.$orderby = {
                 date: -1
@@ -55,7 +74,9 @@ function buildQuery(queryParams) {
                 date: 1
             }
         }
-    } else {
+    }
+
+    else {
         query.$orderby = {
             date: -1
         }
@@ -65,6 +86,7 @@ function buildQuery(queryParams) {
 
     return query;
 }
+
 
 //http://localhost:3009/query/metadata?pi=Seger,Faraon&firstName=Kerri,Conard
 function queryMetaData(dbName, dbCollection, queryParams, callback) {
@@ -87,7 +109,19 @@ function queryMetaData(dbName, dbCollection, queryParams, callback) {
                     dbo.collection(dbCollection).find(query).toArray(function (err, result) {
                         callback(err, result);
                     });
-                } else {
+                }
+                else if(queryParams.categories) {
+                    dbo.collection(dbCollection).findOne().then(function(result){
+                        callback(err, Object.keys(result));
+                    })
+                }
+                else if(queryParams.uniqNames || queryParams.uniqRegions || queryParams.uniqInstruments
+                    || queryParams.uniqSamplingRates || queryParams.uniqFileTypes) {
+                    dbo.collection(dbCollection).aggregate([query]).toArray(function(err, result){
+                        callback(err, result);
+                    });
+                }
+                else {
                     if (Object.keys(query).length !== 0 || query.constructor !== Object) {
                         dbo.collection(dbCollection).find(query).toArray(function (err, result) {
                             callback(err, result);

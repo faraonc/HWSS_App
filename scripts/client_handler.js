@@ -1,6 +1,12 @@
 function serviceQuery(req, callback) {
     var dbFindParams = {
         all: false,
+        categories: false,
+        uniqNames: false,
+        uniqRegions: false,
+        uniqInstruments: false,
+        uniqSamplingRates: false,
+        uniqFileTypes: false,
         pis: null,
         firstNames: null,
         regions: null,
@@ -14,7 +20,8 @@ function serviceQuery(req, callback) {
     if (req.hasOwnProperty('all')) {
         dbFindParams.all = true;
 
-    } else {
+    }
+    else {
 
         if (req.hasOwnProperty('pi')) {
             dbFindParams.pis = req.pi.split(',');
@@ -39,7 +46,25 @@ function serviceQuery(req, callback) {
         }
     }
 
-    if (req.hasOwnProperty('dateSort')) {
+    if(req.hasOwnProperty('categories')) {
+        dbFindParams.categories = true;
+    }
+    else if(req.hasOwnProperty('uniqNames')) {
+        dbFindParams.uniqNames = true;
+    }
+    else if(req.hasOwnProperty('uniqRegions')) {
+        dbFindParams.uniqRegions = true;
+    }
+    else if(req.hasOwnProperty('uniqInstruments')){
+        dbFindParams.uniqInstruments = true;
+    }
+    else if(req.hasOwnProperty('uniqSamplingRates')){
+        dbFindParams.uniqSamplingRates = true;
+    }
+    else if(req.hasOwnProperty('uniqFileTypes')){
+        dbFindParams.uniqFileTypes = true;
+    }
+    else if (req.hasOwnProperty('dateSort')) {
         dbFindParams.dateSort = req.dateSort;
     //    TODO handle other dateSort input
     }else{

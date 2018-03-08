@@ -12,6 +12,15 @@ Parameters:
 
 http://localhost:3009/query/metadata?param1=arg1,arg2&param2=arg1&paramN=argN
 
+Return all categories:
+http://localhost:3009/query/metadata?categories
+
+Return all uniq regions:
+http://localhost:3009/query/metadata?uniqRegions
+
+Return all uniq authors:
+http://localhost:3009/query/metadata?uniqNames
+
 Returns all documents
 http://localhost:3009/query/metadata?all
 
@@ -23,4 +32,6 @@ http://localhost:3009/query/metadata?all&dateSort=new
 http://localhost:3009/query/metadata?all&dateSort=old
 http://localhost:3009/query/metadata?pi=Seger&dateSort=new
 
-implement query in the db.js, client_handler.js
+
+
+mongo hwss.documents.azure.com:10255 -u hwss -p a19Afgz9pRm58JI8MwOrurLE6SmuxrrusIF2Ci0ye1tOMur7Ck7haxQt7L6Hf3JAuSRgwjt4sOYINchXZLb3Ww== --ssl --sslAllowInvalidCertificates

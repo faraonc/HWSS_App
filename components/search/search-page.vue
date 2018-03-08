@@ -108,8 +108,6 @@
                         me.categories.splice(index, 1)  //remove it from dropdown menu
                     }
                 });
-                // console.log("after: ", this.categories); //TODO REMOVE
-                // console.log("selected: ", this.selectedCategories);
             },
             deleteCategory: function(event) {
                 var deleteVal = event.currentTarget.nextSibling.nextSibling.textContent;
