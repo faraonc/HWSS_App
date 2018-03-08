@@ -17,6 +17,7 @@
             <div v-if="isShowing">
                 <q-audio v-for="audio in item.audio_url" :audio="audio"></q-audio>
                 <q-image v-for="image in item.image_url" :image="image"></q-image>
+                <!--TODO FILES and VIDEOS-->
             </div>
 
 

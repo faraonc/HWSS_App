@@ -29,7 +29,7 @@
 
                         <div class="col-sm-4">
                             <button class="btn btn-secondary" type="button" aria-haspopup="true"
-                                    aria-expanded="false" @click="nextTen()">
+                                    aria-expanded="false" @click="nextSet()">
                                 Next
                             </button>
                         </div>
@@ -40,7 +40,7 @@
                     <div id="query-container" class="row text-center">
 
                         <!--Query Entries-->
-                        <q-entry v-for="(query, index) in currTen" :item="query" :index="index" :start="startTen" :end="endTen"
+                        <q-entry v-for="(query, index) in currSet" :item="query" :index="index" :start="startIndex" :end="endIndex"
                                  :markers="markers"></q-entry>
 
 
@@ -68,6 +68,8 @@
     Vue.component('q-entry', require('../entry/q-entry.vue'));
 
     // noinspection JSAnnotator
+    export const NUM_DISPLAY = 10; //number of entries to display in the map's side bar
+    // noinspection JSAnnotator
     export default {
         //TODO enclose component with ID #map-container
         name: "map-component",
@@ -80,9 +82,9 @@
                 markerPlaced: false,
                 queryData: [],
                 markers: [],
-                currTen: [],
-                startTen: 0,
-                endTen: 10
+                currSet: [],
+                startIndex: 0,
+                endIndex: NUM_DISPLAY
             }
         },
         mounted: function () {
@@ -121,12 +123,12 @@
                     timeout: 10000,
                     success: function (response) {
                         self.queryData.push.apply(self.queryData, response.result);
-                        if(self.queryData.length < 10){
-                            self.endTen = self.queryData.length;
+                        if(self.queryData.length < NUM_DISPLAY){
+                            self.endIndex = self.queryData.length;
                         }
 
-                        for(var i = 0; i < self.endTen; i++){
-                            self.currTen.push(self.queryData[i])
+                        for(var i = 0; i < self.endIndex; i++){
+                            self.currSet.push(self.queryData[i])
                         }
 
                         //check if any markers in the map
@@ -144,13 +146,13 @@
                 var infowindow = new google.maps.InfoWindow({
                     content: ''
                 });
-                for (var i = 0; i < this.currTen.length; i++) {
-                    var y = this.currTen[i].date / 10000,
-                        m = this.currTen[i].date % 10000 / 100,
-                        d = this.currTen[i].date % 100,
-                        h = this.currTen[i].time / 10000,
-                        n = this.currTen[i].time % 10000 / 100,
-                        s = this.currTen[i].time % 100;
+                for (var i = 0; i < this.currSet.length; i++) {
+                    var y = this.currSet[i].date / 10000,
+                        m = this.currSet[i].date % 10000 / 100,
+                        d = this.currSet[i].date % 100,
+                        h = this.currSet[i].time / 10000,
+                        n = this.currSet[i].time % 10000 / 100,
+                        s = this.currSet[i].time % 100;
                     var date = new Date(y, m, d, h, n, s).toUTCString();
 
                     var mapNormalize = function (string) {
@@ -159,32 +161,32 @@
 
                     var contentString = [
                         '<div class="col-sm-12 row query-result container"><div class="col-sm-2 query-id"><h5>',
-                        (this.startTen + i + 1),
+                        (this.startIndex + i + 1),
                         '</h5></div><div class="col-sm-10 query-entry"><h6>',
-                        this.currTen[i].callTypeName,
+                        this.currSet[i].callTypeName,
                         '</h6><p>',
-                        this.currTen[i].pi,
+                        this.currSet[i].pi,
                         ', ',
-                        this.currTen[i].firstName,
+                        this.currSet[i].firstName,
                         '</p><p>',
                         date,
                         '</p><p>',
-                        mapNormalize(this.currTen[i].groundType),
+                        mapNormalize(this.currSet[i].groundType),
                         ' - ',
-                        mapNormalize(this.currTen[i].regionCountry),
+                        mapNormalize(this.currSet[i].regionCountry),
                         '</p><hr></div>'
                     ];
 
                     //TODO re-arrange
-                    if (this.currTen[i].dataType === 'a') {
-                        contentString.push('<audio controls><source src="' + this.currTen[i].url + '"></audio>');
-                    } else if (this.currTen[i].dataType === 'i') {
-                        contentString.push('<img src="' + this.currTen[i].url + '">');
+                    if (this.currSet[i].dataType === 'a') {
+                        contentString.push('<audio controls><source src="' + this.currSet[i].url + '"></audio>');
+                    } else if (this.currSet[i].dataType === 'i') {
+                        contentString.push('<img src="' + this.currSet[i].url + '">');
                     }
 
                     contentString.push('</div>');
 
-                    this.placeMarkers(this.currTen[i].lat, this.currTen[i].long, infowindow, contentString.join(''));
+                    this.placeMarkers(this.currSet[i].lat, this.currSet[i].long, infowindow, contentString.join(''));
 
                 }
                 // google.maps.event.addDomListener(window, 'load', this.mapOptions);
@@ -217,7 +219,7 @@
                 this.markers.push(marker);
             },
             removeMarkers: function () {
-                for (var i = this.startTen; i < this.endTen; i++) {
+                for (var i = this.startIndex; i < this.endIndex; i++) {
                     this.markers[i].setMap(null);
                 }
                 while(this.markers.length > 0) {
@@ -225,24 +227,24 @@
                 }
                 this.markerPlaced = false;
             },
-            nextTen: function(){
+            nextSet: function(){
                 if (this.markerPlaced) {
                     this.removeMarkers();
                 }
-                this.startTen = this.endTen;
-                if(this.queryData.length - this.endTen < 10){
-                    this.endTen = this.queryData.length;
+                this.startIndex = this.endIndex;
+                if(this.queryData.length - this.endIndex < NUM_DISPLAY){
+                    this.endIndex = this.queryData.length;
                 }else {
-                    this.endTen += 10;
+                    this.endIndex += NUM_DISPLAY;
                 }
-                while(this.currTen.length > 0) {
-                    this.currTen.pop();
+                while(this.currSet.length > 0) {
+                    this.currSet.pop();
                 }
 
-                for(var i = this.startTen; i < this.endTen; i++){
-                    this.currTen.push(this.queryData[i]);
+                for(var i = this.startIndex; i < this.endIndex; i++){
+                    this.currSet.push(this.queryData[i]);
                 }
-                console.log(this.currTen);
+                console.log(this.currSet);
                 this.createInfoMarker();
 
 
