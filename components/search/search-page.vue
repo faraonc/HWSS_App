@@ -46,45 +46,52 @@
         components: {AddCategoryButton},
         name: "search-page",
         created: function() {
-            console.log("created#@%RWEFSFSDFDSFDSFDSFDSFDS")
             var self = this;
             self.addCategoryBtnMsg = 'Processing...';
             self.disableSearch = true;
             self.disableCategoryBtn = true;
             self.loadingCategories = true;
-            $.ajax({
-                url: "query/metadata?all",
-                dataType: "json",
-                timeout: 5000,
-                success: function(result) {
-                    self.CACHED_DB = result.result;
-                    self.parseData();
-                    self.loadingCategories = false;
-                    self.disableSearch = false;
-                    self.disableCategoryBtn = false;
-                    self.addCategoryBtnMsg = 'Add Category';
-                },
-                error: function() {
-                    console.log('error with quering DB, consult conard :)')
-                }
+
+            // query for all categories
+            var queryResult = [], queryDeferred, queryDeffereds = [];
+
+            // runs when all ajax queries for mc/cc gens are finished, and resets it back
+            $(document).ajaxStop(function () {
+                self.parseData(queryResult);
+                self.loadingCategories = false;
+                self.disableSearch = false;
+                self.disableCategoryBtn = false;
+                self.addCategoryBtnMsg = 'Add Category';
+                $(this).off("ajaxStop");
             });
+
+            // start querying
+            for (var i = 0; i < self.categories.length; i++) {
+                deferred = $.ajax({
+                    url: "query/metadata?" + self.categories[i].query,
+                    dataType: "json",
+                    success: function (result) {
+                        queryResult.push(result);
+                    }
+                });
+                queryDeffereds.push(queryDeferred);
+            }
         },
         data: function() {
             return {
                 categories: [
-                    {name: 'Publishers', component: 'add-publisher'},
+                    {name: 'Publishers', component: 'add-publisher', query: 'uniqNames'},
                     // {name: 'Date', component: 'add-date'},
-                    {name: 'File Types', component: 'add-file-type'},
-                    {name: 'Instruments', component: 'add-instrument'},
-                    {name: 'Regions', component: 'add-region'},
-                    {name: 'Sampling Rates', component: 'add-sampling-rate'}
+                    {name: 'File Types', component: 'add-file-type', query: 'uniqFileTypes'},
+                    {name: 'Instruments', component: 'add-instrument', query: 'uniqInstruments'},
+                    {name: 'Regions', component: 'add-region', query: 'uniqRegions'},
+                    {name: 'Sampling Rates', component: 'add-sampling-rate', query: 'uniqSamplingRates'}
                 ],
-                CACHED_DB: {},
                 addCategoryBtnMsg: '',
                 errorMsg: '',
                 selectedCategories: [],
                 publishers: [],
-                fileTypes: [],
+                fileTypes: ['Audios', 'Videos', 'Files', 'Images'],
                 instruments: [],
                 regions: [],
                 samplingRates: [],
@@ -111,7 +118,6 @@
             },
             deleteCategory: function(event) {
                 var deleteVal = event.currentTarget.nextSibling.nextSibling.textContent;
-                console.log("value: ", deleteVal);
 
                 var self = this;
                 self.selectedCategories.forEach(function(category, index) {  //TODO break if equaled, change to for loop
@@ -138,15 +144,14 @@
                 this.queries[queryType] = currentSet;
                 console.log("after (parent): ", currentSet);
             },
-            parseData: function() {
-                console.log("hello");
+            parseData: function(queryResult) {
                 var self = this;
                 var temp_file_types = new Set();
                 var temp_instruments = new Set();
                 var temp_regions = new Set();
                 var temp_sampling_rate = new Set();
 
-                this.CACHED_DB.forEach(function(currObj){
+                queryResult.forEach(function(currObj){
                     var temp_publishers = {};
 
                     temp_publishers['firstName'] = currObj.firstName;
@@ -186,7 +191,6 @@
                 self.categories[4].itemList = self.samplingRates;
             },
             beginSearch: function() {
-                console.log(this.queries)
                 var self = this;
                 var needToSelect = [];
                 for (var i in this.selectedCategories) {

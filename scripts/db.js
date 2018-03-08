@@ -115,10 +115,25 @@ function queryMetaData(dbName, dbCollection, queryParams, callback) {
                         callback(err, Object.keys(result));
                     })
                 }
-                else if(queryParams.uniqNames || queryParams.uniqRegions || queryParams.uniqInstruments
-                    || queryParams.uniqSamplingRates || queryParams.uniqFileTypes) {
+                else if(queryParams.uniqNames) {
                     dbo.collection(dbCollection).aggregate([query]).toArray(function(err, result){
-                        callback(err, result);
+                        var data = [];
+                        result.forEach(function(curr) {
+                           var temp = {};
+                           temp.firstName = curr._id.firstName;
+                           temp.lastName = curr._id.lastName;
+                           data.push(temp)
+                        });
+                        callback(err, data);
+                    });
+                }
+                else if (queryParams.uniqRegions || queryParams.uniqInstruments || queryParams.uniqSamplingRates) {
+                    dbo.collection(dbCollection).aggregate([query]).toArray(function(err, result){
+                        var data = [];
+                        result.forEach(function(curr) {
+                           data.push(curr._id);
+                        });
+                        callback(err, data);
                     });
                 }
                 else {
