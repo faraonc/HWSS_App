@@ -44,6 +44,9 @@
                     <!--Query Results-->
                     <div id="query-container" class="row text-center">
 
+                        <div class="loading" v-show="loading === true">
+                            <img id= "loading-image" src="/public/loading.gif">
+                        </div>
                         <!--Query Entries-->
                         <q-entry v-for="(query, index) in currSet" :item="query" :index="index" :start="startIndex"
                                  :end="endIndex"
@@ -88,6 +91,7 @@
                 markerPlaced: false,
                 isNextEnabled: false,
                 isPrevEnabled: false,
+                loading: false,
                 queryData: [],
                 markers: [],
                 currSet: [],
@@ -97,6 +101,7 @@
             }
         },
         mounted: function () {
+
             console.log("In the map component: ", this.$route.params.queries);
             if (this.$route.params.queries) {
                 this.Q = this.$route.params.queries
@@ -121,6 +126,7 @@
             this.map.setOptions({minZoom: 3, maxZoom: 15});
             this.makeQuery();
 
+
         },
         methods: {
             toggleMenu: function () {
@@ -128,7 +134,7 @@
             },
             makeQuery: function (event) {
                 var self = this;
-
+                this.loading = true;
                 $.ajax({
                     dataType: "json",
                     url: self.Q,
@@ -151,6 +157,7 @@
                                 self.removeMarkers();
                             }
                             self.createInfoMarker();
+                            self.loading =false;
                         }
                     },
                     error: function () {
