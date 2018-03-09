@@ -83,12 +83,12 @@
         data: function() {
             return {
                 categories: [
-                    {name: 'Publishers', component: 'add-publisher', query: 'uniqNames'},
+                    {name: 'Publishers', component: 'add-publisher', query: 'uniqNames', key: "publisher"},
                     // {name: 'Date', component: 'add-date'},
-                    {name: 'File Types', component: 'add-file-type', query: ''},
-                    {name: 'Instruments', component: 'add-instrument', query: 'uniqInstruments'},
-                    {name: 'Regions', component: 'add-region', query: 'uniqRegions'},
-                    {name: 'Sampling Rates', component: 'add-sampling-rate', query: 'uniqSamplingRates'}
+                    {name: 'File Types', component: 'add-file-type', query: '', key: "fileType"},
+                    {name: 'Instruments', component: 'add-instrument', query: 'uniqInstruments', key: "instrument"},
+                    {name: 'Regions', component: 'add-region', query: 'uniqRegions', key: "region"},
+                    {name: 'Sampling Rates', component: 'add-sampling-rate', query: 'uniqSamplingRates', key: "samplingRate"}
                 ],
                 addCategoryBtnMsg: '',
                 errorMsg: '',
@@ -145,8 +145,7 @@
                     currentSet.add(selectedItem);
                 }
                 this.queries[queryType] = currentSet;
-                console.log("after (parent): ", currentSet);
-                console.log("query: ", this.queries);
+                console.log("after (parent): ", this.queries);
             },
             parseData: function(queryResult) {
                 var self = this;
@@ -191,31 +190,51 @@
             beginSearch: function() {
                 var self = this;
                 var needToSelect = [];
-                for (var i in this.selectedCategories) {
-                    var name = this.selectedCategories[i].name.charAt(0).toLowerCase() +
-                        this.selectedCategories[i].name.slice(1).replace(' ', '');
-                    if(this.queries.hasOwnProperty(name)) {
-                        if(this.queries[name].size === 0){
-                            needToSelect.push(this.selectedCategories[i].name);
+                for (var i in self.selectedCategories) {
+                    var key = self.selectedCategories[i].key;
+                    if(this.queries.hasOwnProperty(key)) {
+                        if(this.queries[key].size === 0){
+                            needToSelect.push(self.selectedCategories[i].name);
                         }
                     }
                     else {
-                        needToSelect.push(this.selectedCategories[i].name);
+                        needToSelect.push(self.selectedCategories[i].name);
                     }
                 }
-                console.log(needToSelect)
                 if(needToSelect.length >0) {
                     this.errorMsg = '*Please select: ' + needToSelect.join(', ');
                 }
                 else {
                     this.errorMsg = '';
-                    this.buildQueryString();
-                    this.$router.push({name:'map', params: {queries: this.queries}});
+                    this.$router.push({name:'map', params: {queries: this.buildQueryString()}});
                 }
-
             },
             buildQueryString: function() {
-                console.log("Query: ", this.queries);
+                var self = this;
+                var queryString = "query/metadata?";
+                Object.keys(self.queries).forEach(function(currKey) {
+
+                    if(queryString[queryString.length -1] !== "?") {
+                        queryString += "&";
+                    }
+
+                    if(currKey === "publisher") {
+                        var pi = [];                // last name
+                        var firstName = [];
+
+                        self.queries[currKey].forEach(function(currVal) {
+                            pi.push(currVal.lastName);
+                            firstName.push(currVal.firstName);
+                        });
+                        queryString += "pi=" + pi.join(',');
+                        queryString += "&firstName=" + firstName.join(',');
+                    }
+                    else {
+                        queryString += currKey + "=" + Array.from(self.queries[currKey]).join(',');
+                    }
+                });
+                console.log("Built Query: ", queryString);
+                return queryString;
             }
         }
     }
