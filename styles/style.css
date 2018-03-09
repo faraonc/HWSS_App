@@ -159,3 +159,10 @@ html, body {
     margin-top: 0.5rem;
     margin-bottom: 0.5rem;
 }
+
+.info-img{
+    height: 200px;
+    width: 350px;
+    margin-top: 2px;
+    margin-bottom: 2px;
+}
