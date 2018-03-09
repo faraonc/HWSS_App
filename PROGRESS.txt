@@ -1,15 +1,3 @@
-Setup Azure Cosmos DB
-
-Setup Azure Media Streaming
-    Attached with Storage Account "hwss"
-
-Setup Storage Account "hwss"
-    Three Containers inside:
-        "image"
-        "audio"
-        "video"
-
-
 https://docs.microsoft.com/en-us/azure/app-service/containers/quickstart-nodejs
 THE EXAMPLE PROCESS FOR DEPLOYMENT IS BELOW:
 
