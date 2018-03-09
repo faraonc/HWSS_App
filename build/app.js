@@ -165,6 +165,7 @@ var NUM_DISPLAY = exports.NUM_DISPLAY = 10;exports.default = {
             isNextEnabled: false,
             isPrevEnabled: false,
             loading: false,
+            isSorting: [],
             queryData: [],
             markers: [],
             currSet: [],
@@ -175,7 +176,6 @@ var NUM_DISPLAY = exports.NUM_DISPLAY = 10;exports.default = {
     },
     mounted: function mounted() {
 
-        console.log("In the map component: ", this.$route.params.queries);
         if (this.$route.params.queries) {
             this.Q = this.$route.params.queries;
         }
@@ -397,16 +397,47 @@ var NUM_DISPLAY = exports.NUM_DISPLAY = 10;exports.default = {
             this.startIndex = 0;
             this.endIndex = NUM_DISPLAY;
             this.Q = "query/metadata?all";
-            console.log("goSearch");
-        },
-        sortBy: function sortBy() {}
+        }
+    },
+    watch: {
+        isSorting: function isSorting() {
+
+            if (this.isSorting.length > 0) {
+                this.loading = true;
+                this.startIndex = 0;
+                this.endIndex = NUM_DISPLAY;
+                this.removeMarkers();
+
+                while (this.currSet.length > 0) {
+                    this.currSet.pop();
+                }
+                if (this.queryData.length < NUM_DISPLAY) {
+                    this.endIndex = this.queryData.length;
+                } else {
+                    this.isNextEnabled = true;
+                }
+
+                for (var i = 0; i < this.endIndex; i++) {
+                    this.currSet.push(this.queryData[i]);
+                }
+
+                if (this.markerPlaced) {
+                    this.removeMarkers();
+                }
+                this.createInfoMarker();
+
+                this.isSorting.pop();
+
+                this.loading = false;
+            }
+        }
     }
 };
 })()
 if (module.exports.__esModule) module.exports = module.exports.default
 var __vue__options__ = (typeof module.exports === "function"? module.exports.options: module.exports)
 if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
-__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"container",attrs:{"id":"map-container"}},[_c('div',{class:{ showNav: _vm.navState},attrs:{"id":"site-wrapper"}},[_c('div',{attrs:{"id":"site-canvas"}},[_c('div',{attrs:{"id":"site-menu"}},[_c('div',{staticClass:"row text-center"},[_vm._m(0),_vm._v(" "),_c('div',{staticClass:"col-sm-3"},[_c('a',{staticClass:"btn btn-secondary",attrs:{"href":"/","role":"button"},on:{"click":function($event){_vm.goSearch()}}},[_vm._v("\n                            Search\n                        ")])]),_vm._v(" "),_c('div',{staticClass:"multi-select-dropdown btn-group"},[_c('sort-by',{attrs:{"list":_vm.currSet}})],1),_vm._v(" "),_c('div',{staticClass:"col-sm-3"},[_c('button',{staticClass:"btn btn-secondary",class:[{disabled: !_vm.isPrevEnabled}],attrs:{"disabled":!_vm.isPrevEnabled,"type":"button"},on:{"click":function($event){_vm.prevSet()}}},[_vm._v("\n                            Previous\n                        ")])]),_vm._v(" "),_c('div',{staticClass:"col-sm-3"},[_c('button',{staticClass:"btn btn-secondary",class:[{disabled: !_vm.isNextEnabled}],attrs:{"disabled":!_vm.isNextEnabled,"type":"button"},on:{"click":function($event){_vm.nextSet()}}},[_vm._v("\n                            Next\n                        ")])])]),_vm._v(" "),_c('hr'),_vm._v(" "),_c('div',{staticClass:"row text-center",attrs:{"id":"query-container"}},[_c('div',{directives:[{name:"show",rawName:"v-show",value:(_vm.loading === true),expression:"loading === true"}],staticClass:"loading"},[_c('img',{attrs:{"id":"loading-image","src":"/public/loading.gif"}})]),_vm._v(" "),_vm._l((_vm.currSet),function(query,index){return _c('q-entry',{attrs:{"item":query,"index":index,"start":_vm.startIndex,"markers":_vm.markers}})})],2)]),_vm._v(" "),_c('div',{staticClass:"navbar-header"},[_c('a',{staticClass:"toggle-nav btn btn-md btn-secondary",attrs:{"href":"#"},on:{"click":function($event){_vm.toggleMenu()}}},[_vm._v("☰")])]),_vm._v(" "),_c('div',{attrs:{"id":"map-canvas"}})])])])}
+__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"container",attrs:{"id":"map-container"}},[_c('div',{class:{ showNav: _vm.navState},attrs:{"id":"site-wrapper"}},[_c('div',{attrs:{"id":"site-canvas"}},[_c('div',{attrs:{"id":"site-menu"}},[_c('div',{staticClass:"row text-center"},[_vm._m(0),_vm._v(" "),_c('div',{staticClass:"col-sm-3"},[_c('a',{staticClass:"btn btn-secondary",attrs:{"href":"/","role":"button"},on:{"click":function($event){_vm.goSearch()}}},[_vm._v("\n                            Search\n                        ")])]),_vm._v(" "),_c('div',{staticClass:"multi-select-dropdown btn-group"},[_c('sort-by',{attrs:{"list":_vm.queryData,"sort":_vm.isSorting}})],1),_vm._v(" "),_c('div',{staticClass:"col-sm-3"},[_c('button',{staticClass:"btn btn-secondary",class:[{disabled: !_vm.isPrevEnabled}],attrs:{"disabled":!_vm.isPrevEnabled,"type":"button"},on:{"click":function($event){_vm.prevSet()}}},[_vm._v("\n                            Previous\n                        ")])]),_vm._v(" "),_c('div',{staticClass:"col-sm-3"},[_c('button',{staticClass:"btn btn-secondary",class:[{disabled: !_vm.isNextEnabled}],attrs:{"disabled":!_vm.isNextEnabled,"type":"button"},on:{"click":function($event){_vm.nextSet()}}},[_vm._v("\n                            Next\n                        ")])])]),_vm._v(" "),_c('hr'),_vm._v(" "),_c('div',{directives:[{name:"show",rawName:"v-show",value:(_vm.loading === true),expression:"loading === true"}],staticClass:"loading"},[_c('img',{attrs:{"id":"loading-image","src":"/public/loading.gif"}})]),_vm._v(" "),_c('div',{staticClass:"row text-center",attrs:{"id":"query-container"}},_vm._l((_vm.currSet),function(query,index){return _c('q-entry',{attrs:{"item":query,"index":index,"start":_vm.startIndex,"markers":_vm.markers}})}))]),_vm._v(" "),_c('div',{staticClass:"navbar-header"},[_c('a',{staticClass:"toggle-nav btn btn-md btn-secondary",attrs:{"href":"#"},on:{"click":function($event){_vm.toggleMenu()}}},[_vm._v("☰")])]),_vm._v(" "),_c('div',{attrs:{"id":"map-canvas"}})])])])}
 __vue__options__.staticRenderFns = [function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"col-sm-12"},[_c('p',[_vm._v("Humpback Whale Social Sound")])])}]
 __vue__options__._scopeId = "data-v-4a6d8cd5"
 if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
@@ -426,14 +457,14 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
+var SORT = exports.SORT = 1;
 exports.default = {
     name: "sort-by",
-    props: ["list"],
+    props: ["list", "sort"],
     methods: {
         sortBy: function sortBy(input) {
 
             switch (input) {
-
                 case 'ctname':
                     this.list.sort(function (a, b) {
                         var nameA = a.callTypeName.toUpperCase();
@@ -470,10 +501,7 @@ exports.default = {
                     });
                     break;
             }
-
-            for (var i = 0; i < this.list.length; i++) {
-                console.log(this.list[i].pi);
-            }
+            this.sort.push(SORT);
         }
     }
 };

@@ -20,14 +20,14 @@
 </template>
 
 <script>
+    export const SORT = 1;
     export default {
         name: "sort-by",
-        props: ["list"],
+        props: ["list", "sort"],
         methods: {
             sortBy: function (input) {
 
                 switch (input){
-
                     case 'ctname':
                         this.list.sort(function(a, b) {
                             var nameA = a.callTypeName.toUpperCase(); // ignore upper and lowercase
@@ -64,10 +64,7 @@
                         });
                         break;
                 }
-
-                for (var i = 0 ; i < this.list.length; i++){
-                    console.log(this.list[i].pi);
-                }
+                this.sort.push(SORT);
             }
         }
     }
