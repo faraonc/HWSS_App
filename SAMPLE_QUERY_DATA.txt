@@ -38,6 +38,3 @@ http://localhost:3009/query/metadata?all&dateSort=new
 http://localhost:3009/query/metadata?all&dateSort=old
 http://localhost:3009/query/metadata?pi=Seger&dateSort=new
 
-
-
-mongo hwss.documents.azure.com:10255 -u hwss -p a19Afgz9pRm58JI8MwOrurLE6SmuxrrusIF2Ci0ye1tOMur7Ck7haxQt7L6Hf3JAuSRgwjt4sOYINchXZLb3Ww== --ssl --sslAllowInvalidCertificates
