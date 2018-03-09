@@ -9,7 +9,8 @@ function buildQuery(queryParams) {
     var pass = false;
 
 
-    if (!queryParams.all) {
+    if (!queryParams.all && !queryParams.categories && !queryParams.uniqNames && !queryParams.uniqRegions
+    && !queryParams.uniqInstruments && !queryParams.uniqSamplingRates) {
         if (queryParams.pis) {
             query.$query.pi = {
                 $in: queryParams.pis
@@ -52,9 +53,9 @@ function buildQuery(queryParams) {
                 query = {$match: {samplingRate: {$in: convertedArr}}}
             }
         }
+        console.log("query:  ", query);
         return query;
     }
-
 
 
     if (queryParams.uniqNames){
