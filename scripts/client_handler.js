@@ -44,7 +44,6 @@ function serviceQuery(req, callback) {
             dbFindParams.samplingRates = req.samplingRate.split(',');
         }
     }
-
     if(req.hasOwnProperty('categories')) {
         dbFindParams.categories = true;
     }

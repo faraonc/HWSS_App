@@ -6,8 +6,6 @@ const METADATA = 'METADATA';
 function buildQuery(queryParams) {
     var query = {};
     query.$query = {};
-    var pass = false;
-
 
     if (!queryParams.all && !queryParams.categories && !queryParams.uniqNames && !queryParams.uniqRegions
     && !queryParams.uniqInstruments && !queryParams.uniqSamplingRates) {
@@ -42,19 +40,10 @@ function buildQuery(queryParams) {
             }
         }
         if (queryParams.samplingRates) {
-            if(queryParams.samplingRates.length === 1) {
-                query = {$match:{samplingRate: parseInt(queryParams.samplingRates[0])}}
-            }
-            else {
-                var convertedArr = _.sortBy(queryParams.samplingRates).map(Number);
-                // var min = parseInt(temp[0]);
-                // var max = parseInt(temp[temp.length - 1]);
-                // query = {$match:{samplingRate: {$gte: min, $lte: max}}}  // returns [min, max] range, inclusive
-                query = {$match: {samplingRate: {$in: convertedArr}}}
+            query.$query.samplingRate = {
+                $in: _.sortBy(queryParams.samplingRates).map(Number)
             }
         }
-        console.log("query:  ", query);
-        return query;
     }
 
 
@@ -84,14 +73,13 @@ function buildQuery(queryParams) {
             }
         }
     }
-
     else {
         query.$orderby = {
             date: -1
         }
     }
 
-    console.log(query);
+    console.log("outside query: ", query);
 
     return query;
 }
@@ -150,12 +138,6 @@ function queryMetaData(dbName, dbCollection, queryParams, callback) {
                         callback(err, data);
                     });
                 }
-                else if (queryParams.samplingRates) {
-                    dbo.collection(dbCollection).aggregate([query, {$sort: { date: -1 }}]).toArray(function(err, result){
-                        console.log(result)
-                        callback(err, result);
-                    })
-                }
                 else {
                     if (Object.keys(query).length !== 0 || query.constructor !== Object) {
                         dbo.collection(dbCollection).find(query).toArray(function (err, result) {
@@ -172,6 +154,7 @@ function queryMetaData(dbName, dbCollection, queryParams, callback) {
         }
     });
 }
+
 
 module.exports = {
     METADATA: METADATA,
