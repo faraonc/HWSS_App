@@ -434,7 +434,19 @@ exports.default = {
 
             switch (input) {
 
-                case 'fname':
+                case 'ctname':
+                    this.list.sort(function (a, b) {
+                        var nameA = a.callTypeName.toUpperCase();
+                        var nameB = b.callTypeName.toUpperCase();
+                        if (nameA < nameB) {
+                            return -1;
+                        }
+                        if (nameA > nameB) {
+                            return 1;
+                        }
+
+                        return 0;
+                    });
                     break;
 
                 case 'pi':
@@ -457,7 +469,6 @@ exports.default = {
                         return a.date - b.time;
                     });
                     break;
-
             }
 
             for (var i = 0; i < this.list.length; i++) {
@@ -470,7 +481,7 @@ exports.default = {
 if (module.exports.__esModule) module.exports = module.exports.default
 var __vue__options__ = (typeof module.exports === "function"? module.exports.options: module.exports)
 if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
-__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',[_c('button',{staticClass:"btn btn-secondary dropdown-toggle dropup select",attrs:{"type":"button","data-toggle":"dropdown","aria-haspopup":"true","aria-expanded":"false"}},[_vm._v("\n        Sort By\n    ")]),_vm._v(" "),_c('ul',{staticClass:"dropdown-menu"},[_c('li',{staticClass:"dropdown-item"},[_c('input',{attrs:{"type":"radio","name":"sortOption"},on:{"click":function($event){_vm.sortBy('callTypeName')}}}),_vm._v("File Name\n        ")]),_vm._v(" "),_c('li',{staticClass:"dropdown-item"},[_c('input',{attrs:{"type":"radio","name":"sortOption"},on:{"click":function($event){_vm.sortBy('pi')}}}),_vm._v("Publisher's Name\n        ")]),_vm._v(" "),_c('li',{staticClass:"dropdown-item"},[_c('input',{attrs:{"type":"radio","name":"sortOption"},on:{"click":function($event){_vm.sortBy('date')}}}),_vm._v("Date\n        ")])])])}
+__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',[_c('button',{staticClass:"btn btn-secondary dropdown-toggle dropup select",attrs:{"type":"button","data-toggle":"dropdown","aria-haspopup":"true","aria-expanded":"false"}},[_vm._v("\n        Sort By\n    ")]),_vm._v(" "),_c('ul',{staticClass:"dropdown-menu"},[_c('li',{staticClass:"dropdown-item"},[_c('input',{attrs:{"type":"radio","name":"sortOption"},on:{"click":function($event){_vm.sortBy('ctname')}}}),_vm._v("Call Type Name\n        ")]),_vm._v(" "),_c('li',{staticClass:"dropdown-item"},[_c('input',{attrs:{"type":"radio","name":"sortOption"},on:{"click":function($event){_vm.sortBy('pi')}}}),_vm._v("Publisher's Name\n        ")]),_vm._v(" "),_c('li',{staticClass:"dropdown-item"},[_c('input',{attrs:{"type":"radio","name":"sortOption"},on:{"click":function($event){_vm.sortBy('date')}}}),_vm._v("Date\n        ")])])])}
 __vue__options__.staticRenderFns = []
 __vue__options__._scopeId = "data-v-033629af"
 if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")

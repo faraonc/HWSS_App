@@ -6,7 +6,7 @@
         </button>
         <ul class="dropdown-menu">
             <li class="dropdown-item">
-                <input type="radio" name="sortOption" @click="sortBy('callTypeName')">File Name
+                <input type="radio" name="sortOption" @click="sortBy('ctname')">Call Type Name
             </li>
             <li class="dropdown-item">
                 <input type="radio" name="sortOption" @click="sortBy('pi')">Publisher's Name
@@ -28,7 +28,19 @@
 
                 switch (input){
 
-                    case 'fname':
+                    case 'ctname':
+                        this.list.sort(function(a, b) {
+                            var nameA = a.callTypeName.toUpperCase(); // ignore upper and lowercase
+                            var nameB = b.callTypeName.toUpperCase(); // ignore upper and lowercase
+                            if (nameA < nameB) {
+                                return -1;
+                            }
+                            if (nameA > nameB) {
+                                return 1;
+                            }
+                            // names must be equal
+                            return 0;
+                        });
                         break;
 
                     case 'pi':
@@ -51,7 +63,6 @@
                             return a.date - b.time;
                         });
                         break;
-
                 }
 
                 for (var i = 0 ; i < this.list.length; i++){
