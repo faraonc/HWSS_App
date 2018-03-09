@@ -256,7 +256,7 @@ var NUM_DISPLAY = exports.NUM_DISPLAY = 10;exports.default = {
                 }
 
                 for (var j = 0; j < this.currSet[i].image_url.length; j++) {
-                    contentString.push('<div><img src="' + this.currSet[i].image_url[j] + '"></div>');
+                    contentString.push('<div class="info-img"><img src="' + this.currSet[i].image_url[j] + '"></div>');
                 }
 
                 contentString.push('</div>');
@@ -283,10 +283,20 @@ var NUM_DISPLAY = exports.NUM_DISPLAY = 10;exports.default = {
                 icon: icon
             });
 
+            var toggleBounce = function toggleBounce() {
+                if (marker.getAnimation() != null) {
+                    marker.setAnimation(null);
+                } else {
+                    marker.setAnimation(google.maps.Animation.BOUNCE);
+                }
+            };
+
             marker.addListener('click', function () {
                 infowindow.close();
                 infowindow.setContent("<div id='infowindow'>" + contentString + "</div>");
+                toggleBounce();
                 infowindow.open(self.map, marker);
+                setTimeout(toggleBounce, 1500);
             });
 
             google.maps.event.addListener(self.map, 'click', function () {
