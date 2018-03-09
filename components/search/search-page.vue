@@ -1,6 +1,6 @@
 <template>
     <div class="container" id="searchPage">
-        <h1>Search</h1>
+        <h1>HWSS Search</h1>
         <div class="category-dropdown-container">
             <div class="btn-group">
                 <!-- 'Add Category' Dropdown -->
@@ -25,7 +25,7 @@
             <div class="error-msg">{{errorMsg}}</div>
 
             <div class="loader" v-show="loadingCategories === true">
-                <img src="/public/loading.gif">
+                <img src="/public/loading.gif" width="200">
             </div>
 
 
@@ -39,6 +39,10 @@
                 <!--v-bind:category="items.name" v-bind:component="items.component"-->
             </div>
         </div> <!-- end of category-dropdown-container -->
+        <div class="footer">
+            <hr>
+            <p>2018 by Conard Faraon, Lisa Kim, Pouria Ghadimi &nbsp;&nbsp;|&nbsp;&nbsp; <a href="/api.html" target="_blank">API Development</a></p>
+        </div>
     </div>
 </template>
 

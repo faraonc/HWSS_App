@@ -1,5 +1,6 @@
 * {
     font-family: 'Montserrat', sans-serif;
+
 }
 h1 {
     font-size: 4.5em;
@@ -141,5 +142,10 @@ h1 {
     margin-top: 20px;
     height: 23px;
     color: #e02020;
+    font-size: .8em;
+}
+
+#searchPage .footer {
+    margin-top: 200px;
     font-size: .8em;
 }

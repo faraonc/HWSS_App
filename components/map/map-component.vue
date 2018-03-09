@@ -8,42 +8,37 @@
 
                 <!--Off Canvas Menu-->
                 <div id="site-menu">
-                    <div class="row text-center">
-                        <div class="col-sm-12">
-                            <p>Humpback Whale Social Sound</p>
-                        </div>
-
-                        <div class="col-sm-3">
+                    <div class="col-sm-12">
+                        <h5>Humpback Whale Social Sound</h5>
+                    </div>
+                    <div class="row text-center map-nav-btns">
+                        <div class="col-sm-7 map-search-sort">
                             <a href="/" class="btn btn-secondary" role="button" @click="goSearch()">
                                 Search
                             </a>
+
+                            <div class="multi-select-dropdown btn-group">
+                                <sort-by :list="queryData" :sort="isSorting"></sort-by>
+                            </div>
                         </div>
 
-                        <div class="multi-select-dropdown btn-group">
-                            <sort-by :list="queryData" :sort="isSorting"></sort-by>
-
-                        </div>
-
-                        <div class="col-sm-3">
+                        <div class="col-sm-5 map-next-prev-btns">
                             <button class="btn btn-secondary" :class="[{disabled: !isPrevEnabled}]"
                                     :disabled="!isPrevEnabled" type="button" @click="prevSet()">
-                                Previous
+                                Prev
                             </button>
-                        </div>
-
-                        <div class="col-sm-3">
                             <button class="btn btn-secondary" :class="[{disabled: !isNextEnabled}]"
                                     :disabled="!isNextEnabled" type="button" @click="nextSet()">
                                 Next
                             </button>
                         </div>
-                    </div>
+                </div>
                     <hr>
-                    <div class="loading" v-show="loading === true">
-                        <img id= "loading-image" src="/public/loading.gif">
+                    <div class="loading-image" v-show="loading === true">
+                        <img class="center-block" src="/public/loading.gif" width="200">
                     </div>
                     <!--Query Results-->
-                    <div id="query-container" class="row text-center">
+                    <div id="query-container">
 
 
                         <!--Query Entries-->
@@ -139,7 +134,7 @@
                     success: function (response) {
                         if (response.result.length) {
                             self.queryData.push.apply(self.queryData, response.result);
-                            if (self.queryData.length < NUM_DISPLAY) {
+                            if (self.queryData.length <= NUM_DISPLAY) {
                                 self.endIndex = self.queryData.length;
                             } else {
                                 self.isNextEnabled = true;
@@ -180,7 +175,7 @@
                     };
 
                     var contentString = [
-                        '<div class="row container info-marker"><div class="col-sm-1"><h5>',
+                        '<div class="row container info-marker"><div class="col-sm-1 info-marker-h"><h5>',
                         (this.startIndex + i + 1),
                         '</h5></div><div class="col-sm-11"><h6>',
                         this.currSet[i].callTypeName,
@@ -191,16 +186,16 @@
                         '</p><p>',
                         date,
                         '</p><p>',
-                        mapNormalize(this.currSet[i].groundType),
-                        ' - ',
                         mapNormalize(this.currSet[i].regionCountry),
+                        '</p><p>',
+                        mapNormalize(this.currSet[i].groundType),
                         '</p></div></div><hr class="info-break">'
                     ];
 
                     for (var j = 0; j < this.currSet[i].file_url.length; j++) {
                         contentString.push('<div class="info-file"><a href="');
                         contentString.push(this.currSet[i].file_url[j]);
-                        contentString.push('" target="_blank">Mat ');
+                        contentString.push('" target="_blank">mat_');
                         contentString.push(j + 1);
                         contentString.push('</a></div>');
                     }
@@ -361,7 +356,7 @@
                     while (this.currSet.length > 0) {
                         this.currSet.pop();
                     }
-                    if (this.queryData.length < NUM_DISPLAY) {
+                    if (this.queryData.length <= NUM_DISPLAY) {
                         this.endIndex = this.queryData.length;
                     } else {
                         this.isNextEnabled = true;

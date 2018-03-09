@@ -5,15 +5,9 @@
             Sort By
         </button>
         <ul class="dropdown-menu">
-            <li class="dropdown-item">
-                <input type="radio" name="sortOption" @click="sortBy('ctname')">Call Type Name
-            </li>
-            <li class="dropdown-item">
-                <input type="radio" name="sortOption" @click="sortBy('pi')">Publisher's Name
-            </li>
-            <li class="dropdown-item">
-                <input type="radio" name="sortOption" @click="sortBy('date')">Date
-            </li>
+            <li class="dropdown-item" @click="sortBy('ctname')">Call Type Name</li>
+            <li class="dropdown-item" @click="sortBy('pi')">Publisher's Name</li>
+            <li class="dropdown-item" @click="sortBy('date')">Date</li>
         </ul>
     </div>
 
