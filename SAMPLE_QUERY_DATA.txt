@@ -69,3 +69,46 @@ http://localhost:3009/query/metadata?pi=Seger&dateSort=new
 "lat": 34.016498,
 "long": -133.300598
 },
+
+
+
+<h6>Overview</h6>
+                <li><a href="#summary">Summary</a></li>
+                <li><a href="#endpoints">Endpoints</a></li>
+                <li><a href="#availableParams">Available Parameters</a></li>
+                <li><a href="#paramExplained">Parameters Explained</a></li>
+            </ul>
+            <ul>
+                <h6>General Query</h6>
+                <li><a href="#getAllDocs">Get All Documents</a></li>
+                <li><a href="#getDocAttr">Get Document Attributes</a></li>
+                <li><a href="#multiParamQuery">Multiparameter Query</a></li>
+            </ul>
+            <ul>
+                <h6>Sorting Options</h6>
+                <li><a href="#SortAscend">Sort by Ascending Date</a></li>
+                <li><a href="#SortDescend">Sort by Descending Date</a></li>
+            </ul>
+            <ul>
+                <h6>Authors</h6>
+                <li><a href="#getPub">Get a Publisher</a></li>
+                <li><a href="#getSevPub">Get Several Publishers</a></li>
+                <li><a href="#getUniqPub">Get All Uniq Publishers</a></li>
+            </ul>
+            <ul>
+                <h6>Regions</h6>
+                <li><a href="#getReg">Get a Region</a></li>
+                <li><a href="#getSevReg">Get Several Regions</a></li>
+                <li><a href="#getUniqReg">Get All Uniq Regions</a></li>
+            </ul>
+            <ul>
+                <h6>Instruments</h6>
+                <li><a href="#getInst">Get Instruments</a></li>
+                <li><a href="#getSevInst">Get Several Instruments</a></li>
+                <li><a href="#getUniqInst">Get All Uniq Instruments</a></li>
+            </ul>
+            <ul>
+                <h6>Sampling Rates</h6>
+                <li><a href="getRat">Get a Rate</a></li>
+                <li><a href="getSevRat">Get Several Rates</a></li>
+                <li><a href="getUniqRat">Get All Uniq Rates</a></li>

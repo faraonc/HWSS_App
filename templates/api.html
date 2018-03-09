@@ -4,112 +4,580 @@
     <meta charset="UTF-8">
     <title>HWSS API</title>
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css"
-          integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
 
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
 
     <!-- Our CSS -->
-    <link rel="stylesheet" href="/styles/search.css">
-    <link rel="stylesheet" href="/styles/style.css">
-
-    <!-- VueJS, GoogleMap API-->
-    <script src="https://unpkg.com/vue/dist/vue.js"></script>
-    <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+    <link rel="stylesheet" href="/styles/api.css">
 </head>
 <body>
 <!------------------------------------ START -------------------------------------->
 <!--TODO refactor CDNs-->
 <!--TODO change URI-->
 
-<h1>Overview</h1>
+<div class="container" id="api-container">
+    <!---------------------------------------- FIXED MENU BAR ---------------------------------------->
+    <div class="navbar-container">
+    <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">HWSS</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
 
-<p>This overview will give you some idea of what data is available, how to find what you need, and what you will see
-    when you make a request to us.</p>
-
-<p>The easiest way to see what data is included is to explore the data. You can build complex queries quickly and browse
-    the results.</p>
-
-<p>Please ensure that you read the guide for polling applications below before starting.</p>
-
-<p>Results are returned in JSON format.</p>
-
-<h2>Endpoints</h2>
-<p>We provide several endpoints to retrieve different items:</p>
-
-<ul>
-    <li>Documents</li>
-    <li>Document Categories</li>
-    <li>Authors</li>
-    <li>Regions</li>
-    <li>Document items</li>
-</ul>
-
-<p>For each endpoint:</p>
-<ul>
-    <li>Results can be filtered using parameters</li>
-    <li>Response contains minimal detail by default but more data can be exposed using parameters</li>
-</ul>
-
-<h3>Documents</h3>
-<p>The documents endpoint (/query/metadata) returns all pieces of content in the metadata database. For example, let's
-    see all the contents of our metadata database:</p>
-
-<p>http://localhost:3009/query/metadata?all</p>
-
-<h3>Document Categories</h3>
-<p>Document attributes can be fetched. For example, let's see all the keys of our metadata database:</p>
-
-<p>http://localhost:3009/query/metadata?categories</p>
-
-<h3>Authors</h3>
-<p>All available authors and publishers of the data can be retrieved. For example, let's see all of our publishers in
-    the database:</p>
-
-<p>http://localhost:3009/query/metadata?uniqNames</p>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Link</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Dropdown
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="#">Action</a>
+                        <a class="dropdown-item" href="#">Another action</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#">Something else here</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    </div>
 
 
-<h3>Regions</h3>
-<p>All available regions of the data can be retrieved. For example, let's see all the regions of our data in the
-    database:</p>
+    <!---------------------------------------- LEFT SIDEBAR ANCHOR LINKS ---------------------------------------->
+    <div class="row" id="api-columns">
+        <div class="col-sm" id="left-col">
+            <ul>
+                <h6>Overview</h6>
+                <li><a href="#summary">Summary</a></li>
+                <li><a href="#endpoints">Endpoints</a></li>
+                <li><a href="#availableParams">Available Parameters</a></li>
+                <li><a href="#paramExplained">Parameters Explained</a></li>
+            </ul>
+            <ul>
+                <h6>General Query</h6>
+                <li><a href="#getAllDocs">Get All Documents</a></li>
+                <li><a href="#getDocAttr">Get Document Attributes</a></li>
+                <li><a href="#multiParamQuery">Multiparameter Query</a></li>
+            </ul>
+            <ul>
+                <h6>Sorting Options</h6>
+                <li><a href="#sortAscend">Sort by Ascending Date</a></li>
+                <li><a href="#sortDescend">Sort by Descending Date</a></li>
+            </ul>
+            <ul>
+                <h6>Authors</h6>
+                <li><a href="#getPub">Get a Publisher</a></li>
+                <li><a href="#getSevPub">Get Several Publishers</a></li>
+                <li><a href="#getUniqPub">Get All Uniq Publishers</a></li>
+            </ul>
+            <ul>
+                <h6>Regions</h6>
+                <li><a href="#getReg">Get a Region</a></li>
+                <li><a href="#getSevReg">Get Several Regions</a></li>
+                <li><a href="#getUniqReg">Get All Uniq Regions</a></li>
+            </ul>
+            <ul>
+                <h6>Instruments</h6>
+                <li><a href="#getInst">Get Instruments</a></li>
+                <li><a href="#getSevInst">Get Several Instruments</a></li>
+                <li><a href="#getUniqInst">Get All Uniq Instruments</a></li>
+            </ul>
+            <ul>
+                <h6>Sampling Rates</h6>
+                <li><a href="#getRat">Get a Rate</a></li>
+                <li><a href="#getSevRat">Get Several Rates</a></li>
+                <li><a href="#getUniqRat">Get All Uniq Rates</a></li>
+            </ul>
+        </div> <!-- end of left column-->
 
-<p>http://localhost:3009/query/metadata?uniqRegions</p>
 
+        <!---------------------------------------- RIGHT COLUMN STUFF ---------------------------------------->
+        <div class="col-sm" id="right-col">
+            <section id="summary">
+                <h2>Summary</h2>
 
-<h3>Document Items</h3>
-<p>Querying specific documents can be filtered.</p>
+                <p>This overview will give you some idea of what data is available, how to find what you need, and what you will see
+                    when you make a request to us.</p>
 
-<h4>Parameters:</h4>
-<ul>
-    <li>pi</li>
-    <li>firstName</li>
-    <li>region</li>
-    <li>date</li>
-    <li>fileType</li>
-    <li>instrument</li>
-    <li>samplingRate</li>
-    <li>dateSort</li>
-</ul>
+                <p>The easiest way to see what data is included is to explore the data. You can build complex queries quickly and browse
+                    the results.</p>
 
-<p>http://localhost:3009/query/metadata?param1=arg1,arg2&#38;param2=arg1&#38;paramN=argN</p>
+                <p>Please ensure that you read the guide for polling applications below before starting.</p>
 
-<p>For example, let's see all the documents published by Seger and Faraon:</p>
-<p>http://localhost:3009/query/metadata?pi=Seger,Faraon</p>
+                <p>Results are returned in JSON format.</p>
+            </section>
 
-<p>Sort by date:</p>
-<p>http://localhost:3009/query/metadata?all&#38;dateSort=new</p>
-<p>http://localhost:3009/query/metadata?all&#38;dateSort=old</p>
+            <!---------------------------------------- ENDPOINTS ---------------------------------------->
+            <section id="endpoints">
+                <h2>Endpoints</h2>
+                <p>We provide several endpoints to retrieve different items:</p>
+
+                <ul>
+                    <li>All Documents</li>
+                    <li>Document Items</li>
+                    <li>Document Attributes</li>
+                    <li>Authors</li>
+                    <li>Regions</li>
+                    <li>Instruments</li>
+                    <li>Sampling Rates</li>
+                </ul>
+
+                <p>For each endpoint:</p>
+                <ul>
+                    <li>Results can be filtered using parameters</li>
+                    <li>Response contains minimal detail by default but more data can be exposed using parameters</li>
+                </ul>
+            </section>
+            <!---------------------------------------- AVAILABLE PARAM ---------------------------------------->
+            <section id="availableParams">
+                <h2>Available Parameters <span class="badge badge-secondary">case-sensitive</span></h2>
+                <p>Below are the exposed keys.</p>
+                <ul>
+                    <li>pi</li>
+                    <li>firstName</li>
+                    <li>region</li>
+                    <li>date</li>
+                    <li>instrument</li>
+                    <li>samplingRate</li>
+                    <li>dateSort</li>
+                    <li>all</li>
+                </ul>
+            </section>
+            <!---------------------------------------- PARAMS EXPLAINED ---------------------------------------->
+            <section id="paramExplained">
+                <h2>Parameters Explained <span class="badge badge-secondary">case-sensitive</span></h2>
+
+                <h5>pi</h5>
+                <p>Last name of publisher, beginning with capital letter</p>
+
+                <h5>firstName</h5>
+                <p>First name of publishers, beginning with capital letter</p>
+
+                <h5>region</h5>
+                <p>Regional geographic location. Each word seperated by space,
+                        and each word begins with capital letter, i.e: Pacific Ocean</p>
+
+                <h5>date</h5>
+                <p>Date published. Format, brackets exclusive: [year][month][day], padded with zeroes,
+                    no extra characters, i.e: 20180930</p>
+
+                <h5>instrument</h5>
+                <p>Sensor instrument used, beginning with capital letter</p>
+
+                <h5>samplingRate</h5>
+                <p>Rate of sampling, in numerical format, i.e: 800</p>
+
+                <h5>dateSort</h5>
+                <p>Return results date sorted from recent to old</p>
+
+                <h5>all</h5>
+                <p>Returns all documents in collection</p>
+            </section>
+            <!---------------------------------------- GET EVERYTHING ---------------------------------------->
+            <section id="getAllDocs">
+                <h2>Get All Documents</h2>
+                <table class="table">
+                    <tbody>
+                    <tr>
+                        <th scope="row">Description</th>
+                        <td>Get everything in a collection</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Endpoint</th>
+                        <td>/query/metadata?all</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">HTTP Method</th>
+                        <td>GET</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </section>
+            <!---------------------------------------- GET ALL CATEGORIES ---------------------------------------->
+            <section id="getDocAttr">
+                <h2>Get Document Attributes</h2>
+                <table class="table">
+                    <tbody>
+                    <tr>
+                        <th scope="row">Description</th>
+                        <td>Get documents keys</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Endpoint</th>
+                        <td>/query/metadata?categories</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">HTTP Method</th>
+                        <td>GET</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </section>
+            <!---------------------------------------- MULIPARAMETER QUERY ---------------------------------------->
+            <section id="multiParamQuery">
+                <h2>Multiparameter Query</h2>
+                <table class="table">
+                    <tbody>
+                    <tr>
+                        <th scope="row">Description</th>
+                        <td>Filter using multiple parameters to get more specific results</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Endpoint</th>
+                        <td>/query/metadata?KEY={}&#38;KEY2={}&#38;KEY3{}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">HTTP Method</th>
+                        <td>GET</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Example URL:</th>
+                        <td>/query/metadata?firstName=Conard,Lisa&#38;region=Pacific Ocean, Atlantic Ocean&#38;samplingRate=800</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <!---------------------------------------- SORTING OPTIONS ---------------------------------------->
+            <section id="sortAscend">
+                <h2>Sort by Ascending Date</h2>
+                <table class="table">
+                    <tbody>
+                    <tr>
+                        <th scope="row">Description</th>
+                        <td>Get everything in collection and sort from oldest to newest.</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Endpoint</th>
+                        <td>/query/metadata?all&#38;dateSort=new</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">HTTP Method</th>
+                        <td>GET</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <section id="sortDescend">
+                <h2>Sort by Descending Date</h2>
+                <table class="table">
+                    <tbody>
+                    <tr>
+                        <th scope="row">Description</th>
+                        <td>Get everything in collection and sort from newest to oldest.</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Endpoint</th>
+                        <td>/query/metadata?all&#38;dateSort=old</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">HTTP Method</th>
+                        <td>GET</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <!---------------------------------------- PUBLISHERS ---------------------------------------->
+            <section id="getPub">
+                <h2>Get a Publisher</h2>
+                <table class="table">
+                    <tbody>
+                    <tr>
+                        <th scope="row">Description</th>
+                        <td>Get a specific publisher</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Endpoint</th>
+                        <td>/query/metadata?pi={lastName}&#38;firstName={firstName}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">HTTP Method</th>
+                        <td>GET</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Example URL:</th>
+                        <td>/query/metadata?pi=Faraon&#38;firstName=Conard</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <section id="getSevPub">
+                <h2>Get Several Publishers</h2>
+                <table class="table">
+                    <tbody>
+                    <tr>
+                        <th scope="row">Description</th>
+                        <td>Specify more than one publisher, seperated by comma. Last names are seperated from first names.
+                            When listing, keep them in order to match last name in list to first name in list</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Endpoint</th>
+                        <td>/query/metadata?pi={lastName1},{lastName2}&#38;firstName={firstName1},{firstName2}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">HTTP Method</th>
+                        <td>GET</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Example URL:</th>
+                        <td>/query/metadata?pi=Faraon,Kim&#38;firstName=Conard,Lisa</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <section id="getUniqPub">
+                <h2>Get All Uniq Publishers</h2>
+                <table class="table">
+                    <tbody>
+                    <tr>
+                        <th scope="row">Description</th>
+                        <td>Get all list of uniq publishers</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Endpoint</th>
+                        <td>/query/metadata?uniqNames</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">HTTP Method</th>
+                        <td>GET</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </section>
+            <!---------------------------------------- REGIONS ---------------------------------------->
+            <section id="getReg">
+                <h2>Get a Region</h2>
+                <table class="table">
+                    <tbody>
+                    <tr>
+                        <th scope="row">Description</th>
+                        <td>Get a specific geographic location. Each word begins with captial letter,
+                        seperated by single space.</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Endpoint</th>
+                        <td>/query/metadata?region={region Name}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">HTTP Method</th>
+                        <td>GET</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Example URL:</th>
+                        <td>/query/metadata?region=Pacific Ocean</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <section id="getSevReg">
+                <h2>Get Several Regions</h2>
+                <table class="table">
+                    <tbody>
+                    <tr>
+                        <th scope="row">Description</th>
+                        <td>Specify several geographic locations, seperated by comma.
+                            Each word begins with captial letter, seperated by single space.</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Endpoint</th>
+                        <td>/query/metadata?region={Region Name1, Region Name2}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">HTTP Method</th>
+                        <td>GET</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Example URL:</th>
+                        <td>/query/metadata?region=Pacific Ocean, Atlantic Ocean</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <section id="getUniqReg">
+                <h2>Get All Uniq Regions</h2>
+                <table class="table">
+                    <tbody>
+                    <tr>
+                        <th scope="row">Description</th>
+                        <td>Get all list of uniq regions</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Endpoint</th>
+                        <td>/query/metadata?uniqRegions</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">HTTP Method</th>
+                        <td>GET</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </section>
+            <!---------------------------------------- INSTRUMENTS ---------------------------------------->
+            <section id="getInst">
+                <h2>Get an Instrument</h2>
+                <table class="table">
+                    <tbody>
+                    <tr>
+                        <th scope="row">Description</th>
+                        <td>Specify an instrument. Each word begins with capital letter.</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Endpoint</th>
+                        <td>/query/metadata?instrument={instrument}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">HTTP Method</th>
+                        <td>GET</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Example URL:</th>
+                        <td>/query/metadata?instrument=Bprobe</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <section id="getSevInst">
+                <h2>Get Several Instruments</h2>
+                <table class="table">
+                    <tbody>
+                    <tr>
+                        <th scope="row">Description</th>
+                        <td>Specify several instruments, separated by comma. Each word begins with capital letter. </td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Endpoint</th>
+                        <td>/query/metadata?instrument={instrument1, instrument2}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">HTTP Method</th>
+                        <td>GET</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Example URL:</th>
+                        <td>/query/metadata?instrument=Bprobe, Acousonde</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <section id="getUniqInst">
+                <h2>Get All Uniq Instruments</h2>
+                <table class="table">
+                    <tbody>
+                    <tr>
+                        <th scope="row">Description</th>
+                        <td>Get all list of uniq instruments</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Endpoint</th>
+                        <td>/query/metadata?uniqInstruments</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">HTTP Method</th>
+                        <td>GET</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </section>
+            <!---------------------------------------- RATES ---------------------------------------->
+            <section id="getRat">
+                <h2>Get a Rate</h2>
+                <table class="table">
+                    <tbody>
+                    <tr>
+                        <th scope="row">Description</th>
+                        <td>Specify a numerical value sampling rate.</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Endpoint</th>
+                        <td>/query/metadata?samplingRate={rate}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">HTTP Method</th>
+                        <td>GET</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Example URL:</th>
+                        <td>/query/metadata?samplingRate=800</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <section id="getSevRat">
+                <h2>Get Several Rates</h2>
+                <table class="table">
+                    <tbody>
+                    <tr>
+                        <th scope="row">Description</th>
+                        <td>Specify several numerical value sampling rates, separated by commas.</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Endpoint</th>
+                        <td>/query/metadata?samplingRate={rate1,rate2}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">HTTP Method</th>
+                        <td>GET</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Example URL:</th>
+                        <td>/query/metadata?samplingRate=800,1000</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <section id="getUniqRat">
+                <h2>Get All Uniq Rates</h2>
+                <table class="table">
+                    <tbody>
+                    <tr>
+                        <th scope="row">Description</th>
+                        <td>Get all list of uniq sampling rates</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Endpoint</th>
+                        <td>/query/metadata?uniqSamplingRates</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">HTTP Method</th>
+                        <td>GET</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </section>
+        </div> <!--  end of right column -->
+    </div> <!-- container for the two columns-->
+</div> <!-- end of entire container -->
+
 
 <!------------------------------------ Below this line: ALL CDN'S -------------------------------------->
 <!-- jQuery first, then Tether, then Bootstrap JS -->
-<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"
-        integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb"
-        crossorigin="anonymous"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"
-        integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn"
-        crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
 
 <!-- Our scripts -->
 <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.5/lodash.min.js"></script>
