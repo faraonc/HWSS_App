@@ -28,7 +28,8 @@
 <p>This overview will give you some idea of what data is available, how to find what you need, and what you will see
     when you make a request to us.</p>
 
-<p>The easiest way to see what data is included is to explore the data. You can build complex queries quickly and browse the results.</p>
+<p>The easiest way to see what data is included is to explore the data. You can build complex queries quickly and browse
+    the results.</p>
 
 <p>Please ensure that you read the guide for polling applications below before starting.</p>
 
@@ -42,7 +43,7 @@
     <li>Document Categories</li>
     <li>Authors</li>
     <li>Regions</li>
-    <li>Single item</li>
+    <li>Document items</li>
 </ul>
 
 <p>For each endpoint:</p>
@@ -52,7 +53,8 @@
 </ul>
 
 <h3>Documents</h3>
-<p>The documents endpoint (/query/metadata) returns all pieces of content in the metadata database. For example, let's see all the contents of our metadata database:</p>
+<p>The documents endpoint (/query/metadata) returns all pieces of content in the metadata database. For example, let's
+    see all the contents of our metadata database:</p>
 
 <p>http://localhost:3009/query/metadata?all</p>
 
@@ -62,26 +64,42 @@
 <p>http://localhost:3009/query/metadata?categories</p>
 
 <h3>Authors</h3>
-<p>All available authors and publishers of the data can be retrieved. For example, let's see all of our publishers in the database:</p>
+<p>All available authors and publishers of the data can be retrieved. For example, let's see all of our publishers in
+    the database:</p>
 
 <p>http://localhost:3009/query/metadata?uniqNames</p>
 
 
 <h3>Regions</h3>
-<p>All available regions of the data can be retrieved. For example, let's see all the regions of our data in the database:</p>
+<p>All available regions of the data can be retrieved. For example, let's see all the regions of our data in the
+    database:</p>
 
 <p>http://localhost:3009/query/metadata?uniqRegions</p>
 
 
-<h3>Single Items</h3>
-<p>All available regions of the data can be retrieved. For example, let's see all the regions of our data in the database:</p>
+<h3>Document Items</h3>
+<p>Querying specific documents can be filtered.</p>
 
-<p>http://localhost:3009/query/metadata?uniqRegions</p>
+<h4>Parameters:</h4>
+<ul>
+    <li>pi</li>
+    <li>firstName</li>
+    <li>region</li>
+    <li>date</li>
+    <li>fileType</li>
+    <li>instrument</li>
+    <li>samplingRate</li>
+    <li>dateSort</li>
+</ul>
 
+<p>http://localhost:3009/query/metadata?param1=arg1,arg2&#38;param2=arg1&#38;paramN=argN</p>
 
+<p>For example, let's see all the documents published by Seger and Faraon:</p>
+<p>http://localhost:3009/query/metadata?pi=Seger,Faraon</p>
 
-
-
+<p>Sort by date:</p>
+<p>http://localhost:3009/query/metadata?all&#38;dateSort=new</p>
+<p>http://localhost:3009/query/metadata?all&#38;dateSort=old</p>
 
 <!------------------------------------ Below this line: ALL CDN'S -------------------------------------->
 <!-- jQuery first, then Tether, then Bootstrap JS -->
