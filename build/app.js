@@ -193,7 +193,7 @@ var NUM_DISPLAY = exports.NUM_DISPLAY = 10;exports.default = {
         },
         makeQuery: function makeQuery(event) {
             var self = this;
-            console.log("made it: ", this.$route.params.queries);
+            console.log("In the map component: ", this.$route.params.queries);
 
             $.ajax({
                 dataType: "json",
@@ -240,12 +240,23 @@ var NUM_DISPLAY = exports.NUM_DISPLAY = 10;exports.default = {
                     return string.replace(/([A-Z])/g, ' $1');
                 };
 
-                var contentString = ['<div class="col-sm-12 row query-result container"><div class="col-sm-2 query-id"><h5>', this.startIndex + i + 1, '</h5></div><div class="col-sm-10 query-entry"><h6>', this.currSet[i].callTypeName, '</h6><p>', this.currSet[i].pi, ', ', this.currSet[i].firstName, '</p><p>', date, '</p><p>', mapNormalize(this.currSet[i].groundType), ' - ', mapNormalize(this.currSet[i].regionCountry), '</p><hr></div>'];
+                var contentString = ['<div class="row container info-marker"><div class="col-sm-1"><h5>', this.startIndex + i + 1, '</h5></div><div class="col-sm-11"><h6>', this.currSet[i].callTypeName, '</h6><p>', this.currSet[i].pi, ', ', this.currSet[i].firstName, '</p><p>', date, '</p><p>', mapNormalize(this.currSet[i].groundType), ' - ', mapNormalize(this.currSet[i].regionCountry), '</p></div></div><hr class="info-break">'];
 
-                if (this.currSet[i].dataType === 'a') {
-                    contentString.push('<audio controls><source src="' + this.currSet[i].url + '"></audio>');
-                } else if (this.currSet[i].dataType === 'i') {
-                    contentString.push('<img src="' + this.currSet[i].url + '">');
+                for (var j = 0; j < this.currSet[i].file_url.length; j++) {
+                    contentString.push('<div class="info-file"><a href="');
+                    contentString.push(this.currSet[i].file_url[j]);
+                    contentString.push('" target="_blank">Mat ');
+                    contentString.push(j + 1);
+                    contentString.push('</a></div>');
+                }
+
+                contentString.push('<div class="info-media">');
+                for (var j = 0; j < this.currSet[i].audio_url.length; j++) {
+                    contentString.push('<div><audio controls><source src="' + this.currSet[i].audio_url[j] + '"></audio></div>');
+                }
+
+                for (var j = 0; j < this.currSet[i].image_url.length; j++) {
+                    contentString.push('<div><img src="' + this.currSet[i].image_url[j] + '"></div>');
                 }
 
                 contentString.push('</div>');
@@ -258,10 +269,18 @@ var NUM_DISPLAY = exports.NUM_DISPLAY = 10;exports.default = {
         placeMarkers: function placeMarkers(lat, long, infowindow, contentString) {
 
             var self = this;
+
+            var icon = {
+                url: 'https://maps.gstatic.com/mapfiles/api-3/images/spotlight-poi.png',
+                scaledSize: new google.maps.Size(20, 28),
+                origin: new google.maps.Point(0, 0),
+                anchor: new google.maps.Point(0, 0) };
+
             var marker = new google.maps.Marker({
                 position: { lat: lat, lng: long },
                 map: self.map,
-                animation: google.maps.Animation.DROP
+                animation: google.maps.Animation.DROP,
+                icon: icon
             });
 
             marker.addListener('click', function () {
@@ -308,7 +327,7 @@ var NUM_DISPLAY = exports.NUM_DISPLAY = 10;exports.default = {
                 for (var i = this.startIndex; i < this.endIndex; i++) {
                     this.currSet.push(this.queryData[i]);
                 }
-                console.log(this.currSet);
+
                 this.createInfoMarker();
                 this.isPrevEnabled = true;
             }
@@ -318,9 +337,8 @@ var NUM_DISPLAY = exports.NUM_DISPLAY = 10;exports.default = {
                 if (this.markerPlaced) {
                     this.removeMarkers();
                 }
-                console.log(this.endIndex);
-                console.log(this.startIndex);
-                this.endIndex = this.endIndex - this.startIndex;
+
+                this.endIndex = this.endIndex - (this.endIndex - this.startIndex);
                 this.startIndex -= NUM_DISPLAY;
 
                 if (this.startIndex <= 0) {
@@ -332,7 +350,7 @@ var NUM_DISPLAY = exports.NUM_DISPLAY = 10;exports.default = {
                 for (var i = this.startIndex; i < this.endIndex; i++) {
                     this.currSet.push(this.queryData[i]);
                 }
-                console.log(this.currSet);
+
                 this.createInfoMarker();
                 this.isNextEnabled = true;
             }
