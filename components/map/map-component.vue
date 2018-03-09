@@ -57,7 +57,7 @@
 
                 <!--Button for Off Canvas Menu-->
                 <div class="navbar-header">
-                    <a href="#" class="toggle-nav btn btn-md btn-secondary" v-on:click="toggleMenu()">&#9776;</a>
+                    <a href="#/map" class="toggle-nav btn btn-md btn-secondary" v-on:click="toggleMenu()">&#9776;</a>
                 </div>
                 <!--End Button for Off Canvas Menu-->
 
