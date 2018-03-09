@@ -21,14 +21,16 @@
                         </div>
 
                         <div class="col-sm-4">
-                            <button class="btn btn-secondary" type="button" aria-haspopup="true"
-                                    aria-expanded="false">
+                            <button class="btn btn-secondary" :class="[{disabled: !isPrevEnabled}]"
+                                    :disabled="!isPrevEnabled" type="button" aria-haspopup="true"
+                                    aria-expanded="false" @click="prevSet()">
                                 Previous
                             </button>
                         </div>
 
                         <div class="col-sm-4">
-                            <button class="btn btn-secondary" type="button" aria-haspopup="true"
+                            <button class="btn btn-secondary" :class="[{disabled: !isNextEnabled}]"
+                                    :disabled="!isNextEnabled" type="button" aria-haspopup="true"
                                     aria-expanded="false" @click="nextSet()">
                                 Next
                             </button>
@@ -40,7 +42,8 @@
                     <div id="query-container" class="row text-center">
 
                         <!--Query Entries-->
-                        <q-entry v-for="(query, index) in currSet" :item="query" :index="index" :start="startIndex" :end="endIndex"
+                        <q-entry v-for="(query, index) in currSet" :item="query" :index="index" :start="startIndex"
+                                 :end="endIndex"
                                  :markers="markers"></q-entry>
 
 
@@ -80,6 +83,8 @@
                 navState: true,
                 descState: false,
                 markerPlaced: false,
+                isNextEnabled: false,
+                isPrevEnabled: false,
                 queryData: [],
                 markers: [],
                 currSet: [],
@@ -113,7 +118,6 @@
                 this.navState = !this.navState;
             },
             makeQuery: function (event) {
-                //TODO find a marker
                 var self = this;
                 console.log("made it: ", this.$route.params.queries);
 
@@ -122,20 +126,24 @@
                     url: "query/metadata?all",
                     timeout: 10000,
                     success: function (response) {
-                        self.queryData.push.apply(self.queryData, response.result);
-                        if(self.queryData.length < NUM_DISPLAY){
-                            self.endIndex = self.queryData.length;
-                        }
+                        if (response.result.length) {
+                            self.queryData.push.apply(self.queryData, response.result);
+                            if (self.queryData.length < NUM_DISPLAY) {
+                                self.endIndex = self.queryData.length;
+                            } else {
+                                self.isNextEnabled = true;
+                            }
 
-                        for(var i = 0; i < self.endIndex; i++){
-                            self.currSet.push(self.queryData[i])
-                        }
+                            for (var i = 0; i < self.endIndex; i++) {
+                                self.currSet.push(self.queryData[i])
+                            }
 
-                        //check if any markers in the map
-                        if (self.markerPlaced) {
-                            self.removeMarkers();
+                            //check if any markers in the map
+                            if (self.markerPlaced) {
+                                self.removeMarkers();
+                            }
+                            self.createInfoMarker();
                         }
-                        self.createInfoMarker();
                     },
                     error: function () {
                         alert("Unable to read data from: " + "query/metadata?all");
@@ -219,35 +227,62 @@
                 this.markers.push(marker);
             },
             removeMarkers: function () {
-                for (var i = this.startIndex; i < this.endIndex; i++) {
+                for (var i = 0; i < this.markers.length; i++) {
                     this.markers[i].setMap(null);
                 }
-                while(this.markers.length > 0) {
+                while (this.markers.length > 0) {
                     this.markers.pop();
                 }
                 this.markerPlaced = false;
             },
-            nextSet: function(){
-                if (this.markerPlaced) {
-                    this.removeMarkers();
-                }
-                this.startIndex = this.endIndex;
-                if(this.queryData.length - this.endIndex < NUM_DISPLAY){
-                    this.endIndex = this.queryData.length;
-                }else {
-                    this.endIndex += NUM_DISPLAY;
-                }
-                while(this.currSet.length > 0) {
-                    this.currSet.pop();
-                }
+            nextSet: function () {
+                if (this.isNextEnabled) {
+                    if (this.markerPlaced) {
+                        this.removeMarkers();
+                    }
+                    this.startIndex = this.endIndex;
+                    if (this.queryData.length - this.endIndex < NUM_DISPLAY) {
+                        this.endIndex = this.queryData.length;
+                        this.isNextEnabled = false;
+                    } else {
+                        this.endIndex += NUM_DISPLAY;
+                    }
+                    while (this.currSet.length > 0) {
+                        this.currSet.pop();
+                    }
 
-                for(var i = this.startIndex; i < this.endIndex; i++){
-                    this.currSet.push(this.queryData[i]);
+                    for (var i = this.startIndex; i < this.endIndex; i++) {
+                        this.currSet.push(this.queryData[i]);
+                    }
+                    console.log(this.currSet);
+                    this.createInfoMarker();
+                    this.isPrevEnabled = true;
                 }
-                console.log(this.currSet);
-                this.createInfoMarker();
+            },
+            prevSet: function(){
+                if(this.isPrevEnabled){
+                    if (this.markerPlaced) {
+                        this.removeMarkers();
+                    }
+                    console.log(this.startIndex);
+                    console.log(this.endIndex);
 
+                    this.endIndex = this.endIndex - this.startIndex;
+                    this.startIndex -= NUM_DISPLAY;
 
+                    if(this.startIndex <= 0){
+                        this.isPrevEnabled = false;
+                    }
+                    while (this.currSet.length > 0) {
+                        this.currSet.pop();
+                    }
+                    for (var i = this.startIndex; i < this.endIndex; i++) {
+                        this.currSet.push(this.queryData[i]);
+                    }
+                    console.log(this.currSet);
+                    this.createInfoMarker();
+                    this.isNextEnabled = true;
+                }
             }
         }
     }

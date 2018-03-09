@@ -4,7 +4,7 @@
   "description": "Official HWSS Web App",
   "main": "server.js",
   "scripts": {
-    "prestart": "browserify -t vueify -e public/off_canvas2.js -o build/off_canvas2.js",
+    "prestart": "bash go_build.sh",
     "start": "nodemon server.js"
   },
   "repository": {
@@ -30,6 +30,7 @@
     "express": "^4.16.2",
     "jquery": "^3.3.1",
     "jsdom": "^11.6.2",
+    "lodash": "^4.17.5",
     "mongodb": "^3.0.3",
     "mongoose": "^5.0.7",
     "morgan": "^1.9.0",
