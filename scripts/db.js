@@ -1,5 +1,5 @@
 var mongo = require('mongodb').MongoClient;
-
+var _ = require('lodash')
 const HWSS_DB = 'HWSS';
 const METADATA = 'METADATA';
 
@@ -41,10 +41,18 @@ function buildQuery(queryParams) {
             }
         }
         if (queryParams.samplingRates) {
-            query.$query.samplingRate = {
-                $in: queryParams.samplingRates
+            if(queryParams.samplingRates.length === 1) {
+                query = {$match:{samplingRate: parseInt(queryParams.samplingRates[0])}}
+            }
+            else {
+                var convertedArr = _.sortBy(queryParams.samplingRates).map(Number);
+                // var min = parseInt(temp[0]);
+                // var max = parseInt(temp[temp.length - 1]);
+                // query = {$match:{samplingRate: {$gte: min, $lte: max}}}  // returns [min, max] range, inclusive
+                query = {$match: {samplingRate: {$in: convertedArr}}}
             }
         }
+        return query;
     }
 
 
@@ -140,6 +148,12 @@ function queryMetaData(dbName, dbCollection, queryParams, callback) {
 
                         callback(err, data);
                     });
+                }
+                else if (queryParams.samplingRates) {
+                    dbo.collection(dbCollection).aggregate([query, {$sort: { date: -1 }}]).toArray(function(err, result){
+                        console.log(result)
+                        callback(err, result);
+                    })
                 }
                 else {
                     if (Object.keys(query).length !== 0 || query.constructor !== Object) {

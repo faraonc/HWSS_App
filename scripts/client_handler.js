@@ -6,7 +6,6 @@ function serviceQuery(req, callback) {
         uniqRegions: false,
         uniqInstruments: false,
         uniqSamplingRates: false,
-        uniqFileTypes: false,
         pis: null,
         firstNames: null,
         regions: null,
@@ -60,9 +59,6 @@ function serviceQuery(req, callback) {
     }
     else if(req.hasOwnProperty('uniqSamplingRates')){
         dbFindParams.uniqSamplingRates = true;
-    }
-    else if(req.hasOwnProperty('uniqFileTypes')){
-        dbFindParams.uniqFileTypes = true;
     }
     else if (req.hasOwnProperty('dateSort')) {
         dbFindParams.dateSort = req.dateSort;

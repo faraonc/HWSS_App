@@ -38,3 +38,34 @@ http://localhost:3009/query/metadata?all&dateSort=new
 http://localhost:3009/query/metadata?all&dateSort=old
 http://localhost:3009/query/metadata?pi=Seger&dateSort=new
 
+{
+"error": null,
+"result": [
+{
+"_id": "5aa1c3d1a0fd8e02d459c054",
+"pi": "Foote",
+"firstName": "Bobby",
+"callTypeName": "SalsaVerde",
+"regionCountry": "LosAngelesCalifornia",
+"region": "Pacific Ocean",
+"sensorType": "Tag",
+"sensorName": "Bprobe",
+"date": 20180324,
+"time": 142637,
+"samplingRate": 8000,
+"quality": 3,
+"groundType": "BreedingMigrating",
+"image_url": [
+"https://hwss.blob.core.windows.net/image/Seger_Unknown13_CaboMexico_Tag_Bprobe20150324_142637_8000_3_BreedingMigrating.jpg",
+"https://hwss.blob.core.windows.net/image/Seger_Unknown13_CaboMexico_Tag_Bprobe20150324_142637_8000_3_BreedingMigrating.png"
+],
+"audio_url": [
+"https://hwss.blob.core.windows.net/audio/Seger_Unknown13_CaboMexico_Tag_Bprobe20150324_142637_8000_3_BreedingMigrating.wav"
+],
+"video_url": [],
+"file_url": [
+"https://hwss.blob.core.windows.net/src/Seger_Unknown13_CaboMexico_Tag_Bprobe_20150324_142637_8000_3_BreedingMigrating.mat"
+],
+"lat": 34.016498,
+"long": -133.300598
+},
