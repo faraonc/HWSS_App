@@ -167,10 +167,15 @@ var NUM_DISPLAY = exports.NUM_DISPLAY = 10;exports.default = {
             markers: [],
             currSet: [],
             startIndex: 0,
-            endIndex: NUM_DISPLAY
+            endIndex: NUM_DISPLAY,
+            Q: "query/metadata?all"
         };
     },
     mounted: function mounted() {
+        console.log("In the map component: ", this.$route.params.queries);
+        if (this.$route.params.queries) {
+            this.Q = this.$route.params.queries;
+        }
         var latLng = new google.maps.LatLng(47.6062, -122.3321);
         var mapOptions = {
             zoom: 3,
@@ -186,6 +191,7 @@ var NUM_DISPLAY = exports.NUM_DISPLAY = 10;exports.default = {
         this.map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
 
         this.map.setOptions({ minZoom: 3, maxZoom: 15 });
+        this.makeQuery();
     },
     methods: {
         toggleMenu: function toggleMenu() {
@@ -193,11 +199,10 @@ var NUM_DISPLAY = exports.NUM_DISPLAY = 10;exports.default = {
         },
         makeQuery: function makeQuery(event) {
             var self = this;
-            console.log("In the map component: ", this.$route.params.queries);
 
             $.ajax({
                 dataType: "json",
-                url: "query/metadata?all",
+                url: self.Q,
                 timeout: 10000,
                 success: function success(response) {
                     if (response.result.length) {
@@ -219,7 +224,7 @@ var NUM_DISPLAY = exports.NUM_DISPLAY = 10;exports.default = {
                     }
                 },
                 error: function error() {
-                    alert("Unable to read data from: " + "query/metadata?all");
+                    alert("Unable to read data from: " + self.Q);
                 }
             });
         },
@@ -364,6 +369,31 @@ var NUM_DISPLAY = exports.NUM_DISPLAY = 10;exports.default = {
                 this.createInfoMarker();
                 this.isNextEnabled = true;
             }
+        },
+        goSearch: function goSearch() {
+            this.map = null;
+            this.navState = true;
+            this.descState = false;
+            this.markerPlaced = false;
+            this.isNextEnabled = false;
+            this.isPrevEnabled = false;
+
+            while (this.queryData.length > 0) {
+                this.queryData.pop();
+            }
+
+            while (this.markers.length > 0) {
+                this.markers.pop();
+            }
+
+            while (this.currSet.length > 0) {
+                this.currSet.pop();
+            }
+
+            this.startIndex = 0;
+            this.endIndex = NUM_DISPLAY;
+            this.Q = "query/metadata?all";
+            console.log("goSearch");
         }
     }
 };
@@ -371,7 +401,7 @@ var NUM_DISPLAY = exports.NUM_DISPLAY = 10;exports.default = {
 if (module.exports.__esModule) module.exports = module.exports.default
 var __vue__options__ = (typeof module.exports === "function"? module.exports.options: module.exports)
 if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
-__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"container",attrs:{"id":"map-container"}},[_c('div',{class:{ showNav: _vm.navState},attrs:{"id":"site-wrapper"}},[_c('div',{attrs:{"id":"site-canvas"}},[_c('div',{attrs:{"id":"site-menu"}},[_c('div',{staticClass:"row text-center"},[_vm._m(0),_vm._v(" "),_c('div',{staticClass:"col-sm-4"},[_c('button',{staticClass:"btn btn-secondary",attrs:{"type":"button","aria-haspopup":"true","aria-expanded":"false"},on:{"click":function($event){_vm.makeQuery()}}},[_vm._v("\n                            Sort By\n                        ")])]),_vm._v(" "),_c('div',{staticClass:"col-sm-4"},[_c('button',{staticClass:"btn btn-secondary",class:[{disabled: !_vm.isPrevEnabled}],attrs:{"disabled":!_vm.isPrevEnabled,"type":"button","aria-haspopup":"true","aria-expanded":"false"},on:{"click":function($event){_vm.prevSet()}}},[_vm._v("\n                            Previous\n                        ")])]),_vm._v(" "),_c('div',{staticClass:"col-sm-4"},[_c('button',{staticClass:"btn btn-secondary",class:[{disabled: !_vm.isNextEnabled}],attrs:{"disabled":!_vm.isNextEnabled,"type":"button","aria-haspopup":"true","aria-expanded":"false"},on:{"click":function($event){_vm.nextSet()}}},[_vm._v("\n                            Next\n                        ")])])]),_vm._v(" "),_c('hr'),_vm._v(" "),_c('div',{staticClass:"row text-center",attrs:{"id":"query-container"}},_vm._l((_vm.currSet),function(query,index){return _c('q-entry',{attrs:{"item":query,"index":index,"start":_vm.startIndex,"end":_vm.endIndex,"markers":_vm.markers}})}))]),_vm._v(" "),_c('div',{staticClass:"navbar-header"},[_c('a',{staticClass:"toggle-nav btn btn-md btn-secondary",attrs:{"href":"#"},on:{"click":function($event){_vm.toggleMenu()}}},[_vm._v("☰")])]),_vm._v(" "),_c('div',{attrs:{"id":"map-canvas"}})])])])}
+__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"container",attrs:{"id":"map-container"}},[_c('div',{class:{ showNav: _vm.navState},attrs:{"id":"site-wrapper"}},[_c('div',{attrs:{"id":"site-canvas"}},[_c('div',{attrs:{"id":"site-menu"}},[_c('div',{staticClass:"row text-center"},[_vm._m(0),_vm._v(" "),_c('div',{staticClass:"col-sm-3"},[_c('a',{staticClass:"btn btn-secondary",attrs:{"href":"/","role":"button"},on:{"click":function($event){_vm.goSearch()}}},[_vm._v("\n                            Search\n                        ")])]),_vm._v(" "),_c('div',{staticClass:"col-sm-3"},[_c('button',{staticClass:"btn btn-secondary",attrs:{"type":"button"},on:{"click":function($event){_vm.makeQuery()}}},[_vm._v("\n                            Sort By\n                        ")])]),_vm._v(" "),_c('div',{staticClass:"col-sm-3"},[_c('button',{staticClass:"btn btn-secondary",class:[{disabled: !_vm.isPrevEnabled}],attrs:{"disabled":!_vm.isPrevEnabled,"type":"button"},on:{"click":function($event){_vm.prevSet()}}},[_vm._v("\n                            Previous\n                        ")])]),_vm._v(" "),_c('div',{staticClass:"col-sm-3"},[_c('button',{staticClass:"btn btn-secondary",class:[{disabled: !_vm.isNextEnabled}],attrs:{"disabled":!_vm.isNextEnabled,"type":"button"},on:{"click":function($event){_vm.nextSet()}}},[_vm._v("\n                            Next\n                        ")])])]),_vm._v(" "),_c('hr'),_vm._v(" "),_c('div',{staticClass:"row text-center",attrs:{"id":"query-container"}},_vm._l((_vm.currSet),function(query,index){return _c('q-entry',{attrs:{"item":query,"index":index,"start":_vm.startIndex,"end":_vm.endIndex,"markers":_vm.markers}})}))]),_vm._v(" "),_c('div',{staticClass:"navbar-header"},[_c('a',{staticClass:"toggle-nav btn btn-md btn-secondary",attrs:{"href":"#"},on:{"click":function($event){_vm.toggleMenu()}}},[_vm._v("☰")])]),_vm._v(" "),_c('div',{attrs:{"id":"map-canvas"}})])])])}
 __vue__options__.staticRenderFns = [function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"col-sm-12"},[_c('p',[_vm._v("Humpback Whale Social Sound")])])}]
 __vue__options__._scopeId = "data-v-2c6090ea"
 if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
@@ -804,7 +834,12 @@ exports.default = {
     },
     data: function data() {
         return {
-            categories: [{ name: 'Publishers', component: 'add-publisher', query: 'uniqNames', key: "publisher" }, { name: 'File Types', component: 'add-file-type', query: '', key: "fileType" }, { name: 'Instruments', component: 'add-instrument', query: 'uniqInstruments', key: "instrument" }, { name: 'Regions', component: 'add-region', query: 'uniqRegions', key: "region" }, { name: 'Sampling Rates', component: 'add-sampling-rate', query: 'uniqSamplingRates', key: "samplingRate" }],
+            categories: [{ name: 'Publishers', component: 'add-publisher', query: 'uniqNames', key: "publisher" }, { name: 'Instruments', component: 'add-instrument', query: 'uniqInstruments', key: "instrument" }, { name: 'Regions', component: 'add-region', query: 'uniqRegions', key: "region" }, {
+                name: 'Sampling Rates',
+                component: 'add-sampling-rate',
+                query: 'uniqSamplingRates',
+                key: "samplingRate"
+            }],
             addCategoryBtnMsg: '',
             errorMsg: '',
             selectedCategories: [],
@@ -923,21 +958,27 @@ exports.default = {
         beginSearch: function beginSearch() {
             var self = this;
             var needToSelect = [];
-            for (var i in self.selectedCategories) {
-                var key = self.selectedCategories[i].key;
-                if (this.queries.hasOwnProperty(key)) {
-                    if (this.queries[key].size === 0) {
+
+            if (self.selectedCategories.length === 0) {
+                this.$router.push({ name: 'map', params: { queries: "query/metadata?all" } });
+            } else {
+
+                for (var i in self.selectedCategories) {
+                    var key = self.selectedCategories[i].key;
+                    if (this.queries.hasOwnProperty(key)) {
+                        if (this.queries[key].size === 0) {
+                            needToSelect.push(self.selectedCategories[i].name);
+                        }
+                    } else {
                         needToSelect.push(self.selectedCategories[i].name);
                     }
-                } else {
-                    needToSelect.push(self.selectedCategories[i].name);
                 }
-            }
-            if (needToSelect.length > 0) {
-                this.errorMsg = '*Please select: ' + needToSelect.join(', ');
-            } else {
-                this.errorMsg = '';
-                this.$router.push({ name: 'map', params: { queries: this.buildQueryString() } });
+                if (needToSelect.length > 0) {
+                    this.errorMsg = '*Please select: ' + needToSelect.join(', ');
+                } else {
+                    this.errorMsg = '';
+                    this.$router.push({ name: 'map', params: { queries: this.buildQueryString() } });
+                }
             }
         },
         buildQueryString: function buildQueryString() {

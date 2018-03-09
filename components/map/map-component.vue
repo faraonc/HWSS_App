@@ -13,25 +13,28 @@
                             <p>Humpback Whale Social Sound</p>
                         </div>
 
-                        <div class="col-sm-4">
-                            <button class="btn btn-secondary" type="button" aria-haspopup="true"
-                                    aria-expanded="false" @click="makeQuery()">
+                        <div class="col-sm-3">
+                            <a href="/" class="btn btn-secondary" role="button" @click="goSearch()">
+                                Search
+                            </a>
+                        </div>
+
+                        <div class="col-sm-3">
+                            <button class="btn btn-secondary" type="button" @click="makeQuery()">
                                 Sort By
                             </button>
                         </div>
 
-                        <div class="col-sm-4">
+                        <div class="col-sm-3">
                             <button class="btn btn-secondary" :class="[{disabled: !isPrevEnabled}]"
-                                    :disabled="!isPrevEnabled" type="button" aria-haspopup="true"
-                                    aria-expanded="false" @click="prevSet()">
+                                    :disabled="!isPrevEnabled" type="button" @click="prevSet()">
                                 Previous
                             </button>
                         </div>
 
-                        <div class="col-sm-4">
+                        <div class="col-sm-3">
                             <button class="btn btn-secondary" :class="[{disabled: !isNextEnabled}]"
-                                    :disabled="!isNextEnabled" type="button" aria-haspopup="true"
-                                    aria-expanded="false" @click="nextSet()">
+                                    :disabled="!isNextEnabled" type="button" @click="nextSet()">
                                 Next
                             </button>
                         </div>
@@ -89,10 +92,15 @@
                 markers: [],
                 currSet: [],
                 startIndex: 0,
-                endIndex: NUM_DISPLAY
+                endIndex: NUM_DISPLAY,
+                Q: "query/metadata?all"
             }
         },
         mounted: function () {
+            console.log("In the map component: ", this.$route.params.queries);
+            if (this.$route.params.queries) {
+                this.Q = this.$route.params.queries
+            }
             var latLng = new google.maps.LatLng(47.6062, -122.3321);
             var mapOptions = {
                 zoom: 3,
@@ -111,6 +119,7 @@
             this.map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
             //zooming range for google map
             this.map.setOptions({minZoom: 3, maxZoom: 15});
+            this.makeQuery();
 
         },
         methods: {
@@ -119,11 +128,10 @@
             },
             makeQuery: function (event) {
                 var self = this;
-                console.log("In the map component: ", this.$route.params.queries);
 
                 $.ajax({
                     dataType: "json",
-                    url: "query/metadata?all",
+                    url: self.Q,
                     timeout: 10000,
                     success: function (response) {
                         if (response.result.length) {
@@ -146,7 +154,7 @@
                         }
                     },
                     error: function () {
-                        alert("Unable to read data from: " + "query/metadata?all");
+                        alert("Unable to read data from: " + self.Q);
                     }
                 });
             },
@@ -219,7 +227,7 @@
                 var icon = {
                     url: 'https://maps.gstatic.com/mapfiles/api-3/images/spotlight-poi.png', // url
                     scaledSize: new google.maps.Size(20, 28), // scaled size
-                    origin: new google.maps.Point(0,0), // origin
+                    origin: new google.maps.Point(0, 0), // origin
                     anchor: new google.maps.Point(0, 0) // anchor
                 };
 
@@ -230,7 +238,7 @@
                     icon: icon
                 });
 
-                var toggleBounce = function() {
+                var toggleBounce = function () {
                     if (marker.getAnimation() != null) {
                         marker.setAnimation(null);
                     } else {
@@ -311,6 +319,31 @@
                     this.createInfoMarker();
                     this.isNextEnabled = true;
                 }
+            },
+            goSearch: function () {
+                this.map = null;
+                this.navState = true;
+                this.descState = false;
+                this.markerPlaced = false;
+                this.isNextEnabled = false;
+                this.isPrevEnabled = false;
+
+                while (this.queryData.length > 0) {
+                    this.queryData.pop();
+                }
+
+                while (this.markers.length > 0) {
+                    this.markers.pop();
+                }
+
+                while (this.currSet.length > 0) {
+                    this.currSet.pop();
+                }
+
+                this.startIndex = 0;
+                this.endIndex = NUM_DISPLAY;
+                this.Q = "query/metadata?all";
+                console.log("goSearch");
             }
         }
     }
