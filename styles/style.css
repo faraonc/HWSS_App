@@ -184,7 +184,7 @@ html, body {
 #loading-image {
     position: absolute;
     top: 35%;
-    left: 35%;
+    left: 15%;
     z-index: 100;
 }
 .multi-select-dropdown {

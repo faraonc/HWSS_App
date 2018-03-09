@@ -20,7 +20,7 @@
                         </div>
 
                         <div class="multi-select-dropdown btn-group">
-                            <sort-by :list="currSet"></sort-by>
+                            <sort-by :list="queryData" :sort="isSorting"></sort-by>
 
                         </div>
 
@@ -39,12 +39,12 @@
                         </div>
                     </div>
                     <hr>
-
+                    <div class="loading" v-show="loading === true">
+                        <img id= "loading-image" src="/public/loading.gif">
+                    </div>
                     <!--Query Results-->
                     <div id="query-container" class="row text-center">
-                        <div class="loading" v-show="loading === true">
-                            <img id= "loading-image" src="/public/loading.gif">
-                        </div>
+
 
                         <!--Query Entries-->
                         <q-entry v-for="(query, index) in currSet" :item="query" :index="index" :start="startIndex"
@@ -90,6 +90,7 @@
                 isNextEnabled: false,
                 isPrevEnabled: false,
                 loading: false,
+                isSorting: [],
                 queryData: [],
                 markers: [],
                 currSet: [],
@@ -100,7 +101,6 @@
         },
         mounted: function () {
 
-            console.log("In the map component: ", this.$route.params.queries);
             if (this.$route.params.queries) {
                 this.Q = this.$route.params.queries
             }
@@ -123,7 +123,6 @@
             //zooming range for google map
             this.map.setOptions({minZoom: 3, maxZoom: 15});
             this.makeQuery();
-
 
         },
         methods: {
@@ -202,8 +201,8 @@
                         contentString.push('<div class="info-file"><a href="');
                         contentString.push(this.currSet[i].file_url[j]);
                         contentString.push('" target="_blank">Mat ');
-                        contentString.push(j + 1)
-                        contentString.push('</a></div>')
+                        contentString.push(j + 1);
+                        contentString.push('</a></div>');
                     }
 
                     contentString.push('<div class="info-media">');
@@ -348,10 +347,40 @@
                 this.startIndex = 0;
                 this.endIndex = NUM_DISPLAY;
                 this.Q = "query/metadata?all";
-                console.log("goSearch");
-            },
-            sortBy: function(){
+            }
+        },
+        watch: {
+            isSorting: function(){
 
+                if(this.isSorting.length>0) {
+                    this.loading = true;
+                    this.startIndex = 0;
+                    this.endIndex = NUM_DISPLAY;
+                    this.removeMarkers();
+
+                    while (this.currSet.length > 0) {
+                        this.currSet.pop();
+                    }
+                    if (this.queryData.length < NUM_DISPLAY) {
+                        this.endIndex = this.queryData.length;
+                    } else {
+                        this.isNextEnabled = true;
+                    }
+
+                    for (var i = 0; i < this.endIndex; i++) {
+                        this.currSet.push(this.queryData[i])
+                    }
+
+                    //check if any markers in the map
+                    if (this.markerPlaced) {
+                        this.removeMarkers();
+                    }
+                    this.createInfoMarker();
+
+                    this.isSorting.pop();
+
+                    this.loading = false;
+                }
             }
         }
     }
