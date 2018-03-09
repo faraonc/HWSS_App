@@ -19,10 +19,9 @@
                             </a>
                         </div>
 
-                        <div class="col-sm-3">
-                            <button class="btn btn-secondary" type="button" @click="makeQuery()">
-                                Sort By
-                            </button>
+                        <div class="multi-select-dropdown btn-group">
+                            <sort-by :list="currSet"></sort-by>
+
                         </div>
 
                         <div class="col-sm-3">
@@ -39,16 +38,17 @@
                             </button>
                         </div>
                     </div>
-
                     <hr>
+
                     <!--Query Results-->
                     <div id="query-container" class="row text-center">
+                        <div class="loading" v-show="loading === true">
+                            <img id= "loading-image" src="/public/loading.gif">
+                        </div>
 
                         <!--Query Entries-->
                         <q-entry v-for="(query, index) in currSet" :item="query" :index="index" :start="startIndex"
-                                 :end="endIndex"
                                  :markers="markers"></q-entry>
-
 
                     </div>
 
@@ -72,6 +72,7 @@
 
 <script>
     Vue.component('q-entry', require('../entry/q-entry.vue'));
+    Vue.component('sort-by', require('./sort-by.vue'));
 
     // noinspection JSAnnotator
     export const NUM_DISPLAY = 10; //number of entries to display in the map's side bar
@@ -88,6 +89,7 @@
                 markerPlaced: false,
                 isNextEnabled: false,
                 isPrevEnabled: false,
+                loading: false,
                 queryData: [],
                 markers: [],
                 currSet: [],
@@ -97,6 +99,7 @@
             }
         },
         mounted: function () {
+
             console.log("In the map component: ", this.$route.params.queries);
             if (this.$route.params.queries) {
                 this.Q = this.$route.params.queries
@@ -121,6 +124,7 @@
             this.map.setOptions({minZoom: 3, maxZoom: 15});
             this.makeQuery();
 
+
         },
         methods: {
             toggleMenu: function () {
@@ -128,7 +132,7 @@
             },
             makeQuery: function (event) {
                 var self = this;
-
+                this.loading = true;
                 $.ajax({
                     dataType: "json",
                     url: self.Q,
@@ -151,6 +155,7 @@
                                 self.removeMarkers();
                             }
                             self.createInfoMarker();
+                            self.loading =false;
                         }
                     },
                     error: function () {
@@ -344,6 +349,9 @@
                 this.endIndex = NUM_DISPLAY;
                 this.Q = "query/metadata?all";
                 console.log("goSearch");
+            },
+            sortBy: function(){
+
             }
         }
     }

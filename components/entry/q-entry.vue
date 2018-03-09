@@ -33,7 +33,7 @@
     // noinspection JSAnnotator
     export default {
         name: "q-entry",
-        props: ["item", "index", "start", "end", "markers"],
+        props: ["item", "index", "start", "markers"],
         data: function () {
             return {
                 isShowing: false,
