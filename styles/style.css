@@ -187,3 +187,16 @@ html, body {
     left: 35%;
     z-index: 100;
 }
+.multi-select-dropdown {
+    display: inline-block;
+    margin: 0 0 0 12px;
+}
+.btn-group .dropdown-menu a{
+    width: 248px;
+    padding: 15px;
+}
+
+.btn-group .search {
+    margin-left: 20px;
+    cursor: pointer;
+}
