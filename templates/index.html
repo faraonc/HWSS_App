@@ -17,7 +17,14 @@
     <!-- VueJS, GoogleMap API-->
     <script src="https://unpkg.com/vue/dist/vue.js"></script>
     <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
-    <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyAR-_taeP2epYEzKnldn4xY-2Ek3gJr0oY"></script>
+
+    <!--Uncomment either Developer or Production key-->
+    <!--Developer -->
+    <!--<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAR-_taeP2epYEzKnldn4xY-2Ek3gJr0oY"></script>-->
+
+    <!--Production, does not work unless running in Azure-->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCdll3UqXg84XRZ_9yiGbyhDtz1QxH8w1s"></script>
+
 </head>
 <body>
 <!------------------------------------ START -------------------------------------->
@@ -38,9 +45,9 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"
         integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn"
         crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/lodash@4.17.5/lodash.min.js"></script>
 
 <!-- Our scripts -->
-<script src="https://cdn.jsdelivr.net/npm/lodash@4.17.5/lodash.min.js"></script>
 <script src="/build/app.js"></script>
 </body>
 </html>
