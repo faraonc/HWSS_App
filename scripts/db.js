@@ -8,7 +8,7 @@ function buildQuery(queryParams) {
     query.$query = {};
 
     if (!queryParams.all && !queryParams.categories && !queryParams.uniqNames && !queryParams.uniqRegions
-    && !queryParams.uniqInstruments && !queryParams.uniqSamplingRates) {
+        && !queryParams.uniqInstruments && !queryParams.uniqSamplingRates) {
         if (queryParams.pis) {
             query.$query.pi = {
                 $in: queryParams.pis
@@ -47,20 +47,20 @@ function buildQuery(queryParams) {
     }
 
 
-    if (queryParams.uniqNames){
-        query = {$group: {_id:{lastName:'$pi', firstName:'$firstName'}}};
+    if (queryParams.uniqNames) {
+        query = {$group: {_id: {lastName: '$pi', firstName: '$firstName'}}};
     }
-    else if(queryParams.uniqRegions){
+    else if (queryParams.uniqRegions) {
         query = {$group: {_id: '$region'}};
     }
-    else if(queryParams.uniqInstruments){
+    else if (queryParams.uniqInstruments) {
         query = {$group: {_id: '$sensorName'}};
     }
-    else if(queryParams.uniqSamplingRates){
+    else if (queryParams.uniqSamplingRates) {
         query = {$group: {_id: '$samplingRate'}};
     }
-    else if(queryParams.uniqFileTypes){
-        query = {$group: {_id: {image:'$image_url', audio:'$audio_url', video:'$video_url',file:'$file_url'}}};
+    else if (queryParams.uniqFileTypes) {
+        query = {$group: {_id: {image: '$image_url', audio: '$audio_url', video: '$video_url', file: '$file_url'}}};
     }
     else if (queryParams.dateSort) {
         if (queryParams.dateSort === "new") {
@@ -107,33 +107,41 @@ function queryMetaData(dbName, dbCollection, queryParams, callback) {
                         callback(err, result);
                     });
                 }
-                else if(queryParams.categories) {
-                    dbo.collection(dbCollection).findOne().then(function(result){
+                else if (queryParams.categories) {
+                    dbo.collection(dbCollection).findOne().then(function (result) {
                         callback(err, Object.keys(result));
                     })
                 }
-                else if(queryParams.uniqNames) {
-                    dbo.collection(dbCollection).aggregate([query]).toArray(function(err, result){
+                else if (queryParams.uniqNames) {
+                    dbo.collection(dbCollection).aggregate([query]).toArray(function (err, result) {
                         var data = [];
-                        result.forEach(function(curr) {
-                           var temp = {};
-                           temp.firstName = curr._id.firstName;
-                           temp.lastName = curr._id.lastName;
-                           data.push(temp)
+                        result.forEach(function (curr) {
+                            var temp = {};
+                            temp.firstName = curr._id.firstName;
+                            temp.lastName = curr._id.lastName;
+                            data.push(temp)
                         });
                         callback(err, data);
                     });
                 }
                 else if (queryParams.uniqRegions || queryParams.uniqInstruments || queryParams.uniqSamplingRates) {
-                    dbo.collection(dbCollection).aggregate([query]).toArray(function(err, result){
+                    dbo.collection(dbCollection).aggregate([query]).toArray(function (err, result) {
                         var data = [];
-                        result.forEach(function(curr) {
-                           data.push(curr._id);
+                        result.forEach(function (curr) {
+                            if (data.indexOf(curr._id) <= -1) {
+                                data.push(curr._id);
+                            }
                         });
 
-                        if(queryParams.uniqRegions) {data.unshift("regions")}
-                        else if(queryParams.uniqInstruments) {data.unshift("instruments")}
-                        else {data.unshift("samplingRates")}
+                        if (queryParams.uniqRegions) {
+                            data.unshift("regions")
+                        }
+                        else if (queryParams.uniqInstruments) {
+                            data.unshift("instruments")
+                        }
+                        else {
+                            data.unshift("samplingRates")
+                        }
 
                         callback(err, data);
                     });
