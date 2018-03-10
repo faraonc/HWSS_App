@@ -36,6 +36,7 @@
                     <hr>
                     <div class="loading-image" v-show="loading === true">
                         <img class="center-block" src="/public/loading.gif" width="200">
+                        <p v-if="!hasData">Your search did not match any documents.</p>
                     </div>
                     <!--Query Results-->
                     <div id="query-container">
@@ -84,6 +85,7 @@
                 markerPlaced: false,
                 isNextEnabled: false,
                 isPrevEnabled: false,
+                hasData: true,
                 loading: false,
                 isSorting: [],
                 queryData: [],
@@ -132,7 +134,7 @@
                     url: self.Q,
                     timeout: 10000,
                     success: function (response) {
-                        if (response.result.length) {
+                        if (response.result.length && response.result.length > 0) {
                             self.queryData.push.apply(self.queryData, response.result);
                             if (self.queryData.length <= NUM_DISPLAY) {
                                 self.endIndex = self.queryData.length;
@@ -149,11 +151,14 @@
                                 self.removeMarkers();
                             }
                             self.createInfoMarker();
-                            self.loading =false;
+                            self.loading = false;
+                            self.hasData = true;
+                        }else{
+                            self.hasData = false;
                         }
                     },
                     error: function () {
-                        alert("Unable to read data from: " + self.Q);
+                        self.hasData = false;
                     }
                 });
             },
