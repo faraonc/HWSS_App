@@ -41,7 +41,7 @@
         </div> <!-- end of category-dropdown-container -->
         <div class="footer">
             <hr>
-            <p>2018 by Conard Faraon, Lisa Kim, Pouria Ghadimi, Pavel Krivopustov &nbsp;&nbsp;|&nbsp;&nbsp; <a href="/api.html" target="_blank">API Development</a></p>
+            <p>2018 by Conard Faraon, Lisa Kim, Pouria Ghadimi &nbsp;&nbsp;|&nbsp;&nbsp; <a href="/api.html" target="_blank">API Development</a></p>
         </div>
     </div>
 </template>
