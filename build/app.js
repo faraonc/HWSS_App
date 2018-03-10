@@ -202,6 +202,7 @@ var NUM_DISPLAY = exports.NUM_DISPLAY = 10;exports.default = {
             markerPlaced: false,
             isNextEnabled: false,
             isPrevEnabled: false,
+            hasData: true,
             loading: false,
             isSorting: [],
             queryData: [],
@@ -246,7 +247,7 @@ var NUM_DISPLAY = exports.NUM_DISPLAY = 10;exports.default = {
                 url: self.Q,
                 timeout: 10000,
                 success: function success(response) {
-                    if (response.result.length) {
+                    if (response.result.length && response.result.length > 0) {
                         self.queryData.push.apply(self.queryData, response.result);
                         if (self.queryData.length <= NUM_DISPLAY) {
                             self.endIndex = self.queryData.length;
@@ -263,10 +264,13 @@ var NUM_DISPLAY = exports.NUM_DISPLAY = 10;exports.default = {
                         }
                         self.createInfoMarker();
                         self.loading = false;
+                        self.hasData = true;
+                    } else {
+                        self.hasData = false;
                     }
                 },
                 error: function error() {
-                    alert("Unable to read data from: " + self.Q);
+                    self.hasData = false;
                 }
             });
         },
@@ -475,7 +479,7 @@ var NUM_DISPLAY = exports.NUM_DISPLAY = 10;exports.default = {
 if (module.exports.__esModule) module.exports = module.exports.default
 var __vue__options__ = (typeof module.exports === "function"? module.exports.options: module.exports)
 if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
-__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"container",attrs:{"id":"map-container"}},[_c('div',{class:{ showNav: _vm.navState},attrs:{"id":"site-wrapper"}},[_c('div',{attrs:{"id":"site-canvas"}},[_c('div',{attrs:{"id":"site-menu"}},[_vm._m(0),_vm._v(" "),_c('div',{staticClass:"row text-center map-nav-btns"},[_c('div',{staticClass:"col-sm-7 map-search-sort"},[_c('a',{staticClass:"btn btn-secondary",attrs:{"href":"/","role":"button"},on:{"click":function($event){_vm.goSearch()}}},[_vm._v("\n                            Search\n                        ")]),_vm._v(" "),_c('div',{staticClass:"multi-select-dropdown btn-group"},[_c('sort-by',{attrs:{"list":_vm.queryData,"sort":_vm.isSorting}})],1)]),_vm._v(" "),_c('div',{staticClass:"col-sm-5 map-next-prev-btns"},[_c('button',{staticClass:"btn btn-secondary",class:[{disabled: !_vm.isPrevEnabled}],attrs:{"disabled":!_vm.isPrevEnabled,"type":"button"},on:{"click":function($event){_vm.prevSet()}}},[_vm._v("\n                            Prev\n                        ")]),_vm._v(" "),_c('button',{staticClass:"btn btn-secondary",class:[{disabled: !_vm.isNextEnabled}],attrs:{"disabled":!_vm.isNextEnabled,"type":"button"},on:{"click":function($event){_vm.nextSet()}}},[_vm._v("\n                            Next\n                        ")])])]),_vm._v(" "),_c('hr'),_vm._v(" "),_c('div',{directives:[{name:"show",rawName:"v-show",value:(_vm.loading === true),expression:"loading === true"}],staticClass:"loading-image"},[_c('img',{staticClass:"center-block",attrs:{"src":"/public/loading.gif","width":"200"}})]),_vm._v(" "),_c('div',{attrs:{"id":"query-container"}},_vm._l((_vm.currSet),function(query,index){return _c('q-entry',{attrs:{"item":query,"index":index,"start":_vm.startIndex,"markers":_vm.markers}})}))]),_vm._v(" "),_c('div',{staticClass:"navbar-header"},[_c('a',{staticClass:"toggle-nav btn btn-md btn-secondary",attrs:{"href":"#/map"},on:{"click":function($event){_vm.toggleMenu()}}},[_vm._v("☰")])]),_vm._v(" "),_c('div',{attrs:{"id":"map-canvas"}})])])])}
+__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"container",attrs:{"id":"map-container"}},[_c('div',{class:{ showNav: _vm.navState},attrs:{"id":"site-wrapper"}},[_c('div',{attrs:{"id":"site-canvas"}},[_c('div',{attrs:{"id":"site-menu"}},[_vm._m(0),_vm._v(" "),_c('div',{staticClass:"row text-center map-nav-btns"},[_c('div',{staticClass:"col-sm-7 map-search-sort"},[_c('a',{staticClass:"btn btn-secondary",attrs:{"href":"/","role":"button"},on:{"click":function($event){_vm.goSearch()}}},[_vm._v("\n                            Search\n                        ")]),_vm._v(" "),_c('div',{staticClass:"multi-select-dropdown btn-group"},[_c('sort-by',{attrs:{"list":_vm.queryData,"sort":_vm.isSorting}})],1)]),_vm._v(" "),_c('div',{staticClass:"col-sm-5 map-next-prev-btns"},[_c('button',{staticClass:"btn btn-secondary",class:[{disabled: !_vm.isPrevEnabled}],attrs:{"disabled":!_vm.isPrevEnabled,"type":"button"},on:{"click":function($event){_vm.prevSet()}}},[_vm._v("\n                            Prev\n                        ")]),_vm._v(" "),_c('button',{staticClass:"btn btn-secondary",class:[{disabled: !_vm.isNextEnabled}],attrs:{"disabled":!_vm.isNextEnabled,"type":"button"},on:{"click":function($event){_vm.nextSet()}}},[_vm._v("\n                            Next\n                        ")])])]),_vm._v(" "),_c('hr'),_vm._v(" "),_c('div',{directives:[{name:"show",rawName:"v-show",value:(_vm.loading === true),expression:"loading === true"}],staticClass:"loading-image"},[_c('img',{staticClass:"center-block",attrs:{"src":"/public/loading.gif","width":"200"}}),_vm._v(" "),(!_vm.hasData)?_c('p',[_vm._v("Your search did not match any documents.")]):_vm._e()]),_vm._v(" "),_c('div',{attrs:{"id":"query-container"}},_vm._l((_vm.currSet),function(query,index){return _c('q-entry',{attrs:{"item":query,"index":index,"start":_vm.startIndex,"markers":_vm.markers}})}))]),_vm._v(" "),_c('div',{staticClass:"navbar-header"},[_c('a',{staticClass:"toggle-nav btn btn-md btn-secondary",attrs:{"href":"#/map"},on:{"click":function($event){_vm.toggleMenu()}}},[_vm._v("☰")])]),_vm._v(" "),_c('div',{attrs:{"id":"map-canvas"}})])])])}
 __vue__options__.staticRenderFns = [function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"col-sm-12"},[_c('h5',[_vm._v("Humpback Whale Social Sound")])])}]
 __vue__options__._scopeId = "data-v-2c6090ea"
 if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
