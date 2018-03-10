@@ -57,18 +57,12 @@ html, body {
 
 #site-menu {
     width: 500px;
-    height: 83%;
+    height: 100%;
     position: absolute;
     top: 0;
     left: -500px;
     background: #FFF;
     padding: 15px;
-}
-
-#query-container {
-    overflow: auto;
-    /*TODO fix max-height for variable number of queries*/
-    height: 100%;
 }
 
 /*Styles for contents of the off-canvas menu.*/
@@ -153,6 +147,12 @@ html, body {
 .query-entry-media img {
     margin-top: 20px;
     margin-bottom: 10px;
+}
+#query-container {
+    overflow: auto;
+    /*TODO fix max-height for variable number of queries*/
+    max-height: 77vh;
+    padding-bottom: 150px;
 }
 
 #site-menu hr {
