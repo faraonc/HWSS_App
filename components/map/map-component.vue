@@ -32,7 +32,7 @@
                                 Next
                             </button>
                         </div>
-                </div>
+                    </div>
                     <hr>
                     <div class="loading-image" v-show="loading === true">
                         <img class="center-block" src="/public/loading.gif" width="200">
@@ -59,7 +59,10 @@
                 <!--End Button for Off Canvas Menu-->
 
                 <div id="map-canvas"></div>
-
+                <div id="latlondiv">
+                    lon: {{lat}}
+                    <br>lat: {{lng}}
+                </div>
             </div>
 
         </div>
@@ -93,6 +96,8 @@
                 queryData: [],
                 markers: [],
                 currSet: [],
+                lat: 0,
+                lng: 0,
                 startIndex: 0,
                 endIndex: NUM_DISPLAY,
                 Q: "query/metadata?all"
@@ -152,6 +157,11 @@
             this.map.setOptions({minZoom: 3, maxZoom: 15});
             this.makeQuery();
 
+            var self = this;
+            google.maps.event.addListener(this.map, 'mousemove', function (event) {
+                self.lat = event.latLng.lat();
+                self.lng = event.latLng.lng();
+            });
         },
         methods: {
             toggleMenu: function () {
@@ -184,7 +194,7 @@
                             self.createInfoMarker();
                             self.loading = false;
                             self.hasData = true;
-                        }else{
+                        } else {
                             self.hasData = false;
                             self.loading = false;
                             self.sortDisable = true;
@@ -382,12 +392,13 @@
                 this.startIndex = 0;
                 this.endIndex = NUM_DISPLAY;
                 this.Q = "query/metadata?all";
-            }
+            },
+
         },
         watch: {
-            isSorting: function(){
+            isSorting: function () {
 
-                if(this.isSorting.length>0) {
+                if (this.isSorting.length > 0) {
                     this.loading = true;
                     this.startIndex = 0;
                     this.endIndex = NUM_DISPLAY;
@@ -416,7 +427,7 @@
 
                     this.loading = false;
                 }
-            }
+            },
         }
     }
 </script>

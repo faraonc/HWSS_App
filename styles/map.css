@@ -22,7 +22,7 @@ html, body {
 }
 
 .no-match-err {
-    display:inline-block;
+    display: inline-block;
     margin: 30px auto 0 auto;
     text-align: center;
     width: 450px;
@@ -44,7 +44,6 @@ html, body {
     transition: 300ms ease all;
     backface-visibility: hidden;
 }
-
 
 /*Do not change showNav to show-nav, VueJS has a bug.*/
 .showNav #site-canvas {
@@ -119,14 +118,15 @@ html, body {
     padding-bottom: 10px;
 }
 
-.query-result:hover{
-    background:#FAFAFA;
+.query-result:hover {
+    background: #FAFAFA;
 }
 
-.query-entry img  {
+.query-entry img {
     height: 200px;
     width: 350px;
 }
+
 .query-entry h6 {
     margin-top: 10px;
     margin-bottom: 20px;
@@ -137,14 +137,13 @@ html, body {
     margin: 0px !important;
 }
 
-
 .query-id h5 {
     color: #003aa3;
     font-weight: normal;
     margin: 17px 0 !important;
 }
 
-.queryIdMedia:hover, .query-id h5:hover,.query-entry h6:hover {
+.queryIdMedia:hover, .query-id h5:hover, .query-entry h6:hover {
     color: #45be87;
     cursor: pointer;
 }
@@ -157,6 +156,7 @@ html, body {
     margin-top: 20px;
     margin-bottom: 10px;
 }
+
 #query-container {
     overflow: auto;
     /*TODO fix max-height for variable number of queries*/
@@ -167,25 +167,24 @@ html, body {
     margin-bottom: 0px !important;
 }
 
-
 .info-marker p {
     margin-bottom: 0;
 }
 
-.info-media{
+.info-media {
     align-items: left;
 }
 
-.info-file{
+.info-file {
     margin-bottom: 4px;
 }
 
-.info-break{
+.info-break {
     margin-top: 0.5rem;
     margin-bottom: 0.5rem;
 }
 
-.info-img img{
+.info-img img {
     height: 130px;
     width: 300px;
     margin-top: 2px;
@@ -200,11 +199,13 @@ html, body {
     bottom: 0;
     right: 0;
 }
+
 .multi-select-dropdown {
     display: inline-block;
     margin: 0 0 0 12px;
 }
-.btn-group .dropdown-menu a{
+
+.btn-group .dropdown-menu a {
     width: 248px;
     padding: 15px;
 }
@@ -227,6 +228,7 @@ html, body {
     margin-left: 12px;
 
 }
+
 .map-next-prev-btns .btn {
     cursor: pointer;
 }
@@ -240,7 +242,8 @@ html, body {
 }
 
 .info-marker h5 {
-    padding: 20px 0 0 15px; !important;
+    padding: 20px 0 0 15px;
+!important;
     margin: 0 !important;
     display: inline-block;
 }
@@ -249,7 +252,17 @@ html, body {
     margin: 0;
     padding: 0;
 }
-.info-marker .col-sm-11{
-    padding: 23px 0 0 20px; !important;
+
+.info-marker .col-sm-11 {
+    padding: 23px 0 0 20px;
+!important;
     margin-bottom: 20px;
+}
+
+#latlondiv {
+    color: #FFFFFF;
+    z-index: 0;
+    position: absolute;
+    bottom: 26px;
+    left: 8px;
 }
