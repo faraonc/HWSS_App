@@ -152,7 +152,6 @@ html, body {
     overflow: auto;
     /*TODO fix max-height for variable number of queries*/
     max-height: 77vh;
-    padding-bottom: 150px;
 }
 
 #site-menu hr {
