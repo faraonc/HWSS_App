@@ -1,5 +1,0 @@
-NodeJS Deployment.
-Generate unique identifier per person in MongoDB.
-
-Azure Pricing Plan
-
