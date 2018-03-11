@@ -105,9 +105,9 @@
             }
             var latLng = new google.maps.LatLng(47.6062, -122.3321);
             var mapOptions = {
-                zoom: 3,
+                zoom: 4,
                 center: latLng,
-                mapTypeId: google.maps.MapTypeId.SATELLITE,
+                mapTypeId: google.maps.MapTypeId.HYBRID,
 
 
                 // disables the yellow man
@@ -115,7 +115,36 @@
                 streetViewControl: false,
 
                 // disables other types of MAP, forces to only use Satellite view
-                mapTypeControlOptions: {mapTypeIds: []}
+                mapTypeControlOptions: {mapTypeIds: []},
+                styles: [
+                    {
+                        featureType: "road",
+                        stylers: [
+                            {visibility: "off"}
+                        ]
+                    },
+                    {
+                        featureType: "administrative",
+                        elementType: "labels",
+                        stylers: [
+                            {visibility: "off"}
+                        ]
+                    },
+                    {
+                        featureType: "administrative.country",
+                        elementType: "labels",
+                        stylers: [
+                            {visibility: "on"}
+                        ]
+                    },
+                    {
+                        featureType: "poi",
+                        elementType: "labels",
+                        stylers: [
+                            {visibility: "off"}
+                        ]
+                    }
+                ]
 
             };
             this.map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
