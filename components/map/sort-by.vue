@@ -1,7 +1,7 @@
 <template>
     <div>
         <button class="btn btn-secondary dropdown-toggle dropup select" type="button"
-                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-bind:disabled="disableSort === true">
             Sort By
         </button>
         <ul class="dropdown-menu">
@@ -17,7 +17,7 @@
     export const SORT = 1;
     export default {
         name: "sort-by",
-        props: ["list", "sort"],
+        props: ["list", "sort", "disableSort"],
         methods: {
             sortBy: function (input) {
 

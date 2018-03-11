@@ -18,7 +18,7 @@
                             </a>
 
                             <div class="multi-select-dropdown btn-group">
-                                <sort-by :list="queryData" :sort="isSorting"></sort-by>
+                                <sort-by :list="queryData" :sort="isSorting" :disableSort="sortDisable"></sort-by>
                             </div>
                         </div>
 
@@ -36,8 +36,9 @@
                     <hr>
                     <div class="loading-image" v-show="loading === true">
                         <img class="center-block" src="/public/loading.gif" width="200">
-                        <p v-if="!hasData">Your search did not match any documents.</p>
+
                     </div>
+                    <p v-if="!hasData" class="no-match-err">Your search did not match any documents.</p>
                     <!--Query Results-->
                     <div id="query-container">
 
@@ -85,6 +86,7 @@
                 markerPlaced: false,
                 isNextEnabled: false,
                 isPrevEnabled: false,
+                sortDisable: false,
                 hasData: true,
                 loading: false,
                 isSorting: [],
@@ -155,10 +157,14 @@
                             self.hasData = true;
                         }else{
                             self.hasData = false;
+                            self.loading = false;
+                            self.sortDisable = true;
                         }
                     },
                     error: function () {
                         self.hasData = false;
+                        self.loading = false;
+                        self.sortDisable = true;
                     }
                 });
             },

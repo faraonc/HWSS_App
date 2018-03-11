@@ -21,10 +21,18 @@ html, body {
     top: -40px;
 }
 
+.no-match-err {
+    display:inline-block;
+    margin: 30px auto 0 auto;
+    text-align: center;
+    width: 450px;
+
+}
+
 /*Container for the body.*/
 #site-canvas {
     width: 100%;
-    height: 104%;
+    height: 100.38%;
     position: relative;
     /*Do no touch duplicates*/
     -moz-transform: translateX(0);
@@ -36,6 +44,7 @@ html, body {
     transition: 300ms ease all;
     backface-visibility: hidden;
 }
+
 
 /*Do not change showNav to show-nav, VueJS has a bug.*/
 .showNav #site-canvas {
