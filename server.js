@@ -60,7 +60,7 @@ app.use('/query', router);
 // sample query
 // localhost:3009/query/metadata?pi=Seger,Faraon&firstName=Kerri,Conard
 
-var port = process.env.PORT || 3009;
+var port = process.env.PORT || 8080;
 
 // uncomment after placing your favicon in /public
 app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
@@ -87,6 +87,6 @@ app.get('/', function (req, res) {
 
 app.listen(port, function () {
     console.log(__dirname);
-    console.log('example app listening on port 3009!');
+    console.log('example app listening on port 8080!');
 
 });
