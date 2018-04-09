@@ -2,7 +2,7 @@
 <html lang="en" xmlns:v-on="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <title>HWSS Search Page</title>
+    <title>Registration</title>
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css"
           integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
@@ -11,29 +11,19 @@
     <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
 
     <!-- Our CSS -->
-    <link rel="stylesheet" href="/styles/search.css">
-    <link rel="stylesheet" href="/styles/map.css">
     <link rel="stylesheet" href="/styles/register.css">
 
     <!-- VueJS, GoogleMap API-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.15/vue.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vue-router/3.0.1/vue-router.min.js"></script>
 
-
-    <!--Uncomment either Developer or Production key-->
-    <!--Developer -->
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAR-_taeP2epYEzKnldn4xY-2Ek3gJr0oY"></script>
-
-    <!--Production, does not work unless running in Azure and OpenShift-->
-    <!--<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCdll3UqXg84XRZ_9yiGbyhDtz1QxH8w1s"></script>-->
-
 </head>
 <body>
 <!------------------------------------ START -------------------------------------->
 
-    <div class="container" id="app">
-        <router-view></router-view>
-    </div>
+<div class="container" id="registration">
+    <router-view></router-view>
+</div>
 
 <!------------------------------------ Below this line: ALL CDN'S -------------------------------------->
 <!-- jQuery first, then Tether, then Bootstrap JS -->
@@ -47,6 +37,6 @@
 <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.5/lodash.min.js"></script>
 
 <!-- Our scripts -->
-<script src="/build/app.js"></script>
+<script src="/build/registration_build.js"></script>
 </body>
 </html>

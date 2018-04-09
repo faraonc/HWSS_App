@@ -57,6 +57,7 @@ router.route('/metadata').get(function (req, res) {
 // register route for http://localhost:port/query/
 app.use('/query', router);
 
+
 // sample query
 // localhost:3009/query/metadata?pi=Seger,Faraon&firstName=Kerri,Conard
 
@@ -81,9 +82,6 @@ app.use(function (req, res, next) {
     next(err);
 });
 
-app.get('/', function (req, res) {
-    res.sendFile(path.join('index.html'));
-});
 
 app.listen(port, function () {
     console.log(__dirname);

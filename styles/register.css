@@ -1,0 +1,17 @@
+#registerPage {
+    max-width: 600px;
+    margin: 50px auto;
+}
+
+#registerPage .header {
+    text-align: center;
+}
+
+#registerPage form {
+    max-width: 400px;
+    margin: 60px auto;
+}
+
+#registerPage button {
+    margin: 20px auto;
+}
