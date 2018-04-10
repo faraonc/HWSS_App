@@ -149,3 +149,10 @@ h1 {
     margin-top: 200px;
     font-size: .8em;
 }
+
+#showUpload{
+    position:absolute;
+    transition: .5s ease;
+    top: 3%;
+    left: 10%;
+}

@@ -1,6 +1,11 @@
 <template>
     <div class="container" id="searchPage">
         <h1>HWSS Search</h1>
+        <a  id= "showUpload" @click="showUpload =true">
+            <img src="/public/uploadBtn.png" width="50">
+        </a>
+        <!-- use the modal component, pass in the prop -->
+        <upload v-if="showUpload" @close="showUpload = false"></upload>
         <div class="category-dropdown-container">
             <div class="btn-group">
                 <!-- 'Add Category' Dropdown -->
@@ -48,6 +53,7 @@
 
 <script>
     import AddCategoryButton from './add-category-button.vue';
+    Vue.component('upload', require("../upload.vue"));
 
     export default {
         components: {AddCategoryButton},
@@ -113,6 +119,7 @@
                 loadingCategories: false,
                 disableSearch: false,
                 disableCategoryBtn: false,
+                showUpload: false,
                 queries: {}
             }
         },
