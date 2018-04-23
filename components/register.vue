@@ -46,11 +46,7 @@
             <div class="form-group">
                 <label for="organization">Organization:</label>
                 <select class="form-control" id="organization" v-model="organization">
-                    <option>University of Washington</option>
-                    <option>New Hampshire University</option>
-                    <option>Harvard University</option>
-                    <option>Seattle Pacific University</option>
-                    <option>Oxford University</option>
+                    <option v-for="school in schools">{{school.name}}</option>
                 </select>
             </div>
             <div class="g-recaptcha" data-sitekey="6LeWQFMUAAAAAEhbd0eUym3S7Q7bRHWFb_Tgkyiy"></div>
@@ -62,6 +58,20 @@
 <script>
     export default {
         name: "registration",
+        created: function() {
+            var self = this;
+             $.ajax({
+                url: "http://universities.hipolabs.com/search?country=United%20States",
+                headers: {
+                    'Access-Control-Allow-Origin': '*'
+                },
+                crossDomain: true,
+                dataType: "json",
+                success: function(result) {
+                    self.schools = result
+                }
+            })
+        },
         data: function() {
             return {
                 passwordConfirm: {name: '', onPassword: false},
@@ -70,7 +80,8 @@
                 lastName: {name: '', switched: false, invalid: false, msgDisplayed: false},
                 email: {name: '', switched: false, invalid: false, msgDisplayed: false},
                 password: {name: '', invalidPasswordMsg: '', onPassword: false},
-                organizationNotSelected: [true, false]
+                organizationNotSelected: [true, false],
+                schools: [{name:'testing'}]
             }
         },
         computed: {
