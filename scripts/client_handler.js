@@ -1,3 +1,5 @@
+var reader = require('./read_file.js');
+
 function serviceQuery(req, callback) {
     var dbFindParams = {
         all: false,
@@ -69,7 +71,15 @@ function serviceQuery(req, callback) {
     callback(null, dbFindParams)
 }
 
+function serviceResource(req, callback) {
+    if(req.hasOwnProperty("schools")){
+        reader.getSchool(function(error, data){
+            callback(error, data)
+        });
+    }
+}
 
 module.exports = {
-    serviceQuery: serviceQuery
+    serviceQuery: serviceQuery,
+    serviceResource: serviceResource
 };

@@ -46,7 +46,7 @@
             <div class="form-group">
                 <label for="organization">Organization:</label>
                 <select class="form-control" id="organization" v-model="organization">
-                    <option v-for="school in schools">{{school.name}}</option>
+                    <option v-for="school in schools">{{school}}</option>
                 </select>
             </div>
             <div class="g-recaptcha" data-sitekey="6LeWQFMUAAAAAEhbd0eUym3S7Q7bRHWFb_Tgkyiy"></div>
@@ -61,14 +61,11 @@
         created: function() {
             var self = this;
              $.ajax({
-                url: "http://universities.hipolabs.com/search?country=United%20States",
-                headers: {
-                    'Access-Control-Allow-Origin': '*'
-                },
-                crossDomain: true,
+                url: "/query/resources?schools",
                 dataType: "json",
                 success: function(result) {
-                    self.schools = result
+                    self.schools = result;
+                    console.log()
                 }
             })
         },
@@ -81,10 +78,13 @@
                 email: {name: '', switched: false, invalid: false, msgDisplayed: false},
                 password: {name: '', invalidPasswordMsg: '', onPassword: false},
                 organizationNotSelected: [true, false],
-                schools: [{name:'testing'}]
+                schools: new Set()
             }
         },
         computed: {
+            // orderedSchools: function () {
+            //     return _.orderBy(this.schools, 'name');
+            // },
             checkFirstName: function() {
                 if(this.firstName.name.length === 0) {
                     if(this.firstName.switched === false) {

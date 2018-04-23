@@ -26,6 +26,21 @@ router.get('/', function (req, res) {
     res.json({message: 'Construction in Progress'});
 });
 
+// for list of schools
+router.route('/resources').get(function (req, res) {
+    clientHandler.serviceResource(req.query, function(err,result) {
+        var returnValue = {
+            error: err,
+            result: result
+        };
+        if(err) {
+            res.status(http_code.INTERNAL_SERVER_ERROR);
+            returnValue.error = "Internal Server Error";
+        }
+        res.json(result);
+    })
+});
+
 // test route to make sure everything is working (accessed at GET http://localhost:port/query/metadata)
 router.route('/metadata').get(function (req, res) {
     console.log('/query/metadata');
