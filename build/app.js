@@ -654,7 +654,7 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   }
 })()}
 },{"vue":20,"vue-hot-reload-api":19,"vueify/lib/insert-css":21}],8:[function(require,module,exports){
-var __vueify_style_dispose__ = require("vueify/lib/insert-css").insert(".invalid[data-v-4c65c942] {\n    font-size: .7em;\n    color: #e02020;\n}")
+var __vueify_style_dispose__ = require("vueify/lib/insert-css").insert(".invalid[data-v-4c65c942] {\n    font-size: .7em;\n    color: #e02020;\n}\n.submitted[data-v-4c65c942] {\n    position: absolute;\n    width: 100%;\n    height: 100%;\n    background-color: #fff;\n    opacity: 0.5;\n    left: 0;\n    right: 0;\n    top: 0;\n    bottom:0;\n    padding-bottom: 800px;\n}\n\n#registerPage .center-block[data-v-4c65c942] {\n    position: fixed;\n}")
 ;(function(){
 "use strict";
 
@@ -670,22 +670,29 @@ exports.default = {
             dataType: "json",
             success: function success(result) {
                 self.schools = result;
+                console.log();
             }
         });
     },
     data: function data() {
         return {
-            passwordConfirm: { name: '', onPassword: false },
-            organization: '',
+            schools: new Set(),
+            pressedSubmit: false,
+            loading: false,
             firstName: { name: '', switched: false, invalid: false, msgDisplayed: false },
             lastName: { name: '', switched: false, invalid: false, msgDisplayed: false },
             email: { name: '', switched: false, invalid: false, msgDisplayed: false },
-            password: { name: '', invalidPasswordMsg: '', onPassword: false },
-            organizationNotSelected: [true, false],
-            schools: new Set()
+            password: { name: '', invalidPasswordMsg: '', on: false },
+            passwordConfirm: { name: '', on: false },
+            organization: { name: '', on: false }
         };
     },
     computed: {
+        submitPressed: function submitPressed() {
+            return {
+                submitted: this.pressedSubmit
+            };
+        },
         checkFirstName: function checkFirstName() {
             if (this.firstName.name.length === 0) {
                 if (this.firstName.switched === false) {
@@ -779,19 +786,52 @@ exports.default = {
             return "Minimum password length 8, maxi 72";
         },
         confirmPassword: function confirmPassword() {
-            if (this.passwordConfirm.onPassword) {
+            if (this.passwordConfirm.on) {
                 if (this.password.name === this.passwordConfirm.name) {
-                    this.passwordConfirm.onPassword = false;
+                    this.passwordConfirm.on = false;
                     return '';
                 }
                 return "Password does not match";
             }
+        },
+        confirmOrganization: function confirmOrganization() {
+            if (this.organization.on === true && this.organization.name.length === 0) {
+                return "Organization is required";
+            } else {
+                return "";
+            }
+        },
+        disableSubmitButton: function disableSubmitButton() {
+            return false;
         }
     },
     methods: {
         formSubmit: function formSubmit(e) {
-
             e.preventDefault();
+            this.pressedSubmit = true;
+            this.loading = true;
+            var self = this;
+
+            var newUser = {
+                firstName: 'Lisa',
+                lastName: 'Kim',
+                email: 'kimlisa@uw.edu',
+                password: 'Testing!1',
+                organization: 'University of Washington - Bothell Campus'
+            };
+
+            $.ajax({
+                type: "POST",
+                url: "/register/insert",
+                dataType: "text",
+                data: newUser,
+                success: function success(result) {
+                    console.log("result: ", result);
+                },
+                error: function error() {
+                    alert("trouble with sending data to server in register.vue formSubmit()");
+                }
+            });
         },
         checkEmail: function checkEmail() {
             var reg = /^([A-Za-z0-9_\-.])+@([A-Za-z0-9_\-.])+\.([A-Za-z]{2,4})$/;
@@ -806,7 +846,6 @@ exports.default = {
             return reg.test(name);
         },
         nameExists: function nameExists(nameObj) {
-            console.log(nameObj);
             if (nameObj.name.length === 0 && !nameObj.msgDisplayed) {
                 nameObj.invalid = true;
             } else {
@@ -814,11 +853,11 @@ exports.default = {
             }
         },
         passwordFocusIn: function passwordFocusIn() {
-            this.password.onPassword = true;
+            this.password.on = true;
             this.password.invalidPasswordMsg = '';
         },
         passwordFocusOut: function passwordFocusOut() {
-            this.password.onPassword = false;
+            this.password.on = false;
             if (this.checkPassword()) {
                 this.password.invalidPasswordMsg = '';
             } else {
@@ -831,7 +870,7 @@ exports.default = {
 if (module.exports.__esModule) module.exports = module.exports.default
 var __vue__options__ = (typeof module.exports === "function"? module.exports.options: module.exports)
 if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
-__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"container",attrs:{"id":"registerPage"}},[_vm._m(0),_vm._v(" "),_c('form',[_c('div',{staticClass:"form-group"},[_c('label',{attrs:{"for":"firstName"}},[_vm._v("First name:")]),_vm._v(" "),_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.firstName.name),expression:"firstName.name"}],staticClass:"form-control",attrs:{"type":"text","id":"firstName","placeholder":"First name"},domProps:{"value":(_vm.firstName.name)},on:{"focusin":function($event){_vm.firstName.invalid = false},"focusout":function($event){_vm.nameExists(_vm.firstName)},"input":function($event){if($event.target.composing){ return; }_vm.$set(_vm.firstName, "name", $event.target.value)}}}),_vm._v(" "),_c('div',{staticClass:"invalid"},[_vm._v(_vm._s(_vm.checkFirstName))]),_vm._v(" "),(_vm.firstName.invalid)?_c('div',{staticClass:"invalid"},[_vm._v("First name is required")]):_vm._e()]),_vm._v(" "),_c('div',{staticClass:"form-group"},[_c('label',{attrs:{"for":"lastName"}},[_vm._v("Last name:")]),_vm._v(" "),_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.lastName.name),expression:"lastName.name"}],staticClass:"form-control",attrs:{"type":"text","id":"lastName","placeholder":"Last name"},domProps:{"value":(_vm.lastName.name)},on:{"focusin":function($event){_vm.lastName.invalid = false},"focusout":function($event){_vm.nameExists(_vm.lastName)},"input":function($event){if($event.target.composing){ return; }_vm.$set(_vm.lastName, "name", $event.target.value)}}}),_vm._v(" "),_c('div',{staticClass:"invalid"},[_vm._v(_vm._s(_vm.checkLastName))]),_vm._v(" "),(_vm.lastName.invalid)?_c('div',{staticClass:"invalid"},[_vm._v("Last name is required")]):_vm._e()]),_vm._v(" "),_c('div',{staticClass:"form-group"},[_c('label',{attrs:{"for":"email"}},[_vm._v("Email address:")]),_vm._v(" "),_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.email.name),expression:"email.name"}],staticClass:"form-control",attrs:{"type":"email","id":"email","aria-describedby":"emailHelp","placeholder":"email@example.com"},domProps:{"value":(_vm.email.name)},on:{"focusin":function($event){_vm.email.invalid = false},"focusout":function($event){_vm.nameExists(_vm.email)},"input":function($event){if($event.target.composing){ return; }_vm.$set(_vm.email, "name", $event.target.value)}}}),_vm._v(" "),_c('div',{staticClass:"invalid"},[_vm._v(_vm._s(_vm.checkEmailValidity))]),_vm._v(" "),(_vm.email.invalid)?_c('div',{staticClass:"invalid"},[_vm._v("Email is required")]):_vm._e()]),_vm._v(" "),_c('div',{staticClass:"form-group"},[_c('label',{attrs:{"for":"password"}},[_vm._v("Password:")]),_vm._v(" "),_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.password.name),expression:"password.name"}],staticClass:"form-control",attrs:{"type":"password","id":"password","placeholder":"Password"},domProps:{"value":(_vm.password.name)},on:{"focusin":_vm.passwordFocusIn,"focusout":_vm.passwordFocusOut,"input":function($event){if($event.target.composing){ return; }_vm.$set(_vm.password, "name", $event.target.value)}}}),_vm._v(" "),_c('div',{directives:[{name:"show",rawName:"v-show",value:(_vm.password.onPassword),expression:"password.onPassword"}]},[_c('div',{staticClass:"invalid"},[_vm._v(_vm._s(_vm.upperCaseRequirement))]),_vm._v(" "),_c('div',{staticClass:"invalid"},[_vm._v(_vm._s(_vm.lowerCaseRequirement))]),_vm._v(" "),_c('div',{staticClass:"invalid"},[_vm._v(_vm._s(_vm.specialCharRequirement))]),_vm._v(" "),_c('div',{staticClass:"invalid"},[_vm._v(_vm._s(_vm.digitRequirement))]),_vm._v(" "),_c('div',{staticClass:"invalid"},[_vm._v(_vm._s(_vm.lengthRequirement))])]),_vm._v(" "),_c('div',{staticClass:"invalid"},[_vm._v(_vm._s(_vm.password.invalidPasswordMsg))])]),_vm._v(" "),_c('div',{staticClass:"form-group"},[_c('label',{attrs:{"for":"confirmPassword"}},[_vm._v("Confirm password:")]),_vm._v(" "),_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.passwordConfirm.name),expression:"passwordConfirm.name"}],staticClass:"form-control",attrs:{"type":"password","id":"confirmPassword","placeholder":"Confirm Password"},domProps:{"value":(_vm.passwordConfirm.name)},on:{"focusin":function($event){_vm.passwordConfirm.onPassword = true},"input":function($event){if($event.target.composing){ return; }_vm.$set(_vm.passwordConfirm, "name", $event.target.value)}}}),_vm._v(" "),_c('div',{staticClass:"invalid"},[_vm._v(_vm._s(_vm.confirmPassword))])]),_vm._v(" "),_c('div',{staticClass:"form-group"},[_c('label',{attrs:{"for":"organization"}},[_vm._v("Organization:")]),_vm._v(" "),_c('select',{directives:[{name:"model",rawName:"v-model",value:(_vm.organization),expression:"organization"}],staticClass:"form-control",attrs:{"id":"organization"},on:{"change":function($event){var $$selectedVal = Array.prototype.filter.call($event.target.options,function(o){return o.selected}).map(function(o){var val = "_value" in o ? o._value : o.value;return val}); _vm.organization=$event.target.multiple ? $$selectedVal : $$selectedVal[0]}}},_vm._l((_vm.schools),function(school){return _c('option',[_vm._v(_vm._s(school))])}))]),_vm._v(" "),_c('div',{staticClass:"g-recaptcha",attrs:{"data-sitekey":"6LeWQFMUAAAAAEhbd0eUym3S7Q7bRHWFb_Tgkyiy"}}),_vm._v(" "),_c('button',{staticClass:"btn btn-primary",attrs:{"type":"submit"},on:{"click":_vm.formSubmit}},[_vm._v("Submit")])])])}
+__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"container",attrs:{"id":"registerPage"}},[_c('div',{directives:[{name:"show",rawName:"v-show",value:(_vm.loading === true),expression:"loading === true"}],staticClass:"loading-image"},[_c('img',{staticClass:"center-block",attrs:{"src":"/public/loading.gif","width":"200"}})]),_vm._v(" "),_vm._m(0),_vm._v(" "),_c('form',[_c('div',{staticClass:"form-group"},[_c('label',{attrs:{"for":"firstName"}},[_vm._v("First name:")]),_vm._v(" "),_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.firstName.name),expression:"firstName.name"}],staticClass:"form-control",attrs:{"type":"text","id":"firstName","placeholder":"First name"},domProps:{"value":(_vm.firstName.name)},on:{"focusin":function($event){_vm.firstName.invalid = false},"focusout":function($event){_vm.nameExists(_vm.firstName)},"input":function($event){if($event.target.composing){ return; }_vm.$set(_vm.firstName, "name", $event.target.value)}}}),_vm._v(" "),_c('div',{staticClass:"invalid"},[_vm._v(_vm._s(_vm.checkFirstName))]),_vm._v(" "),(_vm.firstName.invalid)?_c('div',{staticClass:"invalid"},[_vm._v("First name is required")]):_vm._e()]),_vm._v(" "),_c('div',{staticClass:"form-group"},[_c('label',{attrs:{"for":"lastName"}},[_vm._v("Last name:")]),_vm._v(" "),_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.lastName.name),expression:"lastName.name"}],staticClass:"form-control",attrs:{"type":"text","id":"lastName","placeholder":"Last name"},domProps:{"value":(_vm.lastName.name)},on:{"focusin":function($event){_vm.lastName.invalid = false},"focusout":function($event){_vm.nameExists(_vm.lastName)},"input":function($event){if($event.target.composing){ return; }_vm.$set(_vm.lastName, "name", $event.target.value)}}}),_vm._v(" "),_c('div',{staticClass:"invalid"},[_vm._v(_vm._s(_vm.checkLastName))]),_vm._v(" "),(_vm.lastName.invalid)?_c('div',{staticClass:"invalid"},[_vm._v("Last name is required")]):_vm._e()]),_vm._v(" "),_c('div',{staticClass:"form-group"},[_c('label',{attrs:{"for":"email"}},[_vm._v("Email address:")]),_vm._v(" "),_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.email.name),expression:"email.name"}],staticClass:"form-control",attrs:{"type":"email","id":"email","aria-describedby":"emailHelp","placeholder":"email@example.com"},domProps:{"value":(_vm.email.name)},on:{"focusin":function($event){_vm.email.invalid = false},"focusout":function($event){_vm.nameExists(_vm.email)},"input":function($event){if($event.target.composing){ return; }_vm.$set(_vm.email, "name", $event.target.value)}}}),_vm._v(" "),_c('div',{staticClass:"invalid"},[_vm._v(_vm._s(_vm.checkEmailValidity))]),_vm._v(" "),(_vm.email.invalid)?_c('div',{staticClass:"invalid"},[_vm._v("Email is required")]):_vm._e()]),_vm._v(" "),_c('div',{staticClass:"form-group"},[_c('label',{attrs:{"for":"password"}},[_vm._v("Password:")]),_vm._v(" "),_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.password.name),expression:"password.name"}],staticClass:"form-control",attrs:{"type":"password","id":"password","placeholder":"Password"},domProps:{"value":(_vm.password.name)},on:{"focusin":_vm.passwordFocusIn,"focusout":_vm.passwordFocusOut,"input":function($event){if($event.target.composing){ return; }_vm.$set(_vm.password, "name", $event.target.value)}}}),_vm._v(" "),_c('div',{directives:[{name:"show",rawName:"v-show",value:(_vm.password.on),expression:"password.on"}]},[_c('div',{staticClass:"invalid"},[_vm._v(_vm._s(_vm.upperCaseRequirement))]),_vm._v(" "),_c('div',{staticClass:"invalid"},[_vm._v(_vm._s(_vm.lowerCaseRequirement))]),_vm._v(" "),_c('div',{staticClass:"invalid"},[_vm._v(_vm._s(_vm.specialCharRequirement))]),_vm._v(" "),_c('div',{staticClass:"invalid"},[_vm._v(_vm._s(_vm.digitRequirement))]),_vm._v(" "),_c('div',{staticClass:"invalid"},[_vm._v(_vm._s(_vm.lengthRequirement))])]),_vm._v(" "),_c('div',{staticClass:"invalid"},[_vm._v(_vm._s(_vm.password.invalidPasswordMsg))])]),_vm._v(" "),_c('div',{staticClass:"form-group"},[_c('label',{attrs:{"for":"confirmPassword"}},[_vm._v("Confirm password:")]),_vm._v(" "),_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.passwordConfirm.name),expression:"passwordConfirm.name"}],staticClass:"form-control",attrs:{"type":"password","id":"confirmPassword","placeholder":"Confirm Password"},domProps:{"value":(_vm.passwordConfirm.name)},on:{"focusin":function($event){_vm.passwordConfirm.on = true},"input":function($event){if($event.target.composing){ return; }_vm.$set(_vm.passwordConfirm, "name", $event.target.value)}}}),_vm._v(" "),_c('div',{staticClass:"invalid"},[_vm._v(_vm._s(_vm.confirmPassword))])]),_vm._v(" "),_c('div',{staticClass:"form-group"},[_c('label',{attrs:{"for":"organization"}},[_vm._v("Organization:")]),_vm._v(" "),_c('select',{directives:[{name:"model",rawName:"v-model",value:(_vm.organization.name),expression:"organization.name"}],staticClass:"form-control",attrs:{"id":"organization"},on:{"focusin":function($event){_vm.organization.on = true},"change":function($event){var $$selectedVal = Array.prototype.filter.call($event.target.options,function(o){return o.selected}).map(function(o){var val = "_value" in o ? o._value : o.value;return val}); _vm.$set(_vm.organization, "name", $event.target.multiple ? $$selectedVal : $$selectedVal[0])}}},_vm._l((_vm.schools),function(school){return _c('option',[_vm._v(_vm._s(school))])})),_vm._v(" "),_c('div',{staticClass:"invalid"},[_vm._v(_vm._s(_vm.confirmOrganization))])]),_vm._v(" "),_c('div',{staticClass:"g-recaptcha",attrs:{"data-sitekey":"6LeWQFMUAAAAAEhbd0eUym3S7Q7bRHWFb_Tgkyiy"}}),_vm._v(" "),_c('button',{staticClass:"btn btn-primary",attrs:{"type":"submit","disabled":_vm.disableSubmitButton},on:{"click":_vm.formSubmit}},[_vm._v("Submit")])]),_vm._v(" "),_c('div',{class:_vm.submitPressed})])}
 __vue__options__.staticRenderFns = [function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"header"},[_c('h1',[_vm._v("Sign Up")]),_vm._v(" "),_c('p',[_vm._v("\n            Welcome to Humpback Whale Social Sound!"),_c('br'),_vm._v("\n            Sign up to join a community of scientists who share whale social calls.\n        ")])])}]
 __vue__options__._scopeId = "data-v-4c65c942"
 if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")

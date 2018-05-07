@@ -1,7 +1,10 @@
 var mongo = require('mongodb').MongoClient;
-var _ = require('lodash')
+var _ = require('lodash');
 const HWSS_DB = 'HWSS';
 const METADATA = 'METADATA';
+
+// const HWSS_LOCAL = 'HWSS_LOCAL';
+// const users = 'users';
 
 function buildQuery(queryParams) {
     var query = {};
@@ -84,6 +87,20 @@ function buildQuery(queryParams) {
     return query;
 }
 
+// function insertNewUser(dbName, dbCollection, email, callback) {
+//     // connecting locally for now
+//     new mongo.connect("mongodb://localhost:27017/HWSS_LOCAL", function(err, db){
+//         if(err) {
+//             callback("Unreachable Database", null);
+//         }else {
+//             var dbo = db.db(dbName);
+//             console.log("@@@@@@@@@@@@!!!!!!!@@@@@########");
+//             dbo.collection(dbCollection).find().toArray(function(err,result){
+//                 console.log("result: ", result)
+//             });
+//         }
+//     })
+// }
 
 //http://localhost:3009/query/metadata?pi=Seger,Faraon&firstName=Kerri,Conard
 function queryMetaData(dbName, dbCollection, queryParams, callback) {
@@ -167,5 +184,7 @@ function queryMetaData(dbName, dbCollection, queryParams, callback) {
 module.exports = {
     METADATA: METADATA,
     HWSS_DB: HWSS_DB,
-    queryMetaData: queryMetaData
+    // HWSS_LOCAL: HWSS_LOCAL,
+    // users: users,
+    queryMetaData: queryMetaData,
 };

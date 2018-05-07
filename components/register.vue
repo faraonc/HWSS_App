@@ -1,5 +1,8 @@
 <template>
     <div class="container" id="registerPage">
+        <div class="loading-image" v-show="loading === true">
+            <img class="center-block" src="/public/loading.gif" width="200">
+        </div>
         <div class="header">
             <h1>Sign Up</h1>
             <p>
@@ -29,7 +32,8 @@
             <div class="form-group">
                 <label for="password">Password:</label>
                 <input type="password" class="form-control" id="password" placeholder="Password" v-model="password.name" v-on:focusin="passwordFocusIn" v-on:focusout="passwordFocusOut">
-                <div v-show="password.onPassword">
+                <div v-show="password.on">
+                    <div class="invalid">{{emailExists}}</div>
                     <div class="invalid">{{upperCaseRequirement}}</div>
                     <div class="invalid">{{lowerCaseRequirement}}</div>
                     <div class="invalid">{{specialCharRequirement}}</div>
@@ -40,18 +44,20 @@
             </div>
             <div class="form-group">
                 <label for="confirmPassword">Confirm password:</label>
-                <input type="password" class="form-control" id="confirmPassword" placeholder="Confirm Password" v-model="passwordConfirm.name" v-on:focusin="passwordConfirm.onPassword = true">
+                <input type="password" class="form-control" id="confirmPassword" placeholder="Confirm Password" v-model="passwordConfirm.name" v-on:focusin="passwordConfirm.on = true">
                 <div class="invalid">{{confirmPassword}}</div>
             </div>
             <div class="form-group">
                 <label for="organization">Organization:</label>
-                <select class="form-control" id="organization" v-model="organization">
+                <select class="form-control" id="organization" v-model="organization.name" v-on:focusin="organization.on = true">
                     <option v-for="school in schools">{{school}}</option>
                 </select>
+                <div class="invalid">{{confirmOrganization}}</div>
             </div>
             <div class="g-recaptcha" data-sitekey="6LeWQFMUAAAAAEhbd0eUym3S7Q7bRHWFb_Tgkyiy"></div>
-            <button type="submit" class="btn btn-primary" v-on:click="formSubmit">Submit</button>
+            <button type="submit" class="btn btn-primary" v-on:click="formSubmit" :disabled="disableSubmitButton">Submit</button>
         </form>
+        <div v-bind:class="submitPressed"></div>
     </div>
 </template>
 
@@ -71,20 +77,23 @@
         },
         data: function() {
             return {
-                passwordConfirm: {name: '', onPassword: false},
-                organization: '',
+                schools: new Set(),
+                pressedSubmit: false,
+                loading: false,
                 firstName: {name: '', switched: false, invalid: false, msgDisplayed: false},
                 lastName: {name: '', switched: false, invalid: false, msgDisplayed: false},
                 email: {name: '', switched: false, invalid: false, msgDisplayed: false},
-                password: {name: '', invalidPasswordMsg: '', onPassword: false},
-                organizationNotSelected: [true, false],
-                schools: new Set()
+                password: {name: '', invalidPasswordMsg: '', on: false},
+                passwordConfirm: {name: '', on: false},
+                organization: {name: '', on: false}
             }
         },
         computed: {
-            // orderedSchools: function () {
-            //     return _.orderBy(this.schools, 'name');
-            // },
+            submitPressed: function() {
+                return {
+                    submitted: this.pressedSubmit
+                }
+            },
             checkFirstName: function() {
                 if(this.firstName.name.length === 0) {
                     if(this.firstName.switched === false) {
@@ -181,23 +190,66 @@
                 return "Minimum password length 8, maxi 72"
             },
             confirmPassword: function() {
-                if(this.passwordConfirm.onPassword) {
+                if(this.passwordConfirm.on) {
                     if(this.password.name === this.passwordConfirm.name) {
-                        this.passwordConfirm.onPassword = false;
+                        this.passwordConfirm.on = false;
                         return '';
                     }
                     return "Password does not match";
                 }
+            },
+            confirmOrganization: function() {
+                if(this.organization.on === true && this.organization.name.length === 0) {
+                    return "Organization is required"
+                }
+                else {
+                    return "";
+                }
+            },
+            disableSubmitButton: function() {
+                // return this.firstName.name.length === 0 || this.lastName.name.length === 0 || this.email.name.length === 0
+                //     || this.password.name.length === 0 || this.passwordConfirm.name.length === 0
+                //     || this.organization.name.length === 0
+                return false;
             }
         },
         methods: {
             formSubmit: function(e) {
-                // trim off all white spaces from names
-                // this.firstName = this.firstName.trim().replace(/\s\s+/g, ' ');
-                // this.lastName = this.lastName.trim().replace(/\s\s+/g, ' ');
-
-
                 e.preventDefault();
+                this.pressedSubmit = true;
+                this.loading = true;
+                var self = this;
+                // var newUser = {
+                //     firstName: self.firstName.name,
+                //     lastName: self.lastName.name,
+                //     email: self.email.name,
+                //     password: self.password.name,
+                //     organization: self.organization.name
+                // };
+                var newUser = {
+                    firstName: 'Lisa',
+                    lastName: 'Kim',
+                    email: 'kimlisa@uw.edu',
+                    password: 'Testing!1',
+                    organization: 'University of Washington - Bothell Campus'
+                };
+
+                $.ajax({
+                    type: "POST",
+                    url: "/register/insert",
+                    dataType: "text",
+                    data: newUser,
+                    success:function(result) {
+                        if(result !== "success") {
+                            self.pressedSubmit = false;
+                            self.loading = false;
+
+                        }
+                    },
+                    error: function() {
+                        alert("trouble with sending data to server in register.vue formSubmit()")
+                    }
+                })
 
             },
             checkEmail: function() {
@@ -213,7 +265,6 @@
                 return reg.test(name);
             },
             nameExists: function(nameObj) {
-                console.log(nameObj)
                 if(nameObj.name.length === 0 && !nameObj.msgDisplayed) {
                     nameObj.invalid = true;
                 }
@@ -222,11 +273,11 @@
                 }
             },
             passwordFocusIn: function() {
-                this.password.onPassword = true;
+                this.password.on = true;
                 this.password.invalidPasswordMsg = '';
             },
             passwordFocusOut: function() {
-                this.password.onPassword = false;
+                this.password.on = false;
                 if(this.checkPassword()) {
                     this.password.invalidPasswordMsg = '';
                 }
@@ -242,5 +293,21 @@
     .invalid {
         font-size: .7em;
         color: #e02020;
+    }
+    .submitted {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background-color: #fff;
+        opacity: 0.5;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom:0;
+        padding-bottom: 800px;
+    }
+
+    #registerPage .center-block {
+        position: fixed;
     }
 </style>
