@@ -1,6 +1,6 @@
 const AUTH0_DOMAIN = "hwss.auth0.com";
-const AUTH0_CLIENT_ID = "hwss.auth0.com";
-const AUTH0_CALLBACK_URL = "http://localhost:8080/auth-callback.html";
+const AUTH0_CLIENT_ID = "iVJo26xyBUgYxpu1GZiqe2ZDDP47Sv8B";
+const AUTH0_CALLBACK_URL = "http://localhost:8080/auth.html";
 //     redirectUri: AUTH0_CALLBACK_URL,
 //     audience: 'https://' + AUTH0_DOMAIN + '/userinfo',
 //     responseType: 'token id_token',

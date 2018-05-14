@@ -9,14 +9,63 @@
     <!-- Setting the right viewport -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css"
+          integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+
+
 </head>
 <body>
 
 <h1>Auth0 Test</h1>
-<button id="btn-login" class="btn-login">Sign In</button>
+
+<div class="content">
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#">Auth0 - jQuery</a>
+
+                <button id="btn-home-view" class="btn btn-primary btn-margin">
+                    Home
+                </button>
+
+                <button id="btn-login" class="btn btn-primary btn-margin">
+                    Log In
+                </button>
+
+                <button id="btn-logout" class="btn btn-primary btn-margin">
+                    Log Out
+                </button>
+
+            </div>
+        </div>
+    </nav>
+
+    <main class="container">
+        <!-- home view -->
+        <div id="home-view">
+            <h4></h4>
+        </div>
+
+    </main>
+
+</div>
+
+
+
+
+
 <!-- Auth0Lock script -->
 <script src="https://cdn.auth0.com/js/auth0/9.3.1/auth0.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"
+        integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb"
+        crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"
+        integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn"
+        crossorigin="anonymous"></script>
 <script src="auth-test.js"></script>
 </body>
 </html>

@@ -74,6 +74,7 @@ app.use('/build', express.static(path.join(__dirname, 'build')));
 app.use(express.static(path.join(__dirname, 'templates')));
 
 app.use(express.static(path.join(__dirname, 'cj_auth0_test')));
+app.use(express.static(path.join(__dirname, 'cj_non_auth0_test')));
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
