@@ -124,3 +124,5 @@ app.listen(port, function () {
     console.log('example app listening on port 8080!');
 
 });
+
+app.timeout = 1000;
