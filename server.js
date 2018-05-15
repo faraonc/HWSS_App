@@ -60,7 +60,6 @@ router.route('/metadata').get(function (req, res) {
     if (Object.keys(req.query).length !== 0 || req.query.constructor !== Object) {
         clientHandler.serviceQuery(req.query, function (err, result) {
             db.queryMetaData(db.HWSS_DB, db.METADATA, result, function (err, result) {
-                console.log("[DEBUG]: " + result);
                 var returnValue = {
                     error: err,
                     result: result
@@ -124,5 +123,3 @@ app.listen(port, function () {
     console.log('example app listening on port 8080!');
 
 });
-
-app.timeout = 1000;

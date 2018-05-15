@@ -105,7 +105,7 @@ function buildQuery(queryParams) {
 //http://localhost:3009/query/metadata?pi=Seger,Faraon&firstName=Kerri,Conard
 function queryMetaData(dbName, dbCollection, queryParams, callback) {
     //READ ONLY ACCESS
-    new mongo('mongodb://hwssappmongodb.documents.azure.com:10255/?ssl=true&replicaSet=globaldb', {
+    new mongo('mongodb://hwssappmongodb.documents.azure.com:10255/?ssl=true', {
         auth: {
             user: 'hwssappmongodb',
             password: 'FXTP01Os5DuuNcze2ThkumUb7cZyzPFY6LmkUbLksBqVihT2j9rz0afe3hq6DH6tLIGp40hyeyWTVWFSztiINA=='
@@ -120,7 +120,6 @@ function queryMetaData(dbName, dbCollection, queryParams, callback) {
                 var query = buildQuery(queryParams);
 
                 if (queryParams.all) {
-                    console.log("[DEBUG]: Querying for all.")
                     dbo.collection(dbCollection).find(query).toArray(function (err, result) {
                         callback(err, result);
                     });
