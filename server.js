@@ -1,17 +1,17 @@
-var express = require('express');
-var path = require('path');
-var favicon = require('serve-favicon');
-var logger = require('morgan');
-var cookieParser = require('cookie-parser');
-var bodyParser = require('body-parser'); // use for POST
-var clientHandler = require('./scripts/client_handler');
-var db = require('./scripts/db.js');
-var http_code = require('./scripts/http_code');
-var User = require('./scripts/mongoose_user_schema');
+const express = require('express');
+const path = require('path');
+const favicon = require('serve-favicon');
+const logger = require('morgan');
+const cookieParser = require('cookie-parser');
+const bodyParser = require('body-parser'); // use for POST
+const clientHandler = require('./scripts/client_handler');
+const db = require('./scripts/db.js');
+const http_code = require('./scripts/http_code');
+// var User = require('./scripts/mongoose_user_schema');
 
 
-var app = express();
-var router = express.Router();  // get an instance of the express Router
+const app = express();
+const router = express.Router();  // get an instance of the express Router
 
 // uncomment after placing your favicon in /public  (order mattered)
 app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
