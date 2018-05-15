@@ -105,10 +105,10 @@ function buildQuery(queryParams) {
 //http://localhost:3009/query/metadata?pi=Seger,Faraon&firstName=Kerri,Conard
 function queryMetaData(dbName, dbCollection, queryParams, callback) {
     //READ ONLY ACCESS
-    new mongo('mongodb://hwss.documents.azure.com:10255/?ssl=true', {
+    new mongo('mongodb://hwssappmongodb.documents.azure.com:10255/?ssl=true', {
         auth: {
-            user: 'hwss',
-            password: 'x3vZOYmtOj8KsIItlu23Hx0zXxx1gOjLIxenhixoUjyEXSCrRIHyxuo9LxHLFsSKEZWoT4DxsJ8O99ajATzCjw=='
+            user: 'hwssappmongodb',
+            password: 'FXTP01Os5DuuNcze2ThkumUb7cZyzPFY6LmkUbLksBqVihT2j9rz0afe3hq6DH6tLIGp40hyeyWTVWFSztiINA=='
         }
     }).connect(function (err, db) {
         try {
