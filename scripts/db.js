@@ -120,6 +120,7 @@ function queryMetaData(dbName, dbCollection, queryParams, callback) {
                 var query = buildQuery(queryParams);
 
                 if (queryParams.all) {
+                    console.log("[DEBUG]: Querying for all.")
                     dbo.collection(dbCollection).find(query).toArray(function (err, result) {
                         callback(err, result);
                     });
