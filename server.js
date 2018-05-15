@@ -64,8 +64,8 @@ router.route('/metadata').get(function (req, res) {
                     error: err,
                     result: result
                 };
-                console.log("[DEBUG]: result " + result);
-                console.log("[DEBUG]: err " + err);
+                // console.log("[DEBUG]: result " + result);
+                // console.log("[DEBUG]: err " + err);
                 if (err || result.length === 0) {
                     res.status(http_code.NOT_FOUND);
                     returnValue.error = "Not Found";

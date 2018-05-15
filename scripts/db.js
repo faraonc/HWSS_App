@@ -65,26 +65,32 @@ function buildQuery(queryParams) {
     else if (queryParams.uniqFileTypes) {
         query = {$group: {_id: {image: '$image_url', audio: '$audio_url', video: '$video_url', file: '$file_url'}}};
     }
-    else if (queryParams.dateSort) {
-        if (queryParams.dateSort === "new") {
-            query.$orderby = {
-                date: -1
-            }
-        } else if (queryParams.dateSort === "old") {
-            query.$orderby = {
-                date: 1
-            }
-        }
-    }
-    else {
-        query.$orderby = {
-            date: -1
-        }
-    }
 
     console.log("outside query: ", query);
 
     return query;
+}
+
+function buildSort (queryParams) {
+    let sortParam = {};
+    if (queryParams.dateSort) {
+        if (queryParams.dateSort === "new") {
+            sortParam.date = -1;
+            sortParam.time = -1;
+        } else if (queryParams.dateSort === "old") {
+            sortParam.date = 1;
+            sortParam.time = 11;
+        }
+    }
+    else {
+        sortParam.date = -1;
+        sortParam.time = -1;
+    }
+
+    console.log("outside sort: ", sortParam);
+
+    return sortParam;
+
 }
 
 // function insertNewUser(dbName, dbCollection, email, callback) {
@@ -118,9 +124,10 @@ function queryMetaData(dbName, dbCollection, queryParams, callback) {
 
                 var dbo = db.db(dbName);
                 var query = buildQuery(queryParams);
+                var sortParam = buildSort(queryParams);
 
                 if (queryParams.all) {
-                    dbo.collection(dbCollection).find(query).toArray(function (err, result) {
+                    dbo.collection(dbCollection).find().sort(sortParam).toArray(function (err, result) {
                         callback(err, result);
                     });
                 }
@@ -165,7 +172,7 @@ function queryMetaData(dbName, dbCollection, queryParams, callback) {
                 }
                 else {
                     if (Object.keys(query).length !== 0 || query.constructor !== Object) {
-                        dbo.collection(dbCollection).find(query).toArray(function (err, result) {
+                        dbo.collection(dbCollection).find(query.$query).sort(sortParam).toArray(function (err, result) {
                             callback(err, result);
                         });
                     } else {
