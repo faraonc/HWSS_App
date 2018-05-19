@@ -28,6 +28,7 @@
                 <input type="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="email@example.com" v-model="email.name" v-on:focusin="email.invalid = false" v-on:focusout="nameExists(email)">
                 <div class="invalid">{{checkEmailValidity}}</div>
                 <div class="invalid" v-if="email.invalid">Email is required</div>
+                <div class="invalid" v-if="email.duplicate">Email already in use.</div>
             </div>
             <div class="form-group">
                 <label for="password">Password:</label>
@@ -82,7 +83,7 @@
                 loading: false,
                 firstName: {name: '', switched: false, invalid: false, msgDisplayed: false},
                 lastName: {name: '', switched: false, invalid: false, msgDisplayed: false},
-                email: {name: '', switched: false, invalid: false, msgDisplayed: false},
+                email: {name: '', switched: false, invalid: false, msgDisplayed: false, duplicate: false},
                 password: {name: '', invalidPasswordMsg: '', on: false},
                 passwordConfirm: {name: '', on: false},
                 organization: {name: '', on: false}
@@ -133,6 +134,7 @@
                 }
             },
             checkEmailValidity: function() {
+                this.email.duplicate = false;
                 if(this.email.name.length === 0) {
                     if(this.email.switched === false) {
                         this.email.switched = true;
@@ -243,7 +245,11 @@
                         if(result !== "success") {
                             self.pressedSubmit = false;
                             self.loading = false;
-
+                            alert("Email is already in use. Please use a different email and try again.");
+                            self.email.duplicate = true;
+                        }
+                        else {
+                            self.$router.push({name: 'profile', params: newUser});
                         }
                     },
                     error: function() {

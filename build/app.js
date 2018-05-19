@@ -26,7 +26,7 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
     hotAPI.reload("data-v-c7582c5e", __vue__options__)
   }
 })()}
-},{"vue":20,"vue-hot-reload-api":19}],2:[function(require,module,exports){
+},{"vue":22,"vue-hot-reload-api":21}],2:[function(require,module,exports){
 ;(function(){
 'use strict';
 
@@ -123,7 +123,7 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
     hotAPI.reload("data-v-7489a86d", __vue__options__)
   }
 })()}
-},{"./q-audio.vue":1,"./q-file.vue":3,"./q-image.vue":4,"vue":20,"vue-hot-reload-api":19}],3:[function(require,module,exports){
+},{"./q-audio.vue":1,"./q-file.vue":3,"./q-image.vue":4,"vue":22,"vue-hot-reload-api":21}],3:[function(require,module,exports){
 ;(function(){
 'use strict';
 
@@ -151,7 +151,7 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
     hotAPI.reload("data-v-7fff895e", __vue__options__)
   }
 })()}
-},{"vue":20,"vue-hot-reload-api":19}],4:[function(require,module,exports){
+},{"vue":22,"vue-hot-reload-api":21}],4:[function(require,module,exports){
 ;(function(){
 "use strict";
 
@@ -179,7 +179,36 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
     hotAPI.reload("data-v-5cc4acd6", __vue__options__)
   }
 })()}
-},{"vue":20,"vue-hot-reload-api":19}],5:[function(require,module,exports){
+},{"vue":22,"vue-hot-reload-api":21}],5:[function(require,module,exports){
+var __vueify_style_dispose__ = require("vueify/lib/insert-css").insert("#loginPage[data-v-1067c45d] {\n    max-width: 250px;\n    margin: 0 auto;\n    padding-top: 80px;\n    text-align: center;\n}\n\n#loginPage img[data-v-1067c45d] {\n    margin-bottom: 20px;\n}\n#loginPage form[data-v-1067c45d] {\n    text-align: left;\n}\n\n#loginPage button[data-v-1067c45d] {\n    margin-top: 10px;\n    width: 100%;\n}")
+;(function(){
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.default = {
+    name: "login"
+};
+})()
+if (module.exports.__esModule) module.exports = module.exports.default
+var __vue__options__ = (typeof module.exports === "function"? module.exports.options: module.exports)
+if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
+__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _vm._m(0)}
+__vue__options__.staticRenderFns = [function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"container",attrs:{"id":"loginPage"}},[_c('img',{attrs:{"src":"/public/login_whale.png"}}),_vm._v(" "),_c('form',[_c('div',{staticClass:"form-group"},[_c('label',{attrs:{"for":"email"}},[_vm._v("Email:")]),_vm._v(" "),_c('input',{staticClass:"form-control",attrs:{"type":"text","id":"email","placeholder":"Email"}})]),_vm._v(" "),_c('div',{staticClass:"form-group"},[_c('label',{attrs:{"for":"password"}},[_vm._v("Password:")]),_vm._v(" "),_c('input',{staticClass:"form-control",attrs:{"type":"text","id":"password","placeholder":"Password"}})]),_vm._v(" "),_c('button',{staticClass:"btn btn-primary",attrs:{"type":"submit"}},[_vm._v("Login")])])])}]
+__vue__options__._scopeId = "data-v-1067c45d"
+if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), true)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  module.hot.dispose(__vueify_style_dispose__)
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-1067c45d", __vue__options__)
+  } else {
+    hotAPI.reload("data-v-1067c45d", __vue__options__)
+  }
+})()}
+},{"vue":22,"vue-hot-reload-api":21,"vueify/lib/insert-css":23}],6:[function(require,module,exports){
 ;(function(){
 'use strict';
 
@@ -522,7 +551,7 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
     hotAPI.reload("data-v-01fe2d4d", __vue__options__)
   }
 })()}
-},{"../entry/q-entry.vue":2,"./sort-by.vue":6,"vue":20,"vue-hot-reload-api":19}],6:[function(require,module,exports){
+},{"../entry/q-entry.vue":2,"./sort-by.vue":7,"vue":22,"vue-hot-reload-api":21}],7:[function(require,module,exports){
 ;(function(){
 "use strict";
 
@@ -624,7 +653,7 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
     hotAPI.reload("data-v-5a068427", __vue__options__)
   }
 })()}
-},{"vue":20,"vue-hot-reload-api":19}],7:[function(require,module,exports){
+},{"vue":22,"vue-hot-reload-api":21}],8:[function(require,module,exports){
 var __vueify_style_dispose__ = require("vueify/lib/insert-css").insert("h1[data-v-06ab6908] {\n    text-align: center;\n    margin-top: 100px;\n}")
 ;(function(){
 "use strict";
@@ -653,7 +682,45 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
     hotAPI.reload("data-v-06ab6908", __vue__options__)
   }
 })()}
-},{"vue":20,"vue-hot-reload-api":19,"vueify/lib/insert-css":21}],8:[function(require,module,exports){
+},{"vue":22,"vue-hot-reload-api":21,"vueify/lib/insert-css":23}],9:[function(require,module,exports){
+var __vueify_style_dispose__ = require("vueify/lib/insert-css").insert("#profile .fa-user-circle[data-v-de9610c6] {\n    font-size: 6em;\n    padding:30px 0;\n}\n#profile > div[data-v-de9610c6]:first-child{\n    padding-top: 20px;\n    text-align: right;\n}\n\n#profile > div:first-child .btn[data-v-de9610c6] {\n    margin-right: 15px;\n}\n#profile >div[data-v-de9610c6]:last-child {\n    width: 470px;\n    margin: 0 auto;\n    text-align: center;\n}\n#profile .user-info > div[data-v-de9610c6] {\n    display:flex;\n    margin-bottom: 15px;\n    text-align: left;\n}\n\n#profile .user-info > div > div[data-v-de9610c6]:first-child {\n    width: 120px;\n}")
+;(function(){
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.default = {
+    name: "profile",
+    prop: ['userInfo'],
+    data: function data() {
+        return {
+            userInfo: {}
+        };
+    },
+    mounted: function mounted() {
+        this.userInfo = this.$route.params;
+    }
+};
+})()
+if (module.exports.__esModule) module.exports = module.exports.default
+var __vue__options__ = (typeof module.exports === "function"? module.exports.options: module.exports)
+if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
+__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"container",attrs:{"id":"profile"}},[_vm._m(0),_vm._v(" "),_c('div',[_c('i',{staticClass:"fas fa-user-circle"}),_vm._v(" "),_c('div',{staticClass:"user-info"},[_c('div',[_vm._m(1),_vm._v(" "),_c('div',[_vm._v(_vm._s(_vm.userInfo.firstName)+" "+_vm._s(_vm.userInfo.lastName))])]),_vm._v(" "),_c('div',[_vm._m(2),_vm._v(" "),_c('div',[_vm._v(_vm._s(_vm.userInfo.email))])]),_vm._v(" "),_c('div',[_vm._m(3),_vm._v(" "),_c('div',[_vm._v(_vm._s(_vm.userInfo.password))])]),_vm._v(" "),_c('div',[_vm._m(4),_vm._v(" "),_c('div',[_vm._v(_vm._s(_vm.userInfo.organization))])])])])])}
+__vue__options__.staticRenderFns = [function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',[_c('button',{staticClass:"btn btn-primary",attrs:{"type":"button"}},[_vm._v("Edit")]),_vm._v(" "),_c('button',{staticClass:"btn btn-primary",attrs:{"type":"button"}},[_vm._v("Done")])])},function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',[_c('b',[_vm._v("Name:")])])},function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',[_c('b',[_vm._v("Email:")])])},function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',[_c('b',[_vm._v("Password:")])])},function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',[_c('b',[_vm._v("Organization:")])])}]
+__vue__options__._scopeId = "data-v-de9610c6"
+if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), true)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  module.hot.dispose(__vueify_style_dispose__)
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-de9610c6", __vue__options__)
+  } else {
+    hotAPI.reload("data-v-de9610c6", __vue__options__)
+  }
+})()}
+},{"vue":22,"vue-hot-reload-api":21,"vueify/lib/insert-css":23}],10:[function(require,module,exports){
 var __vueify_style_dispose__ = require("vueify/lib/insert-css").insert(".invalid[data-v-4c65c942] {\n    font-size: .7em;\n    color: #e02020;\n}\n.submitted[data-v-4c65c942] {\n    position: absolute;\n    width: 100%;\n    height: 100%;\n    background-color: #fff;\n    opacity: 0.5;\n    left: 0;\n    right: 0;\n    top: 0;\n    bottom:0;\n    padding-bottom: 800px;\n}\n\n#registerPage .center-block[data-v-4c65c942] {\n    position: fixed;\n}")
 ;(function(){
 "use strict";
@@ -681,7 +748,7 @@ exports.default = {
             loading: false,
             firstName: { name: '', switched: false, invalid: false, msgDisplayed: false },
             lastName: { name: '', switched: false, invalid: false, msgDisplayed: false },
-            email: { name: '', switched: false, invalid: false, msgDisplayed: false },
+            email: { name: '', switched: false, invalid: false, msgDisplayed: false, duplicate: false },
             password: { name: '', invalidPasswordMsg: '', on: false },
             passwordConfirm: { name: '', on: false },
             organization: { name: '', on: false }
@@ -730,6 +797,7 @@ exports.default = {
             }
         },
         checkEmailValidity: function checkEmailValidity() {
+            this.email.duplicate = false;
             if (this.email.name.length === 0) {
                 if (this.email.switched === false) {
                     this.email.switched = true;
@@ -826,7 +894,14 @@ exports.default = {
                 dataType: "text",
                 data: newUser,
                 success: function success(result) {
-                    console.log("result: ", result);
+                    if (result !== "success") {
+                        self.pressedSubmit = false;
+                        self.loading = false;
+                        alert("Email is already in use. Please use a different email and try again.");
+                        self.email.duplicate = true;
+                    } else {
+                        self.$router.push({ name: 'profile', params: newUser });
+                    }
                 },
                 error: function error() {
                     alert("trouble with sending data to server in register.vue formSubmit()");
@@ -870,7 +945,7 @@ exports.default = {
 if (module.exports.__esModule) module.exports = module.exports.default
 var __vue__options__ = (typeof module.exports === "function"? module.exports.options: module.exports)
 if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
-__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"container",attrs:{"id":"registerPage"}},[_c('div',{directives:[{name:"show",rawName:"v-show",value:(_vm.loading === true),expression:"loading === true"}],staticClass:"loading-image"},[_c('img',{staticClass:"center-block",attrs:{"src":"/public/loading.gif","width":"200"}})]),_vm._v(" "),_vm._m(0),_vm._v(" "),_c('form',[_c('div',{staticClass:"form-group"},[_c('label',{attrs:{"for":"firstName"}},[_vm._v("First name:")]),_vm._v(" "),_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.firstName.name),expression:"firstName.name"}],staticClass:"form-control",attrs:{"type":"text","id":"firstName","placeholder":"First name"},domProps:{"value":(_vm.firstName.name)},on:{"focusin":function($event){_vm.firstName.invalid = false},"focusout":function($event){_vm.nameExists(_vm.firstName)},"input":function($event){if($event.target.composing){ return; }_vm.$set(_vm.firstName, "name", $event.target.value)}}}),_vm._v(" "),_c('div',{staticClass:"invalid"},[_vm._v(_vm._s(_vm.checkFirstName))]),_vm._v(" "),(_vm.firstName.invalid)?_c('div',{staticClass:"invalid"},[_vm._v("First name is required")]):_vm._e()]),_vm._v(" "),_c('div',{staticClass:"form-group"},[_c('label',{attrs:{"for":"lastName"}},[_vm._v("Last name:")]),_vm._v(" "),_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.lastName.name),expression:"lastName.name"}],staticClass:"form-control",attrs:{"type":"text","id":"lastName","placeholder":"Last name"},domProps:{"value":(_vm.lastName.name)},on:{"focusin":function($event){_vm.lastName.invalid = false},"focusout":function($event){_vm.nameExists(_vm.lastName)},"input":function($event){if($event.target.composing){ return; }_vm.$set(_vm.lastName, "name", $event.target.value)}}}),_vm._v(" "),_c('div',{staticClass:"invalid"},[_vm._v(_vm._s(_vm.checkLastName))]),_vm._v(" "),(_vm.lastName.invalid)?_c('div',{staticClass:"invalid"},[_vm._v("Last name is required")]):_vm._e()]),_vm._v(" "),_c('div',{staticClass:"form-group"},[_c('label',{attrs:{"for":"email"}},[_vm._v("Email address:")]),_vm._v(" "),_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.email.name),expression:"email.name"}],staticClass:"form-control",attrs:{"type":"email","id":"email","aria-describedby":"emailHelp","placeholder":"email@example.com"},domProps:{"value":(_vm.email.name)},on:{"focusin":function($event){_vm.email.invalid = false},"focusout":function($event){_vm.nameExists(_vm.email)},"input":function($event){if($event.target.composing){ return; }_vm.$set(_vm.email, "name", $event.target.value)}}}),_vm._v(" "),_c('div',{staticClass:"invalid"},[_vm._v(_vm._s(_vm.checkEmailValidity))]),_vm._v(" "),(_vm.email.invalid)?_c('div',{staticClass:"invalid"},[_vm._v("Email is required")]):_vm._e()]),_vm._v(" "),_c('div',{staticClass:"form-group"},[_c('label',{attrs:{"for":"password"}},[_vm._v("Password:")]),_vm._v(" "),_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.password.name),expression:"password.name"}],staticClass:"form-control",attrs:{"type":"password","id":"password","placeholder":"Password"},domProps:{"value":(_vm.password.name)},on:{"focusin":_vm.passwordFocusIn,"focusout":_vm.passwordFocusOut,"input":function($event){if($event.target.composing){ return; }_vm.$set(_vm.password, "name", $event.target.value)}}}),_vm._v(" "),_c('div',{directives:[{name:"show",rawName:"v-show",value:(_vm.password.on),expression:"password.on"}]},[_c('div',{staticClass:"invalid"},[_vm._v(_vm._s(_vm.upperCaseRequirement))]),_vm._v(" "),_c('div',{staticClass:"invalid"},[_vm._v(_vm._s(_vm.lowerCaseRequirement))]),_vm._v(" "),_c('div',{staticClass:"invalid"},[_vm._v(_vm._s(_vm.specialCharRequirement))]),_vm._v(" "),_c('div',{staticClass:"invalid"},[_vm._v(_vm._s(_vm.digitRequirement))]),_vm._v(" "),_c('div',{staticClass:"invalid"},[_vm._v(_vm._s(_vm.lengthRequirement))])]),_vm._v(" "),_c('div',{staticClass:"invalid"},[_vm._v(_vm._s(_vm.password.invalidPasswordMsg))])]),_vm._v(" "),_c('div',{staticClass:"form-group"},[_c('label',{attrs:{"for":"confirmPassword"}},[_vm._v("Confirm password:")]),_vm._v(" "),_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.passwordConfirm.name),expression:"passwordConfirm.name"}],staticClass:"form-control",attrs:{"type":"password","id":"confirmPassword","placeholder":"Confirm Password"},domProps:{"value":(_vm.passwordConfirm.name)},on:{"focusin":function($event){_vm.passwordConfirm.on = true},"input":function($event){if($event.target.composing){ return; }_vm.$set(_vm.passwordConfirm, "name", $event.target.value)}}}),_vm._v(" "),_c('div',{staticClass:"invalid"},[_vm._v(_vm._s(_vm.confirmPassword))])]),_vm._v(" "),_c('div',{staticClass:"form-group"},[_c('label',{attrs:{"for":"organization"}},[_vm._v("Organization:")]),_vm._v(" "),_c('select',{directives:[{name:"model",rawName:"v-model",value:(_vm.organization.name),expression:"organization.name"}],staticClass:"form-control",attrs:{"id":"organization"},on:{"focusin":function($event){_vm.organization.on = true},"change":function($event){var $$selectedVal = Array.prototype.filter.call($event.target.options,function(o){return o.selected}).map(function(o){var val = "_value" in o ? o._value : o.value;return val}); _vm.$set(_vm.organization, "name", $event.target.multiple ? $$selectedVal : $$selectedVal[0])}}},_vm._l((_vm.schools),function(school){return _c('option',[_vm._v(_vm._s(school))])})),_vm._v(" "),_c('div',{staticClass:"invalid"},[_vm._v(_vm._s(_vm.confirmOrganization))])]),_vm._v(" "),_c('div',{staticClass:"g-recaptcha",attrs:{"data-sitekey":"6LeWQFMUAAAAAEhbd0eUym3S7Q7bRHWFb_Tgkyiy"}}),_vm._v(" "),_c('button',{staticClass:"btn btn-primary",attrs:{"type":"submit","disabled":_vm.disableSubmitButton},on:{"click":_vm.formSubmit}},[_vm._v("Submit")])]),_vm._v(" "),_c('div',{class:_vm.submitPressed})])}
+__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"container",attrs:{"id":"registerPage"}},[_c('div',{directives:[{name:"show",rawName:"v-show",value:(_vm.loading === true),expression:"loading === true"}],staticClass:"loading-image"},[_c('img',{staticClass:"center-block",attrs:{"src":"/public/loading.gif","width":"200"}})]),_vm._v(" "),_vm._m(0),_vm._v(" "),_c('form',[_c('div',{staticClass:"form-group"},[_c('label',{attrs:{"for":"firstName"}},[_vm._v("First name:")]),_vm._v(" "),_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.firstName.name),expression:"firstName.name"}],staticClass:"form-control",attrs:{"type":"text","id":"firstName","placeholder":"First name"},domProps:{"value":(_vm.firstName.name)},on:{"focusin":function($event){_vm.firstName.invalid = false},"focusout":function($event){_vm.nameExists(_vm.firstName)},"input":function($event){if($event.target.composing){ return; }_vm.$set(_vm.firstName, "name", $event.target.value)}}}),_vm._v(" "),_c('div',{staticClass:"invalid"},[_vm._v(_vm._s(_vm.checkFirstName))]),_vm._v(" "),(_vm.firstName.invalid)?_c('div',{staticClass:"invalid"},[_vm._v("First name is required")]):_vm._e()]),_vm._v(" "),_c('div',{staticClass:"form-group"},[_c('label',{attrs:{"for":"lastName"}},[_vm._v("Last name:")]),_vm._v(" "),_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.lastName.name),expression:"lastName.name"}],staticClass:"form-control",attrs:{"type":"text","id":"lastName","placeholder":"Last name"},domProps:{"value":(_vm.lastName.name)},on:{"focusin":function($event){_vm.lastName.invalid = false},"focusout":function($event){_vm.nameExists(_vm.lastName)},"input":function($event){if($event.target.composing){ return; }_vm.$set(_vm.lastName, "name", $event.target.value)}}}),_vm._v(" "),_c('div',{staticClass:"invalid"},[_vm._v(_vm._s(_vm.checkLastName))]),_vm._v(" "),(_vm.lastName.invalid)?_c('div',{staticClass:"invalid"},[_vm._v("Last name is required")]):_vm._e()]),_vm._v(" "),_c('div',{staticClass:"form-group"},[_c('label',{attrs:{"for":"email"}},[_vm._v("Email address:")]),_vm._v(" "),_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.email.name),expression:"email.name"}],staticClass:"form-control",attrs:{"type":"email","id":"email","aria-describedby":"emailHelp","placeholder":"email@example.com"},domProps:{"value":(_vm.email.name)},on:{"focusin":function($event){_vm.email.invalid = false},"focusout":function($event){_vm.nameExists(_vm.email)},"input":function($event){if($event.target.composing){ return; }_vm.$set(_vm.email, "name", $event.target.value)}}}),_vm._v(" "),_c('div',{staticClass:"invalid"},[_vm._v(_vm._s(_vm.checkEmailValidity))]),_vm._v(" "),(_vm.email.invalid)?_c('div',{staticClass:"invalid"},[_vm._v("Email is required")]):_vm._e(),_vm._v(" "),(_vm.email.duplicate)?_c('div',{staticClass:"invalid"},[_vm._v("Email already in use.")]):_vm._e()]),_vm._v(" "),_c('div',{staticClass:"form-group"},[_c('label',{attrs:{"for":"password"}},[_vm._v("Password:")]),_vm._v(" "),_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.password.name),expression:"password.name"}],staticClass:"form-control",attrs:{"type":"password","id":"password","placeholder":"Password"},domProps:{"value":(_vm.password.name)},on:{"focusin":_vm.passwordFocusIn,"focusout":_vm.passwordFocusOut,"input":function($event){if($event.target.composing){ return; }_vm.$set(_vm.password, "name", $event.target.value)}}}),_vm._v(" "),_c('div',{directives:[{name:"show",rawName:"v-show",value:(_vm.password.on),expression:"password.on"}]},[_c('div',{staticClass:"invalid"},[_vm._v(_vm._s(_vm.emailExists))]),_vm._v(" "),_c('div',{staticClass:"invalid"},[_vm._v(_vm._s(_vm.upperCaseRequirement))]),_vm._v(" "),_c('div',{staticClass:"invalid"},[_vm._v(_vm._s(_vm.lowerCaseRequirement))]),_vm._v(" "),_c('div',{staticClass:"invalid"},[_vm._v(_vm._s(_vm.specialCharRequirement))]),_vm._v(" "),_c('div',{staticClass:"invalid"},[_vm._v(_vm._s(_vm.digitRequirement))]),_vm._v(" "),_c('div',{staticClass:"invalid"},[_vm._v(_vm._s(_vm.lengthRequirement))])]),_vm._v(" "),_c('div',{staticClass:"invalid"},[_vm._v(_vm._s(_vm.password.invalidPasswordMsg))])]),_vm._v(" "),_c('div',{staticClass:"form-group"},[_c('label',{attrs:{"for":"confirmPassword"}},[_vm._v("Confirm password:")]),_vm._v(" "),_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.passwordConfirm.name),expression:"passwordConfirm.name"}],staticClass:"form-control",attrs:{"type":"password","id":"confirmPassword","placeholder":"Confirm Password"},domProps:{"value":(_vm.passwordConfirm.name)},on:{"focusin":function($event){_vm.passwordConfirm.on = true},"input":function($event){if($event.target.composing){ return; }_vm.$set(_vm.passwordConfirm, "name", $event.target.value)}}}),_vm._v(" "),_c('div',{staticClass:"invalid"},[_vm._v(_vm._s(_vm.confirmPassword))])]),_vm._v(" "),_c('div',{staticClass:"form-group"},[_c('label',{attrs:{"for":"organization"}},[_vm._v("Organization:")]),_vm._v(" "),_c('select',{directives:[{name:"model",rawName:"v-model",value:(_vm.organization.name),expression:"organization.name"}],staticClass:"form-control",attrs:{"id":"organization"},on:{"focusin":function($event){_vm.organization.on = true},"change":function($event){var $$selectedVal = Array.prototype.filter.call($event.target.options,function(o){return o.selected}).map(function(o){var val = "_value" in o ? o._value : o.value;return val}); _vm.$set(_vm.organization, "name", $event.target.multiple ? $$selectedVal : $$selectedVal[0])}}},_vm._l((_vm.schools),function(school){return _c('option',[_vm._v(_vm._s(school))])})),_vm._v(" "),_c('div',{staticClass:"invalid"},[_vm._v(_vm._s(_vm.confirmOrganization))])]),_vm._v(" "),_c('div',{staticClass:"g-recaptcha",attrs:{"data-sitekey":"6LeWQFMUAAAAAEhbd0eUym3S7Q7bRHWFb_Tgkyiy"}}),_vm._v(" "),_c('button',{staticClass:"btn btn-primary",attrs:{"type":"submit","disabled":_vm.disableSubmitButton},on:{"click":_vm.formSubmit}},[_vm._v("Submit")])]),_vm._v(" "),_c('div',{class:_vm.submitPressed})])}
 __vue__options__.staticRenderFns = [function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"header"},[_c('h1',[_vm._v("Sign Up")]),_vm._v(" "),_c('p',[_vm._v("\n            Welcome to Humpback Whale Social Sound!"),_c('br'),_vm._v("\n            Sign up to join a community of scientists who share whale social calls.\n        ")])])}]
 __vue__options__._scopeId = "data-v-4c65c942"
 if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
@@ -884,7 +959,7 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
     hotAPI.reload("data-v-4c65c942", __vue__options__)
   }
 })()}
-},{"vue":20,"vue-hot-reload-api":19,"vueify/lib/insert-css":21}],9:[function(require,module,exports){
+},{"vue":22,"vue-hot-reload-api":21,"vueify/lib/insert-css":23}],11:[function(require,module,exports){
 var __vueify_style_dispose__ = require("vueify/lib/insert-css").insert("button[data-v-19e90d0a] {\n    cursor:pointer;\n}\n.added-category[data-v-19e90d0a] {\n    text-align: left;\n    margin: 0 auto 20px auto;\n    max-width: 343px;\n}")
 ;(function(){
 'use strict';
@@ -951,7 +1026,7 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
     hotAPI.reload("data-v-19e90d0a", __vue__options__)
   }
 })()}
-},{"./add-file-type.vue":10,"./add-instrument.vue":11,"./add-publisher.vue":12,"./add-region.vue":13,"./add-sampling-rate.vue":14,"./delete-button.vue":15,"./select-button.vue":17,"vue":20,"vue-hot-reload-api":19,"vueify/lib/insert-css":21}],10:[function(require,module,exports){
+},{"./add-file-type.vue":12,"./add-instrument.vue":13,"./add-publisher.vue":14,"./add-region.vue":15,"./add-sampling-rate.vue":16,"./delete-button.vue":17,"./select-button.vue":19,"vue":22,"vue-hot-reload-api":21,"vueify/lib/insert-css":23}],12:[function(require,module,exports){
 ;(function(){
 'use strict';
 
@@ -1000,7 +1075,7 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
     hotAPI.reload("data-v-252686d4", __vue__options__)
   }
 })()}
-},{"vue":20,"vue-hot-reload-api":19}],11:[function(require,module,exports){
+},{"vue":22,"vue-hot-reload-api":21}],13:[function(require,module,exports){
 ;(function(){
 'use strict';
 
@@ -1048,7 +1123,7 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
     hotAPI.reload("data-v-17c76c4e", __vue__options__)
   }
 })()}
-},{"vue":20,"vue-hot-reload-api":19}],12:[function(require,module,exports){
+},{"vue":22,"vue-hot-reload-api":21}],14:[function(require,module,exports){
 ;(function(){
 'use strict';
 
@@ -1096,7 +1171,7 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
     hotAPI.reload("data-v-727c6f65", __vue__options__)
   }
 })()}
-},{"vue":20,"vue-hot-reload-api":19}],13:[function(require,module,exports){
+},{"vue":22,"vue-hot-reload-api":21}],15:[function(require,module,exports){
 ;(function(){
 'use strict';
 
@@ -1144,7 +1219,7 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
     hotAPI.reload("data-v-3b2a3f4a", __vue__options__)
   }
 })()}
-},{"vue":20,"vue-hot-reload-api":19}],14:[function(require,module,exports){
+},{"vue":22,"vue-hot-reload-api":21}],16:[function(require,module,exports){
 ;(function(){
 'use strict';
 
@@ -1192,7 +1267,7 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
     hotAPI.reload("data-v-4bc44222", __vue__options__)
   }
 })()}
-},{"vue":20,"vue-hot-reload-api":19}],15:[function(require,module,exports){
+},{"vue":22,"vue-hot-reload-api":21}],17:[function(require,module,exports){
 var __vueify_style_dispose__ = require("vueify/lib/insert-css").insert(".btn-danger[data-v-44deeb29] {\n    cursor: pointer;\n    margin-right: 10px;\n}\n.category[data-v-44deeb29] {\n    width: 182px;\n}")
 ;(function(){
 "use strict";
@@ -1222,7 +1297,7 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
     hotAPI.reload("data-v-44deeb29", __vue__options__)
   }
 })()}
-},{"vue":20,"vue-hot-reload-api":19,"vueify/lib/insert-css":21}],16:[function(require,module,exports){
+},{"vue":22,"vue-hot-reload-api":21,"vueify/lib/insert-css":23}],18:[function(require,module,exports){
 ;(function(){
 'use strict';
 
@@ -1470,7 +1545,7 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
     hotAPI.reload("data-v-5b0f0869", __vue__options__)
   }
 })()}
-},{"../upload.vue":18,"./add-category-button.vue":9,"vue":20,"vue-hot-reload-api":19}],17:[function(require,module,exports){
+},{"../upload.vue":20,"./add-category-button.vue":11,"vue":22,"vue-hot-reload-api":21}],19:[function(require,module,exports){
 ;(function(){
 "use strict";
 
@@ -1497,7 +1572,7 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
     hotAPI.reload("data-v-c8efa190", __vue__options__)
   }
 })()}
-},{"vue":20,"vue-hot-reload-api":19}],18:[function(require,module,exports){
+},{"vue":22,"vue-hot-reload-api":21}],20:[function(require,module,exports){
 ;(function(){
 "use strict";
 
@@ -1537,7 +1612,7 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
     hotAPI.reload("data-v-58deb4bd", __vue__options__)
   }
 })()}
-},{"vue":20,"vue-hot-reload-api":19}],19:[function(require,module,exports){
+},{"vue":22,"vue-hot-reload-api":21}],21:[function(require,module,exports){
 var Vue // late bind
 var version
 var map = (window.__VUE_HOT_MAP__ = Object.create(null))
@@ -1779,7 +1854,7 @@ exports.reload = tryWrap(function (id, options) {
   })
 })
 
-},{}],20:[function(require,module,exports){
+},{}],22:[function(require,module,exports){
 (function (process,global){
 /*!
  * Vue.js v2.5.14
@@ -9811,7 +9886,7 @@ if (inBrowser) {
 module.exports = Vue;
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"_process":23}],21:[function(require,module,exports){
+},{"_process":25}],23:[function(require,module,exports){
 var inserted = exports.cache = {}
 
 function noop () {}
@@ -9836,7 +9911,7 @@ exports.insert = function (css) {
   }
 }
 
-},{}],22:[function(require,module,exports){
+},{}],24:[function(require,module,exports){
 
 jQuery(document).ready(function($){
 
@@ -9846,6 +9921,8 @@ jQuery(document).ready(function($){
             {path:'/map', name: 'map', component: Vue.component('map-component', require('../components/map/map-component.vue')), props: true },
             {path:'', component: Vue.component('search-page', require('../components/search/search-page.vue')) },
             {path:'/register', component: Vue.component('register', require('../components/register.vue'))},
+            {path: '/login', component: Vue.component('login', require('../components/login.vue'))},
+            {path:'/profile', name: 'profile', component: Vue.component('profile', require('../components/profile.vue')), props: true},
             {path:'/upload', component: Vue.component('upload', require('../components/upload.vue'))},
             {path:'*', component: Vue.component('not-found', require('../components/not-found.vue'))}
         ]
@@ -9861,7 +9938,7 @@ jQuery(document).ready(function($){
     }).$mount('#app');
 
 }); // end of jquery ready document
-},{"../components/map/map-component.vue":5,"../components/not-found.vue":7,"../components/register.vue":8,"../components/search/search-page.vue":16,"../components/upload.vue":18}],23:[function(require,module,exports){
+},{"../components/login.vue":5,"../components/map/map-component.vue":6,"../components/not-found.vue":8,"../components/profile.vue":9,"../components/register.vue":10,"../components/search/search-page.vue":18,"../components/upload.vue":20}],25:[function(require,module,exports){
 // shim for using process in browser
 var process = module.exports = {};
 
@@ -10047,4 +10124,4 @@ process.chdir = function (dir) {
 };
 process.umask = function() { return 0; };
 
-},{}]},{},[22]);
+},{}]},{},[24]);

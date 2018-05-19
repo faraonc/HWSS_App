@@ -83,6 +83,10 @@ router.route('/metadata').get(function (req, res) {
 });
 
 
+router.route('/validate').get(function(req,res) {
+
+});
+
 // insert new users into database of users
 router.route('/insert').post(function(request, response){
     var newUser = new User(request.body);
@@ -104,9 +108,12 @@ router.route('/insert').post(function(request, response){
     });
 });
 
+
+
 // register route for http://localhost:port/query/
 app.use('/query', router);
 app.use('/register', router);
+app.us('/login', router);
 // sample query
 // localhost:3009/query/metadata?pi=Seger,Faraon&firstName=Kerri,Conard
 
