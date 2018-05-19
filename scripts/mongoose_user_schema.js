@@ -4,6 +4,7 @@ var bcrypt = require('bcrypt');
 
 //TODO: need to change this to azure db
 mongoose.connect('mongodb://localhost:27017/HWSS_LOCAL');
+console.log("connected to db")
 
 var UserSchema = new mongoose.Schema({
     firstName: {

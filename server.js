@@ -7,7 +7,7 @@ const bodyParser = require('body-parser'); // use for POST
 const clientHandler = require('./scripts/client_handler');
 const db = require('./scripts/db.js');
 const http_code = require('./scripts/http_code');
-// var User = require('./scripts/mongoose_user_schema');
+var User = require('./scripts/mongoose_user_schema');
 
 
 const app = express();
@@ -114,7 +114,7 @@ router.route('/insert').post(function(request, response){
 // register route for http://localhost:port/query/
 app.use('/query', router);
 app.use('/register', router);
-app.us('/login', router);
+app.use('/login', router);
 // sample query
 // localhost:3009/query/metadata?pi=Seger,Faraon&firstName=Kerri,Conard
 
