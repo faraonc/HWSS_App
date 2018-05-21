@@ -193,6 +193,7 @@ exports.default = {
         return {
             email: '',
             password: ''
+
         };
     },
     computed: {
@@ -203,23 +204,21 @@ exports.default = {
     methods: {
         formSubmit: function formSubmit(e) {
             e.preventDefault();
+            var loginInfo = {
+                email: this.email,
+                password: this.password
+            };
             $.ajax({
                 type: "POST",
                 url: "/login/validate",
                 dataType: "text",
-                data: newUser,
+                data: loginInfo,
                 success: function success(result) {
-                    if (result !== "success") {
-                        self.pressedSubmit = false;
-                        self.loading = false;
-                        alert("Email is already in use. Please use a different email and try again.");
-                        self.email.duplicate = true;
-                    } else {
-                        self.$router.push({ name: 'profile', params: newUser });
-                    }
+                    console.log("result: ");
+                    console.log(result);
                 },
                 error: function error() {
-                    alert("trouble with sending data to server in register.vue formSubmit()");
+                    alert("trouble with sending data to server in login.vue");
                 }
             });
         }

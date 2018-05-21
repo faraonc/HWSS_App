@@ -8,6 +8,7 @@ const clientHandler = require('./scripts/client_handler');
 const db = require('./scripts/db.js');
 const http_code = require('./scripts/http_code');
 var User = require('./scripts/mongoose_user_schema');
+var session = require('express-session');
 
 
 const app = express();
@@ -23,7 +24,11 @@ app.use('/public', express.static(path.join(__dirname, 'public')));
 app.use('/styles', express.static(path.join(__dirname, 'styles')));
 app.use('/build', express.static(path.join(__dirname, 'build')));
 app.use(express.static(path.join(__dirname, 'templates')));
-
+app.use(session({
+    secret: 'work hard',   // need to change, this is website example?
+    resave: true,
+    saveUninitialized: false
+}));
 
 // middleware to use for all requests
 router.use(function (req, res, next) {
@@ -84,13 +89,27 @@ router.route('/metadata').get(function (req, res) {
 });
 
 
-router.route('/validate').get(function(req,res) {
+router.route('/validate').post(function(request,response) {
+    var responseMsg = "";
+    if(request.body.email && request.body.password) {
+        User.validate(request.body.email, request.body.password, function(error,user){
+            if(error || !user) {
+                responseMsg = 'Wrong email or password';
+                console.log("error");
+            }
+            else {
+                console.log("success")
+                responseMsg = 'correct';
+            }
+            return response.send(responseMsg);
+        });
+    }
 
 });
 
 // insert new users into database of users
 router.route('/insert').post(function(request, response){
-    var newUser = new User(request.body);
+    var newUser = new User.user(request.body);
     var responseMsg = "";
     newUser.save(function(err) {
         if(err) {

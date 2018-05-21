@@ -22,7 +22,8 @@
         data: function(){
             return {
                 email: '',
-                password: ''
+                password: '',
+
             }
         },
         computed: {
@@ -33,24 +34,30 @@
         methods: {
             formSubmit: function(e) {
                 e.preventDefault();
+                var loginInfo = {
+                    email: this.email,
+                    password: this.password
+                };
                 $.ajax({
                     type: "POST",
                     url: "/login/validate",
                     dataType: "text",
-                    data: newUser,
+                    data: loginInfo,
                     success:function(result) {
-                        if(result !== "success") {
-                            self.pressedSubmit = false;
-                            self.loading = false;
-                            alert("Email is already in use. Please use a different email and try again.");
-                            self.email.duplicate = true;
-                        }
-                        else {
-                            self.$router.push({name: 'profile', params: newUser});
-                        }
+                        console.log("result: ");
+                        console.log(result);
+                        // if(result !== "success") {
+                        //     self.pressedSubmit = false;
+                        //     self.loading = false;
+                        //     alert("Email is already in use. Please use a different email and try again.");
+                        //     self.email.duplicate = true;
+                        // }
+                        // else {
+                        //     self.$router.push({name: 'profile', params: newUser});
+                        // }
                     },
                     error: function() {
-                        alert("trouble with sending data to server in register.vue formSubmit()")
+                        alert("trouble with sending data to server in login.vue")
                     }
                 })
             }
