@@ -8,6 +8,7 @@
             <p>
                 Welcome to Humpback Whale Social Sound!<br>
                 Sign up to join a community of scientists who share whale social calls.
+                <span class="side-text">Already have an account? <span class="vue-hyperlinks" v-on:click="goToLogin">Login</span></span>
             </p>
         </div>
         <form>
@@ -216,6 +217,9 @@
             }
         },
         methods: {
+            goToLogin: function() {
+                this.$router.push('/login');
+            },
             formSubmit: function(e) {
                 e.preventDefault();
                 this.pressedSubmit = true;
@@ -296,10 +300,7 @@
 </script>
 
 <style scoped>
-    .invalid {
-        font-size: .7em;
-        color: #e02020;
-    }
+
     .submitted {
         position: absolute;
         width: 100%;

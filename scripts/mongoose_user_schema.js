@@ -3,7 +3,8 @@ var mongoose = require('mongoose');
 var bcrypt = require('bcrypt');
 
 //TODO: need to change this to azure db
-mongoose.connect('mongodb://localhost:27017/HWSS_LOCAL');
+// mongoose.connect("mongodb://hwssappmongodb:9lhI6wipX8KfCXpOJPrcHLggIJGZQmsx4OnRuc7FadvaLlWRgKNVT4f1mE8R3JVgvKYl3Bx3wVTdo4Ao15waqg%3D%3D@hwssappmongodb.documents.azure.com:10255/HWSS?ssl=true&replicaSet=globaldb");
+
 console.log("connected to db")
 
 var UserSchema = new mongoose.Schema({
@@ -47,7 +48,7 @@ UserSchema.pre('save', function(next) {
 
 
 // Creating a model by converting our schema into a Model we can work with
-var User = mongoose.model('User', UserSchema);
+var User = mongoose.model('User', UserSchema, 'USERS');
 
 //authenticate input against database, from website
 UserSchema.statics.authenticate = function (email, password, callback) {
@@ -56,7 +57,7 @@ UserSchema.statics.authenticate = function (email, password, callback) {
             if (err) {
                 return callback(err)
             } else if (!user) {
-                var err = new Error('User not found.');
+                var err = new Error('Email not found.');
                 err.status = 401;
                 return callback(err);
             }

@@ -44,6 +44,20 @@ router.get('/', function (req, res) {
 });
 
 
+// TODO not sure how this works yet
+router.get('/logout', function(req, res, next) {
+    if (req.session) {
+        // delete session object
+        req.session.destroy(function(err) {
+            if(err) {
+                return next(err);
+            } else {
+                return res.redirect('/');
+            }
+        });
+    }
+});
+
 // for list of schools
 router.route('/resources').get(function (req, res) {
     clientHandler.serviceResource(req.query, function(err,result) {
@@ -90,21 +104,26 @@ router.route('/metadata').get(function (req, res) {
 
 
 router.route('/validate').post(function(request,response) {
-    var responseMsg = "";
     if(request.body.email && request.body.password) {
-        User.validate(request.body.email, request.body.password, function(error,user){
-            if(error || !user) {
-                responseMsg = 'Wrong email or password';
-                console.log("error");
+        User.validate(request.body.email, request.body.password, function(err,user){
+            var responseMsg = {};
+            if(err || !user) {
+                if (err !== undefined && user === undefined) {
+                    responseMsg.code = 'wrongEmail';
+                    responseMsg.msg = "Email does not exist";
+                }
+                else {
+                    responseMsg.code = 'wrongPassword';
+                    responseMsg.msg = "Incorrect password";
+                }
             }
             else {
-                console.log("success")
-                responseMsg = 'correct';
+                request.session.userId = user._id;
+                responseMsg.code = 'correct';
             }
             return response.send(responseMsg);
         });
     }
-
 });
 
 // insert new users into database of users
@@ -122,6 +141,7 @@ router.route('/insert').post(function(request, response){
             }
         }
         else {
+            request.session.userId = newUser._id;
             responseMsg = "success";
         }
         response.send(responseMsg);

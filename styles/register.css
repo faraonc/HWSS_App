@@ -15,3 +15,20 @@
 #registerPage button {
     margin: 20px auto;
 }
+
+.invalid {
+    font-size: .7em;
+    color: #e02020;
+}
+
+.side-text {
+    font-size: .8em;
+}
+.vue-hyperlinks {
+    cursor: pointer;
+    color: blue;
+}
+
+.vue-hyperlinks:hover {
+    text-decoration: underline;
+}
