@@ -744,7 +744,7 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
 },{"vue":22,"vue-hot-reload-api":21,"vueify/lib/insert-css":23}],9:[function(require,module,exports){
 var __vueify_style_dispose__ = require("vueify/lib/insert-css").insert("#profile .fa-user-circle[data-v-de9610c6] {\n    font-size: 6em;\n    padding:30px 0;\n}\n#profile > div[data-v-de9610c6]:first-child{\n    padding-top: 20px;\n    text-align: right;\n}\n\n#profile > div:first-child .btn[data-v-de9610c6] {\n    margin-right: 15px;\n}\n#profile >div[data-v-de9610c6]:last-child {\n    width: 470px;\n    margin: 0 auto;\n    text-align: center;\n}\n#profile .user-info > div[data-v-de9610c6] {\n    display:flex;\n    margin-bottom: 15px;\n    text-align: left;\n}\n\n#profile .user-info > div > div[data-v-de9610c6]:first-child {\n    width: 120px;\n}")
 ;(function(){
-"use strict";
+'use strict';
 
 Object.defineProperty(exports, "__esModule", {
     value: true
@@ -759,14 +759,19 @@ exports.default = {
     },
     mounted: function mounted() {
         this.userInfo = this.$route.params;
+    },
+    methods: {
+        goToSearchPage: function goToSearchPage() {
+            this.$router.push('/');
+        }
     }
 };
 })()
 if (module.exports.__esModule) module.exports = module.exports.default
 var __vue__options__ = (typeof module.exports === "function"? module.exports.options: module.exports)
 if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
-__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"container",attrs:{"id":"profile"}},[_vm._m(0),_vm._v(" "),_c('div',[_c('i',{staticClass:"fas fa-user-circle"}),_vm._v(" "),_c('div',{staticClass:"user-info"},[_c('div',[_vm._m(1),_vm._v(" "),_c('div',[_vm._v(_vm._s(_vm.userInfo.firstName)+" "+_vm._s(_vm.userInfo.lastName))])]),_vm._v(" "),_c('div',[_vm._m(2),_vm._v(" "),_c('div',[_vm._v(_vm._s(_vm.userInfo.email))])]),_vm._v(" "),_c('div',[_vm._m(3),_vm._v(" "),_c('div',[_vm._v(_vm._s(_vm.userInfo.password))])]),_vm._v(" "),_c('div',[_vm._m(4),_vm._v(" "),_c('div',[_vm._v(_vm._s(_vm.userInfo.organization))])])])])])}
-__vue__options__.staticRenderFns = [function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',[_c('button',{staticClass:"btn btn-primary",attrs:{"type":"button"}},[_vm._v("Edit")]),_vm._v(" "),_c('button',{staticClass:"btn btn-primary",attrs:{"type":"button"}},[_vm._v("Done")])])},function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',[_c('b',[_vm._v("Name:")])])},function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',[_c('b',[_vm._v("Email:")])])},function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',[_c('b',[_vm._v("Password:")])])},function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',[_c('b',[_vm._v("Organization:")])])}]
+__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"container",attrs:{"id":"profile"}},[_c('div',[_c('button',{staticClass:"btn btn-primary",attrs:{"type":"button"}},[_vm._v("Edit")]),_vm._v(" "),_c('button',{staticClass:"btn btn-primary",attrs:{"type":"button"},on:{"click":_vm.goToSearchPage}},[_vm._v("Done")])]),_vm._v(" "),_c('div',[_c('i',{staticClass:"fas fa-user-circle"}),_vm._v(" "),_c('div',{staticClass:"user-info"},[_c('div',[_vm._m(0),_vm._v(" "),_c('div',[_vm._v(_vm._s(_vm.userInfo.firstName)+" "+_vm._s(_vm.userInfo.lastName))])]),_vm._v(" "),_c('div',[_vm._m(1),_vm._v(" "),_c('div',[_vm._v(_vm._s(_vm.userInfo.email))])]),_vm._v(" "),_c('div',[_vm._m(2),_vm._v(" "),_c('div',[_vm._v(_vm._s(_vm.userInfo.password))])]),_vm._v(" "),_c('div',[_vm._m(3),_vm._v(" "),_c('div',[_vm._v(_vm._s(_vm.userInfo.organization))])])])])])}
+__vue__options__.staticRenderFns = [function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',[_c('b',[_vm._v("Name:")])])},function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',[_c('b',[_vm._v("Email:")])])},function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',[_c('b',[_vm._v("Password:")])])},function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',[_c('b',[_vm._v("Organization:")])])}]
 __vue__options__._scopeId = "data-v-de9610c6"
 if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   hotAPI.install(require("vue"), true)
@@ -929,7 +934,7 @@ exports.default = {
             }
         },
         disableSubmitButton: function disableSubmitButton() {
-            return false;
+            return this.firstName.name.length === 0 || this.lastName.name.length === 0 || this.email.name.length === 0 || this.password.name.length === 0 || this.passwordConfirm.name.length === 0 || this.organization.name.length === 0;
         }
     },
     methods: {
@@ -941,14 +946,14 @@ exports.default = {
             this.pressedSubmit = true;
             this.loading = true;
             var self = this;
-
             var newUser = {
-                firstName: 'Lisa',
-                lastName: 'Kim',
-                email: 'kimlisa@uw.edu',
-                password: 'Testing!1',
-                organization: 'University of Washington - Bothell Campus'
+                firstName: self.firstName.name,
+                lastName: self.lastName.name,
+                email: self.email.name,
+                password: self.password.name,
+                organization: self.organization.name
             };
+
 
             $.ajax({
                 type: "POST",

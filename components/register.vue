@@ -210,10 +210,10 @@
                 }
             },
             disableSubmitButton: function() {
-                // return this.firstName.name.length === 0 || this.lastName.name.length === 0 || this.email.name.length === 0
-                //     || this.password.name.length === 0 || this.passwordConfirm.name.length === 0
-                //     || this.organization.name.length === 0
-                return false;
+                return this.firstName.name.length === 0 || this.lastName.name.length === 0 || this.email.name.length === 0
+                    || this.password.name.length === 0 || this.passwordConfirm.name.length === 0
+                    || this.organization.name.length === 0
+                // return false;
             }
         },
         methods: {
@@ -225,20 +225,20 @@
                 this.pressedSubmit = true;
                 this.loading = true;
                 var self = this;
-                // var newUser = {
-                //     firstName: self.firstName.name,
-                //     lastName: self.lastName.name,
-                //     email: self.email.name,
-                //     password: self.password.name,
-                //     organization: self.organization.name
-                // };
                 var newUser = {
-                    firstName: 'Lisa',
-                    lastName: 'Kim',
-                    email: 'kimlisa@uw.edu',
-                    password: 'Testing!1',
-                    organization: 'University of Washington - Bothell Campus'
+                    firstName: self.firstName.name,
+                    lastName: self.lastName.name,
+                    email: self.email.name,
+                    password: self.password.name,
+                    organization: self.organization.name
                 };
+                // var newUser = {
+                //     firstName: 'Lisa',
+                //     lastName: 'Kim',
+                //     email: 'kimlisa@uw.edu',
+                //     password: 'Testing!1',
+                //     organization: 'University of Washington - Bothell Campus'
+                // };
 
                 $.ajax({
                     type: "POST",

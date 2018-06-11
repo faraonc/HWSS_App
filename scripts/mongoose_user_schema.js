@@ -3,7 +3,7 @@ var mongoose = require('mongoose');
 var bcrypt = require('bcrypt');
 
 //TODO: need to change this to azure db
-// mongoose.connect("mongodb://hwssappmongodb:9lhI6wipX8KfCXpOJPrcHLggIJGZQmsx4OnRuc7FadvaLlWRgKNVT4f1mE8R3JVgvKYl3Bx3wVTdo4Ao15waqg%3D%3D@hwssappmongodb.documents.azure.com:10255/HWSS?ssl=true&replicaSet=globaldb");
+mongoose.connect("mongodb://hwssappmongodb:9lhI6wipX8KfCXpOJPrcHLggIJGZQmsx4OnRuc7FadvaLlWRgKNVT4f1mE8R3JVgvKYl3Bx3wVTdo4Ao15waqg%3D%3D@hwssappmongodb.documents.azure.com:10255/HWSS?ssl=true&replicaSet=globaldb");
 
 console.log("connected to db")
 

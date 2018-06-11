@@ -2,7 +2,7 @@
     <div class="container" id="profile">
         <div>
             <button type="button" class="btn btn-primary">Edit</button>
-            <button type="button" class="btn btn-primary">Done</button>
+            <button type="button" class="btn btn-primary" v-on:click="goToSearchPage">Done</button>
         </div>
         <div>
             <i class="fas fa-user-circle"></i>
@@ -39,6 +39,11 @@
         },
         mounted: function() {
             this.userInfo = this.$route.params;
+        },
+        methods: {
+            goToSearchPage: function() {
+                this.$router.push('/');
+            }
         }
     }
 </script>
