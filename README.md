@@ -27,7 +27,7 @@ The web application is client-rendering, therefore an added initial time is adde
 - Lisa
 
 ## Links
-- [Google Drive for the team](https://drive.google.com/drive/folders/13vJqlP3PRIZJMuMC0tfnGKSoOrWuMX4W)
+- [Team Google Drive](https://drive.google.com/drive/folders/13vJqlP3PRIZJMuMC0tfnGKSoOrWuMX4W)
 - [Udemy](https://www.udemy.com/)
 - [Vue JS](https://vuejs.org/)
 - [npm js](https://www.npmjs.com/)
