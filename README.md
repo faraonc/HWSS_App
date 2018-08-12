@@ -28,7 +28,7 @@ The web application is client-rendering, therefore an added initial time is adde
 
 ## Links
 - [Google Drive for the team](https://drive.google.com/drive/folders/13vJqlP3PRIZJMuMC0tfnGKSoOrWuMX4W)
-- [Trello Board](https://trello.com/b/2T4qPyTa/hwss-kanban)
+- ~~ [Trello Board](https://trello.com/b/2T4qPyTa/hwss-kanban) ~~
 - [Udemy](https://www.udemy.com/)
 - [Vue JS](https://vuejs.org/)
 - [npm js](https://www.npmjs.com/)
