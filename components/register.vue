@@ -33,8 +33,8 @@
             </div>
             <div class="form-group">
                 <label for="password">Password:</label>
-                <input type="password" class="form-control" id="password" placeholder="Password" v-model="password.name" v-on:focusin="passwordFocusIn" v-on:focusout="passwordFocusOut">
-                <div v-show="password.on">
+                <input type="password" class="form-control" id="password" placeholder="Password" v-model="password" v-on:focusin="passwordFocusIn" v-on:focusout="passwordFocusOut">
+                <div v-show="isPasswordMsgOn">
                     <div class="invalid">{{emailExists}}</div>
                     <div class="invalid">{{upperCaseRequirement}}</div>
                     <div class="invalid">{{lowerCaseRequirement}}</div>
@@ -42,11 +42,11 @@
                     <div class="invalid">{{digitRequirement}}</div>
                     <div class="invalid">{{lengthRequirement}}</div>
                 </div>
-                <div class="invalid">{{password.invalidPasswordMsg}}</div>
+                <div class="invalid">{{invalidPasswordMsg}}</div>
             </div>
             <div class="form-group">
                 <label for="confirmPassword">Confirm password:</label>
-                <input type="password" class="form-control" id="confirmPassword" placeholder="Confirm Password" v-model="passwordConfirm.name" v-on:focusin="passwordConfirm.on = true">
+                <input type="password" class="form-control" id="confirmPassword" placeholder="Confirm Password" v-model="passwordConfirm" v-on:focusin="isPasswordConfirmMsgOn = true">
                 <div class="invalid">{{confirmPassword}}</div>
             </div>
             <div class="form-group">
@@ -66,18 +66,18 @@
 <script>
     export default {
         name: "registration",
-        created: function() {
+        created: function () {
             var self = this;
-             $.ajax({
+            $.ajax({
                 url: "/query/resources?schools",
                 dataType: "json",
-                success: function(result) {
+                success: function (result) {
                     self.schools = result;
                     console.log()
                 }
             })
         },
-        data: function() {
+        data: function () {
             return {
                 schools: new Set(),
                 pressedSubmit: false,
@@ -85,142 +85,167 @@
                 firstName: {name: '', switched: false, invalid: false, msgDisplayed: false},
                 lastName: {name: '', switched: false, invalid: false, msgDisplayed: false},
                 email: {name: '', switched: false, invalid: false, msgDisplayed: false, duplicate: false},
-                password: {name: '', invalidPasswordMsg: '', on: false},
-                passwordConfirm: {name: '', on: false},
-                organization: {name: '', on: false}
+                organization: {name: '', on: false},
+                password: '',
+                invalidPasswordMsg: '',
+                isPasswordMsgOn: false,
+                passwordConfirm: '',
+                isPasswordConfirmMsgOn: false,
+                isEmailOk: false,
+                isPasswordOk: false
             }
         },
         computed: {
-            submitPressed: function() {
+            submitPressed: function () {
                 return {
                     submitted: this.pressedSubmit
                 }
             },
-            checkFirstName: function() {
-                if(this.firstName.name.length === 0) {
-                    if(this.firstName.switched === false) {
+            checkFirstName: function () {
+                if (this.firstName.name.length === 0) {
+                    if (this.firstName.switched === false) {
                         this.firstName.switched = true;
                         return;
                     }
                 }
-                if(this.checkName(this.firstName.name)) {
+
+                if (this.checkName(this.firstName.name)) {
                     this.firstName.msgDisplayed = false;
                     return "";
                 }
+
                 else {
                     this.firstName.msgDisplayed = true;
-                    if(this.firstName.name.length === 0) {
+                    if (this.firstName.name.length === 0) {
                         return "First name is required"
                     }
                     return "Name must be A-z, a-z, spaces, or non-consecutive hyphens";
                 }
             },
-            checkLastName: function() {
-                if(this.lastName.name.length ===0) {
-                    if(this.lastName.switched === false) {
+
+            checkLastName: function () {
+                if (this.lastName.name.length === 0) {
+                    if (this.lastName.switched === false) {
                         this.lastName.switched = true;
                         return;
                     }
                 }
-                if(this.checkName(this.lastName.name)) {
+
+                if (this.checkName(this.lastName.name)) {
                     this.lastName.msgDisplayed = false;
                     return "";
                 }
                 else {
                     this.lastName.msgDisplayed = true;
-                    if(this.lastName.name.length === 0) {
+                    if (this.lastName.name.length === 0) {
                         return "Last name is required"
                     }
                     return "Name must be A-z, a-z, spaces, or non-consecutive hyphens"
                 }
             },
-            checkEmailValidity: function() {
+            checkEmailValidity: function () {
                 this.email.duplicate = false;
-                if(this.email.name.length === 0) {
-                    if(this.email.switched === false) {
+
+                if (this.email.name.length === 0) {
+                    if (this.email.switched === false) {
                         this.email.switched = true;
                         return;
                     }
                 }
-                if(this.checkEmail()) {
+
+                // if the e-mail format is correct, not display any message
+                if (this.checkEmail()) {
                     this.email.msgDisplayed = false;
+                    this.isEmailOk = true;
                     return "";
                 }
+
+                // if not, it displays message as email is required, and valid form
                 else {
                     this.email.msgDisplayed = true;
-                    if(this.email.name.length === 0) {
-                        return "Email is required"
+                    if (this.email.name.length === 0) {
+                        return "Email is required";
                     }
-                    return "Valid email example: text@text.ext"
+                    this.isEmailOk = false;
+                    return "Valid email example: text@text.ext";
                 }
             },
+
             checkPasswordValidity: function() {
-                if(this.password.name.length === 0) {
+                if(this.password.length === 0) {
                     if(this.password.switched === false) {
                         this.password.switched = true;
                         return;
                     }
                 }
             },
-            upperCaseRequirement: function() {
-                if (/[A-Z]/.test(this.password.name)) {
+
+           upperCaseRequirement: function () {
+                if (/[A-Z]/.test(this.password)) {
                     return "";
                 }
                 return "At least one upper case English letter";
             },
-            lowerCaseRequirement: function() {
-                if(/[a-z]/.test(this.password.name)) {
+            lowerCaseRequirement: function () {
+                if (/[a-z]/.test(this.password)) {
                     return "";
                 }
                 return "At least one lower case English letter";
             },
-            digitRequirement: function() {
-                if(/[0-9]/.test(this.password.name)) {
+            digitRequirement: function () {
+                if (/[0-9]/.test(this.password)) {
                     return "";
                 }
                 return "At least one digit"
             },
-            specialCharRequirement: function() {
-                if(/[#?!@$%^&*-]/.test(this.password.name)) {
+            specialCharRequirement: function () {
+                if (/[#?!@$%^&*-]/.test(this.password)) {
                     return "";
                 }
                 return "At least one special character"
             },
-            lengthRequirement: function() {
-                if(/.{8,72}/.test(this.password.name)) {
+            lengthRequirement: function () {
+                if (/.{8,72}/.test(this.password)) {
                     return "";
                 }
-                return "Minimum password length 8, maxi 72"
+                return "Minimum password length 8, maximum 72"
             },
-            confirmPassword: function() {
-                if(this.passwordConfirm.on) {
-                    if(this.password.name === this.passwordConfirm.name) {
-                        this.passwordConfirm.on = false;
+            confirmPassword: function () {
+                console.log('confirm password');
+                if (this.isPasswordMsgOn) {
+                    if (this.password === this.passwordConfirm) {
+                        this.isPasswordConfirmMsgOn = false;
+                        this.isPasswordOk = true;
                         return '';
                     }
+                    this.isPasswordOk = false;
                     return "Password does not match";
                 }
             },
-            confirmOrganization: function() {
-                if(this.organization.on === true && this.organization.name.length === 0) {
+            confirmOrganization: function () {
+                if (this.organization.on === true && this.organization.name.length === 0) {
                     return "Organization is required"
                 }
                 else {
                     return "";
                 }
             },
-            disableSubmitButton: function() {
-                return this.firstName.name.length === 0 || this.lastName.name.length === 0 || this.email.name.length === 0
-                    || this.password.name.length === 0 || this.passwordConfirm.name.length === 0
-                    || this.organization.name.length === 0
-                // return false;
+            disableSubmitButton: function () {
+                if (this.firstName.name.length != 0 && this.lastName.length != 0 && this.isEmailOk && this.isPasswordOk
+                    && this.organization.name.length != 0) {
+                    return false;
+                }
+                else {
+                    return true;
+                }
             }
         },
+
         methods: {
-            goToLogin: function() {
+            goToLogin: function () {
                 this.$router.push('/login');
             },
-            formSubmit: function(e) {
+            formSubmit: function (e) {
                 e.preventDefault();
                 this.pressedSubmit = true;
                 this.loading = true;
@@ -232,21 +257,14 @@
                     password: self.password.name,
                     organization: self.organization.name
                 };
-                // var newUser = {
-                //     firstName: 'Lisa',
-                //     lastName: 'Kim',
-                //     email: 'kimlisa@uw.edu',
-                //     password: 'Testing!1',
-                //     organization: 'University of Washington - Bothell Campus'
-                // };
 
                 $.ajax({
                     type: "POST",
                     url: "/register/insert",
                     dataType: "text",
                     data: newUser,
-                    success:function(result) {
-                        if(result !== "success") {
+                    success: function (result) {
+                        if (result !== "success") {
                             self.pressedSubmit = false;
                             self.loading = false;
                             alert("Email is already in use. Please use a different email and try again.");
@@ -256,44 +274,54 @@
                             self.$router.push({name: 'profile', params: newUser});
                         }
                     },
-                    error: function() {
+                    error: function () {
                         alert("trouble with sending data to server in register.vue formSubmit()")
                     }
                 })
 
             },
-            checkEmail: function() {
+            checkEmail: function () {
                 let reg = /^([A-Za-z0-9_\-.])+@([A-Za-z0-9_\-.])+\.([A-Za-z]{2,4})$/;
                 return reg.test(this.email.name);
             },
-            checkPassword: function() {
+            checkPassword: function () {
                 let reg = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,72}$/;
-                return reg.test(this.password.name);
+                return reg.test(this.password);
             },
-            checkName: function(name) {
+            checkName: function (name) {
                 let reg = /^[a-zA-Z\s+]+(-[a-zA-Z\s+]+)?$/;
                 return reg.test(name);
             },
-            nameExists: function(nameObj) {
-                if(nameObj.name.length === 0 && !nameObj.msgDisplayed) {
+            nameExists: function (nameObj) {
+                if (nameObj.name.length === 0 && !nameObj.msgDisplayed) {
                     nameObj.invalid = true;
                 }
                 else {
                     nameObj.invalid = false;
                 }
             },
-            passwordFocusIn: function() {
-                this.password.on = true;
-                this.password.invalidPasswordMsg = '';
+            passwordFocusIn: function () {
+                this.isPasswordMsgOn = true;
+
+                this.invalidPasswordMsg = '';
             },
-            passwordFocusOut: function() {
-                this.password.on = false;
-                if(this.checkPassword()) {
-                    this.password.invalidPasswordMsg = '';
+            passwordFocusOut: function () {
+                this.isPasswordMsgOn = false;
+
+                if (this.checkPassword()) {
+                    this.invalidPasswordMsg = '';
                 }
                 else {
-                    this.password.invalidPasswordMsg = 'Password is required';
+                    this.invalidPasswordMsg = 'Invalid password format';
                 }
+            }
+        },
+        watch: {
+            password : function() {
+                this.isPasswordMsgOn = true;
+            },
+            passwordConfirm: function() {
+                this.isPasswordMsgOn = true;
             }
         }
     }
