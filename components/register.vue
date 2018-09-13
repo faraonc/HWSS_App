@@ -94,7 +94,8 @@
                 passwordConfirmModel: '',
                 isPasswordConfirmMsgOn: false,
                 isEmailOk: false,
-                isPasswordOk: false
+                isPasswordOk: false,
+                isPasswordModelValid: false
             }
         },
         computed: {
@@ -215,7 +216,8 @@
             confirmPassword: function () {
                 console.log('confirm password');
                 if (this.isPasswordMsgOn) {
-                    if (this.checkPassword() && this.passwordModel === this.passwordConfirmModel) {
+                    console.log("this.checkPasswordModelValid == " + this.isPasswordModelValid);
+                    if (this.isPasswordModelValid && this.passwordModel === this.passwordConfirmModel) {
                         this.isPasswordConfirmMsgOn = false;
                         this.isPasswordOk = true;
                         return '';
@@ -233,12 +235,12 @@
                 }
             },
             disableSubmitButton: function () {
-                if (this.firstName.name.length != 0 && this.lastName.length != 0 && this.isEmailOk && this.isPasswordOk
-                    && this.organization.name.length != 0) {
-                    return false;
+                if (this.firstName.name.length === 0 || this.lastName.length === 0 || !this.isEmailOk || !this.isPasswordOk
+                    || this.organization.name.length === 0) {
+                    return true;
                 }
                 else {
-                    return true;
+                    return false;
                 }
             }
         },
@@ -288,7 +290,8 @@
             },
             checkPassword: function () {
                 let reg = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,72}$/;
-                return reg.test(this.password);
+                console.log("Test Password");
+                return reg.test(this.passwordModel);
             },
             checkName: function (name) {
                 let reg = /^[a-zA-Z\s+]+(-[a-zA-Z\s+]+)?$/;
@@ -321,6 +324,7 @@
         watch: {
             passwordModel : function() {
                 this.isPasswordMsgOn = true;
+                this.isPasswordModelValid = this.checkPassword();
             },
             passwordConfirmModel: function() {
                 this.isPasswordMsgOn = true;

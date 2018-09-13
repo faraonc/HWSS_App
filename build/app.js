@@ -820,7 +820,8 @@ exports.default = {
             passwordConfirmModel: '',
             isPasswordConfirmMsgOn: false,
             isEmailOk: false,
-            isPasswordOk: false
+            isPasswordOk: false,
+            isPasswordModelValid: false
         };
     },
     computed: {
@@ -925,7 +926,8 @@ exports.default = {
         confirmPassword: function confirmPassword() {
             console.log('confirm password');
             if (this.isPasswordMsgOn) {
-                if (this.checkPassword() && this.passwordModel === this.passwordConfirmModel) {
+                console.log("this.checkPasswordModelValid == " + this.isPasswordModelValid);
+                if (this.isPasswordModelValid && this.passwordModel === this.passwordConfirmModel) {
                     this.isPasswordConfirmMsgOn = false;
                     this.isPasswordOk = true;
                     return '';
@@ -942,10 +944,10 @@ exports.default = {
             }
         },
         disableSubmitButton: function disableSubmitButton() {
-            if (this.firstName.name.length != 0 && this.lastName.length != 0 && this.isEmailOk && this.isPasswordOk && this.organization.name.length != 0) {
-                return false;
-            } else {
+            if (this.firstName.name.length === 0 || this.lastName.length === 0 || !this.isEmailOk || !this.isPasswordOk || this.organization.name.length === 0) {
                 return true;
+            } else {
+                return false;
             }
         }
     },
@@ -993,7 +995,8 @@ exports.default = {
         },
         checkPassword: function checkPassword() {
             var reg = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,72}$/;
-            return reg.test(this.password);
+            console.log("Test Password");
+            return reg.test(this.passwordModel);
         },
         checkName: function checkName(name) {
             var reg = /^[a-zA-Z\s+]+(-[a-zA-Z\s+]+)?$/;
@@ -1010,6 +1013,7 @@ exports.default = {
     watch: {
         passwordModel: function passwordModel() {
             this.isPasswordMsgOn = true;
+            this.isPasswordModelValid = this.checkPassword();
         },
         passwordConfirmModel: function passwordConfirmModel() {
             this.isPasswordMsgOn = true;
