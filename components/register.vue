@@ -75,7 +75,7 @@
                 dataType: "json",
                 success: function (result) {
                     self.schools = result;
-                    console.log()
+                    // console.log()
                 }
             })
         },
@@ -166,10 +166,11 @@
                 // if not, it displays message as email is required, and valid form
                 else {
                     this.email.msgDisplayed = true;
+                    this.isEmailOk = false;
                     if (this.email.name.length === 0) {
+
                         return "Email is required";
                     }
-                    this.isEmailOk = false;
                     return "Valid email example: text@text.ext";
                 }
             },
@@ -214,9 +215,9 @@
                 return "Minimum password length 8, maximum 72"
             },
             confirmPassword: function () {
-                console.log('confirm password');
+                // console.log('confirm password');
                 if (this.isPasswordMsgOn) {
-                    console.log("this.checkPasswordModelValid == " + this.isPasswordModelValid);
+                    // console.log("this.checkPasswordModelValid == " + this.isPasswordModelValid);
                     if (this.isPasswordModelValid && this.passwordModel === this.passwordConfirmModel) {
                         this.isPasswordConfirmMsgOn = false;
                         this.isPasswordOk = true;
@@ -235,7 +236,8 @@
                 }
             },
             disableSubmitButton: function () {
-                if (this.firstName.name.length === 0 || this.lastName.length === 0 || !this.isEmailOk || !this.isPasswordOk
+                console.log("Disable Submit Button");
+                if (this.firstName.name.length === 0 || this.lastName.name.length === 0 || !this.isEmailOk || !this.isPasswordOk
                     || this.organization.name.length === 0) {
                     return true;
                 }
@@ -290,7 +292,7 @@
             },
             checkPassword: function () {
                 let reg = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,72}$/;
-                console.log("Test Password");
+                // console.log("Test Password");
                 return reg.test(this.passwordModel);
             },
             checkName: function (name) {

@@ -801,7 +801,6 @@ exports.default = {
             dataType: "json",
             success: function success(result) {
                 self.schools = result;
-                console.log();
             }
         });
     },
@@ -885,10 +884,11 @@ exports.default = {
                 return "";
             } else {
                     this.email.msgDisplayed = true;
+                    this.isEmailOk = false;
                     if (this.email.name.length === 0) {
+
                         return "Email is required";
                     }
-                    this.isEmailOk = false;
                     return "Valid email example: text@text.ext";
                 }
         },
@@ -924,9 +924,7 @@ exports.default = {
             return "Minimum password length 8, maximum 72";
         },
         confirmPassword: function confirmPassword() {
-            console.log('confirm password');
             if (this.isPasswordMsgOn) {
-                console.log("this.checkPasswordModelValid == " + this.isPasswordModelValid);
                 if (this.isPasswordModelValid && this.passwordModel === this.passwordConfirmModel) {
                     this.isPasswordConfirmMsgOn = false;
                     this.isPasswordOk = true;
@@ -944,7 +942,8 @@ exports.default = {
             }
         },
         disableSubmitButton: function disableSubmitButton() {
-            if (this.firstName.name.length === 0 || this.lastName.length === 0 || !this.isEmailOk || !this.isPasswordOk || this.organization.name.length === 0) {
+            console.log("Disable Submit Button");
+            if (this.firstName.name.length === 0 || this.lastName.name.length === 0 || !this.isEmailOk || !this.isPasswordOk || this.organization.name.length === 0) {
                 return true;
             } else {
                 return false;
@@ -995,7 +994,7 @@ exports.default = {
         },
         checkPassword: function checkPassword() {
             var reg = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,72}$/;
-            console.log("Test Password");
+
             return reg.test(this.passwordModel);
         },
         checkName: function checkName(name) {
