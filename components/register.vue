@@ -6,7 +6,7 @@
         <div class="header">
             <h1>Sign Up</h1>
             <p>
-                Welcome to Humpback Whale Social Sound!<br>
+                Welcome to Humpback Whale Social Call!<br>
                 Sign up to join a community of scientists who share whale social calls.
                 <span class="side-text">Already have an account? <span class="vue-hyperlinks" v-on:click="goToLogin">Login</span></span>
             </p>
@@ -14,27 +14,31 @@
         <form>
             <div class="form-group">
                 <label for="firstName">First name:</label>
-                <input type="text" class="form-control" id="firstName" placeholder="First name" v-model="firstName.name" v-on:focusin="firstName.invalid = false" v-on:focusout="nameExists(firstName)">
+                <input type="text" class="form-control" id="firstName" placeholder="First name" v-model="firstName.name"
+                       v-on:focusin="firstName.invalid = false" v-on:focusout="nameExists(firstName)">
                 <div class="invalid">{{checkFirstName}}</div>
                 <div class="invalid" v-if="firstName.invalid">First name is required</div>
             </div>
             <div class="form-group">
                 <label for="lastName">Last name:</label>
-                <input type="text" class="form-control" id="lastName" placeholder="Last name" v-model="lastName.name" v-on:focusin="lastName.invalid = false" v-on:focusout="nameExists(lastName)">
+                <input type="text" class="form-control" id="lastName" placeholder="Last name" v-model="lastName.name"
+                       v-on:focusin="lastName.invalid = false" v-on:focusout="nameExists(lastName)">
                 <div class="invalid">{{checkLastName}}</div>
                 <div class="invalid" v-if="lastName.invalid">Last name is required</div>
             </div>
             <div class="form-group">
                 <label for="email">Email address:</label>
-                <input type="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="email@example.com" v-model="email.name" v-on:focusin="email.invalid = false" v-on:focusout="nameExists(email)">
+                <input type="email" class="form-control" id="email" aria-describedby="emailHelp"
+                       placeholder="email@example.com" v-model="email.name" v-on:focusin="email.invalid = false"
+                       v-on:focusout="nameExists(email)">
                 <div class="invalid">{{checkEmailValidity}}</div>
                 <div class="invalid" v-if="email.invalid">Email is required</div>
                 <div class="invalid" v-if="email.duplicate">Email already in use.</div>
             </div>
             <div class="form-group">
                 <label for="password">Password:</label>
-                <!--<input type="password" class="form-control" id="password" placeholder="Password" v-model="passwordModel" v-on:focusin="passwordFocusIn" v-on:focusout="passwordFocusOut">-->
-                <input type="password" class="form-control" id="password" placeholder="Password" v-model="passwordModel">
+                <input type="password" class="form-control" id="password" placeholder="Password"
+                       v-model="passwordModel">
                 <div v-show="isPasswordMsgOn">
                     <div class="invalid">{{emailExists}}</div>
                     <div class="invalid">{{upperCaseRequirement}}</div>
@@ -43,23 +47,25 @@
                     <div class="invalid">{{digitRequirement}}</div>
                     <div class="invalid">{{lengthRequirement}}</div>
                 </div>
-               <!--<div class="invalid">{{invalidPasswordMsg}}</div>-->
             </div>
             <div class="form-group">
                 <label for="confirmPassword">Confirm password:</label>
-                <!--<input type="password" class="form-control" id="confirmPassword" placeholder="Confirm Password" v-model="passwordConfirmModel" v-on:focusin="isPasswordConfirmMsgOn = true">-->
-                <input type="password" class="form-control" id="confirmPassword" placeholder="Confirm Password" v-model="passwordConfirmModel">
+                <input type="password" class="form-control" id="confirmPassword" placeholder="Confirm Password"
+                       v-model="passwordConfirmModel">
                 <div class="invalid">{{confirmPassword}}</div>
             </div>
             <div class="form-group">
                 <label for="organization">Organization:</label>
-                <select class="form-control" id="organization" v-model="organization.name" v-on:focusin="organization.on = true">
+                <select class="form-control" id="organization" v-model="organization.name"
+                        v-on:focusin="organization.on = true">
                     <option v-for="school in schools">{{school}}</option>
                 </select>
                 <div class="invalid">{{confirmOrganization}}</div>
             </div>
             <div class="g-recaptcha" data-sitekey="6LeWQFMUAAAAAEhbd0eUym3S7Q7bRHWFb_Tgkyiy"></div>
-            <button type="submit" class="btn btn-primary" v-on:click="formSubmit" :disabled="disableSubmitButton">Submit</button>
+            <button type="submit" class="btn btn-primary" v-on:click="formSubmit" :disabled="disableSubmitButton">
+                Submit
+            </button>
         </form>
         <div v-bind:class="submitPressed"></div>
     </div>
@@ -75,7 +81,7 @@
                 dataType: "json",
                 success: function (result) {
                     self.schools = result;
-                    // console.log()
+                    self.schools.push("Other - Not Listed");
                 }
             })
         },
@@ -89,13 +95,15 @@
                 email: {name: '', switched: false, invalid: false, msgDisplayed: false, duplicate: false},
                 organization: {name: '', on: false},
                 passwordModel: '',
-                // invalidPasswordMsg: '',
                 isPasswordMsgOn: false,
                 passwordConfirmModel: '',
                 isPasswordConfirmMsgOn: false,
                 isEmailOk: false,
                 isPasswordOk: false,
-                isPasswordModelValid: false
+                isPasswordModelValid: false,
+                isPasswordConfirmModelValid: false,
+                isFirstNameOk: false,
+                isLastNameOk: false
             }
         },
         computed: {
@@ -106,6 +114,7 @@
             },
             checkFirstName: function () {
                 if (this.firstName.name.length === 0) {
+                    this.isFirstNameOk = false;
                     if (this.firstName.switched === false) {
                         this.firstName.switched = true;
                         return;
@@ -113,12 +122,14 @@
                 }
 
                 if (this.checkName(this.firstName.name)) {
+                    this.isFirstNameOk = true;
                     this.firstName.msgDisplayed = false;
                     return "";
                 }
 
                 else {
                     this.firstName.msgDisplayed = true;
+                    this.isFirstNameOk = false;
                     if (this.firstName.name.length === 0) {
                         return "First name is required"
                     }
@@ -128,6 +139,7 @@
 
             checkLastName: function () {
                 if (this.lastName.name.length === 0) {
+                    this.isLastNameOk = false;
                     if (this.lastName.switched === false) {
                         this.lastName.switched = true;
                         return;
@@ -135,11 +147,13 @@
                 }
 
                 if (this.checkName(this.lastName.name)) {
+                    this.isLastNameOk = true;
                     this.lastName.msgDisplayed = false;
                     return "";
                 }
                 else {
                     this.lastName.msgDisplayed = true;
+                    this.isLastNameOk = false;
                     if (this.lastName.name.length === 0) {
                         return "Last name is required"
                     }
@@ -148,43 +162,26 @@
             },
             checkEmailValidity: function () {
                 this.email.duplicate = false;
-
                 if (this.email.name.length === 0) {
                     if (this.email.switched === false) {
                         this.email.switched = true;
                         return;
                     }
                 }
-
-                // if the e-mail format is correct, not display any message
                 if (this.checkEmail()) {
                     this.email.msgDisplayed = false;
                     this.isEmailOk = true;
                     return "";
-                }
-
-                // if not, it displays message as email is required, and valid form
-                else {
+                } else {
                     this.email.msgDisplayed = true;
                     this.isEmailOk = false;
                     if (this.email.name.length === 0) {
-
                         return "Email is required";
                     }
                     return "Valid email example: text@text.ext";
                 }
             },
-
-            // checkPasswordValidity: function() {
-            //     if(this.passwordModel.length === 0) {
-            //         if(this.password.switched === false) {
-            //             this.password.switched = true;
-            //             return;
-            //         }
-            //     }
-            // },
-
-           upperCaseRequirement: function () {
+            upperCaseRequirement: function () {
                 if (/[A-Z]/.test(this.passwordModel)) {
                     return "";
                 }
@@ -215,16 +212,24 @@
                 return "Minimum password length 8, maximum 72"
             },
             confirmPassword: function () {
-                // console.log('confirm password');
                 if (this.isPasswordMsgOn) {
-                    // console.log("this.checkPasswordModelValid == " + this.isPasswordModelValid);
-                    if (this.isPasswordModelValid && this.passwordModel === this.passwordConfirmModel) {
-                        this.isPasswordConfirmMsgOn = false;
-                        this.isPasswordOk = true;
-                        return '';
+                    if (this.passwordConfirmModel.length === 0) {
+                        this.isPasswordOk = false;
+                        return "";
                     }
-                    this.isPasswordOk = false;
-                    return "Password does not match";
+                    if (!this.isPasswordConfirmModelValid) {
+                        this.isPasswordOk = false;
+                        return "Password does not match";
+                    }
+
+                    if (!this.isPasswordModelValid) {
+                        this.isPasswordOk = false;
+                        return "";
+                    }
+
+                    this.isPasswordConfirmMsgOn = false;
+                    this.isPasswordOk = true;
+                    return '';
                 }
             },
             confirmOrganization: function () {
@@ -236,8 +241,7 @@
                 }
             },
             disableSubmitButton: function () {
-                console.log("Disable Submit Button");
-                if (this.firstName.name.length === 0 || this.lastName.name.length === 0 || !this.isEmailOk || !this.isPasswordOk
+                if (!this.isFirstNameOk || !this.isLastNameOk || !this.isEmailOk || !this.isPasswordOk
                     || this.organization.name.length === 0) {
                     return true;
                 }
@@ -292,11 +296,13 @@
             },
             checkPassword: function () {
                 let reg = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,72}$/;
-                // console.log("Test Password");
                 return reg.test(this.passwordModel);
             },
+            checkPasswordConfirm: function () {
+                return this.passwordModel === this.passwordConfirmModel;
+            },
             checkName: function (name) {
-                let reg = /^[a-zA-Z\s+]+(-[a-zA-Z\s+]+)?$/;
+                let reg = /^[^\^!#"%&'()*+\-,.\/\\:;@<>\[\]\{\}\s][a-zA-Z]?([a-zA-Z\s-']+[a-zA-Z]*|[a-zA-Z]*)[^\^!#"%&'()*+\-,.\/\\:;@<>\[\]\{\}\s]$/;
                 return reg.test(name);
             },
             nameExists: function (nameObj) {
@@ -307,29 +313,16 @@
                     nameObj.invalid = false;
                 }
             }
-            // passwordFocusIn: function () {
-            //     this.isPasswordMsgOn = true;
-            //
-            //     this.invalidPasswordMsg = '';
-            // },
-            // passwordFocusOut: function () {
-            //     this.isPasswordMsgOn = false;
-            //
-            //     if (this.checkPassword()) {
-            //         this.invalidPasswordMsg = '';
-            //     }
-            //     else {
-            //         this.invalidPasswordMsg = 'Invalid password format';
-            //     }
-            // }
         },
         watch: {
-            passwordModel : function() {
+            passwordModel: function () {
                 this.isPasswordMsgOn = true;
                 this.isPasswordModelValid = this.checkPassword();
+                this.isPasswordConfirmModelValid = this.checkPasswordConfirm();
             },
-            passwordConfirmModel: function() {
+            passwordConfirmModel: function () {
                 this.isPasswordMsgOn = true;
+                this.isPasswordConfirmModelValid = this.checkPasswordConfirm();
             }
         }
     }
@@ -346,7 +339,7 @@
         left: 0;
         right: 0;
         top: 0;
-        bottom:0;
+        bottom: 0;
         padding-bottom: 800px;
     }
 
