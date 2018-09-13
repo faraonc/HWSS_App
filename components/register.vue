@@ -33,7 +33,8 @@
             </div>
             <div class="form-group">
                 <label for="password">Password:</label>
-                <input type="password" class="form-control" id="password" placeholder="Password" v-model="password" v-on:focusin="passwordFocusIn" v-on:focusout="passwordFocusOut">
+                <!--<input type="password" class="form-control" id="password" placeholder="Password" v-model="passwordModel" v-on:focusin="passwordFocusIn" v-on:focusout="passwordFocusOut">-->
+                <input type="password" class="form-control" id="password" placeholder="Password" v-model="passwordModel">
                 <div v-show="isPasswordMsgOn">
                     <div class="invalid">{{emailExists}}</div>
                     <div class="invalid">{{upperCaseRequirement}}</div>
@@ -42,11 +43,12 @@
                     <div class="invalid">{{digitRequirement}}</div>
                     <div class="invalid">{{lengthRequirement}}</div>
                 </div>
-                <div class="invalid">{{invalidPasswordMsg}}</div>
+               <!--<div class="invalid">{{invalidPasswordMsg}}</div>-->
             </div>
             <div class="form-group">
                 <label for="confirmPassword">Confirm password:</label>
-                <input type="password" class="form-control" id="confirmPassword" placeholder="Confirm Password" v-model="passwordConfirm" v-on:focusin="isPasswordConfirmMsgOn = true">
+                <!--<input type="password" class="form-control" id="confirmPassword" placeholder="Confirm Password" v-model="passwordConfirmModel" v-on:focusin="isPasswordConfirmMsgOn = true">-->
+                <input type="password" class="form-control" id="confirmPassword" placeholder="Confirm Password" v-model="passwordConfirmModel">
                 <div class="invalid">{{confirmPassword}}</div>
             </div>
             <div class="form-group">
@@ -86,10 +88,10 @@
                 lastName: {name: '', switched: false, invalid: false, msgDisplayed: false},
                 email: {name: '', switched: false, invalid: false, msgDisplayed: false, duplicate: false},
                 organization: {name: '', on: false},
-                password: '',
-                invalidPasswordMsg: '',
+                passwordModel: '',
+                // invalidPasswordMsg: '',
                 isPasswordMsgOn: false,
-                passwordConfirm: '',
+                passwordConfirmModel: '',
                 isPasswordConfirmMsgOn: false,
                 isEmailOk: false,
                 isPasswordOk: false
@@ -171,41 +173,41 @@
                 }
             },
 
-            checkPasswordValidity: function() {
-                if(this.password.length === 0) {
-                    if(this.password.switched === false) {
-                        this.password.switched = true;
-                        return;
-                    }
-                }
-            },
+            // checkPasswordValidity: function() {
+            //     if(this.passwordModel.length === 0) {
+            //         if(this.password.switched === false) {
+            //             this.password.switched = true;
+            //             return;
+            //         }
+            //     }
+            // },
 
            upperCaseRequirement: function () {
-                if (/[A-Z]/.test(this.password)) {
+                if (/[A-Z]/.test(this.passwordModel)) {
                     return "";
                 }
                 return "At least one upper case English letter";
             },
             lowerCaseRequirement: function () {
-                if (/[a-z]/.test(this.password)) {
+                if (/[a-z]/.test(this.passwordModel)) {
                     return "";
                 }
                 return "At least one lower case English letter";
             },
             digitRequirement: function () {
-                if (/[0-9]/.test(this.password)) {
+                if (/[0-9]/.test(this.passwordModel)) {
                     return "";
                 }
                 return "At least one digit"
             },
             specialCharRequirement: function () {
-                if (/[#?!@$%^&*-]/.test(this.password)) {
+                if (/[#?!@$%^&*-]/.test(this.passwordModel)) {
                     return "";
                 }
                 return "At least one special character"
             },
             lengthRequirement: function () {
-                if (/.{8,72}/.test(this.password)) {
+                if (/.{8,72}/.test(this.passwordModel)) {
                     return "";
                 }
                 return "Minimum password length 8, maximum 72"
@@ -213,7 +215,7 @@
             confirmPassword: function () {
                 console.log('confirm password');
                 if (this.isPasswordMsgOn) {
-                    if (this.password === this.passwordConfirm) {
+                    if (this.checkPassword() && this.passwordModel === this.passwordConfirmModel) {
                         this.isPasswordConfirmMsgOn = false;
                         this.isPasswordOk = true;
                         return '';
@@ -299,28 +301,28 @@
                 else {
                     nameObj.invalid = false;
                 }
-            },
-            passwordFocusIn: function () {
-                this.isPasswordMsgOn = true;
-
-                this.invalidPasswordMsg = '';
-            },
-            passwordFocusOut: function () {
-                this.isPasswordMsgOn = false;
-
-                if (this.checkPassword()) {
-                    this.invalidPasswordMsg = '';
-                }
-                else {
-                    this.invalidPasswordMsg = 'Invalid password format';
-                }
             }
+            // passwordFocusIn: function () {
+            //     this.isPasswordMsgOn = true;
+            //
+            //     this.invalidPasswordMsg = '';
+            // },
+            // passwordFocusOut: function () {
+            //     this.isPasswordMsgOn = false;
+            //
+            //     if (this.checkPassword()) {
+            //         this.invalidPasswordMsg = '';
+            //     }
+            //     else {
+            //         this.invalidPasswordMsg = 'Invalid password format';
+            //     }
+            // }
         },
         watch: {
-            password : function() {
+            passwordModel : function() {
                 this.isPasswordMsgOn = true;
             },
-            passwordConfirm: function() {
+            passwordConfirmModel: function() {
                 this.isPasswordMsgOn = true;
             }
         }
