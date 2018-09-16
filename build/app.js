@@ -810,20 +810,21 @@ exports.default = {
             schools: new Set(),
             pressedSubmit: false,
             loading: false,
-            firstName: { name: '', switched: false, invalid: false, msgDisplayed: false },
-            lastName: { name: '', switched: false, invalid: false, msgDisplayed: false },
-            email: { name: '', switched: false, invalid: false, msgDisplayed: false, duplicate: false },
-            organization: { name: '', on: false },
-            passwordModel: '',
+            firstName: { name: "", switched: false, invalid: false, msgDisplayed: false },
+            lastName: { name: "", switched: false, invalid: false, msgDisplayed: false },
+            email: { name: "", switched: false, invalid: false, msgDisplayed: false, duplicate: false },
+            organization: { name: "", on: false },
+            passwordModel: "",
+            passwordConfirmModel: "",
             isPasswordMsgOn: false,
-            passwordConfirmModel: '',
             isPasswordConfirmMsgOn: false,
-            isEmailOk: false,
-            isPasswordOk: false,
             isPasswordModelValid: false,
             isPasswordConfirmModelValid: false,
             isFirstNameOk: false,
-            isLastNameOk: false
+            isLastNameOk: false,
+            isEmailOk: false,
+            isPasswordOk: false,
+            isOrganizationOk: false
         };
     },
     computed: {
@@ -946,18 +947,24 @@ exports.default = {
 
                 this.isPasswordConfirmMsgOn = false;
                 this.isPasswordOk = true;
-                return '';
-            }
-        },
-        confirmOrganization: function confirmOrganization() {
-            if (this.organization.on === true && this.organization.name.length === 0) {
-                return "Organization is required";
-            } else {
                 return "";
             }
         },
+        confirmOrganization: function confirmOrganization() {
+            if (this.organization.name.length != 0) {
+                this.isOrganizationOk = true;
+                return "";
+            } else {
+                this.isOrganizationOk = false;
+                if (this.organization.on === true) {
+                    return "Organization is required";
+                } else {
+                    return "";
+                }
+            }
+        },
         disableSubmitButton: function disableSubmitButton() {
-            if (!this.isFirstNameOk || !this.isLastNameOk || !this.isEmailOk || !this.isPasswordOk || this.organization.name.length === 0) {
+            if (!this.isFirstNameOk || !this.isLastNameOk || !this.isEmailOk || !this.isPasswordOk || !this.isOrganizationOk) {
                 return true;
             } else {
                 return false;
@@ -967,7 +974,7 @@ exports.default = {
 
     methods: {
         goToLogin: function goToLogin() {
-            this.$router.push('/login');
+            this.$router.push("/login");
         },
         formSubmit: function formSubmit(e) {
             e.preventDefault();
@@ -994,11 +1001,11 @@ exports.default = {
                         alert("Email is already in use. Please use a different email and try again.");
                         self.email.duplicate = true;
                     } else {
-                        self.$router.push({ name: 'profile', params: newUser });
+                        self.$router.push({ name: "profile", params: newUser });
                     }
                 },
                 error: function error() {
-                    alert("trouble with sending data to server in register.vue formSubmit()");
+                    alert("An error occured while executing data submission to the server.");
                 }
             });
         },

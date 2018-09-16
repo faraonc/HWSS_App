@@ -90,20 +90,21 @@
                 schools: new Set(),
                 pressedSubmit: false,
                 loading: false,
-                firstName: {name: '', switched: false, invalid: false, msgDisplayed: false},
-                lastName: {name: '', switched: false, invalid: false, msgDisplayed: false},
-                email: {name: '', switched: false, invalid: false, msgDisplayed: false, duplicate: false},
-                organization: {name: '', on: false},
-                passwordModel: '',
+                firstName: {name: "", switched: false, invalid: false, msgDisplayed: false},
+                lastName: {name: "", switched: false, invalid: false, msgDisplayed: false},
+                email: {name: "", switched: false, invalid: false, msgDisplayed: false, duplicate: false},
+                organization: {name: "", on: false},
+                passwordModel: "",
+                passwordConfirmModel: "",
                 isPasswordMsgOn: false,
-                passwordConfirmModel: '',
                 isPasswordConfirmMsgOn: false,
-                isEmailOk: false,
-                isPasswordOk: false,
                 isPasswordModelValid: false,
                 isPasswordConfirmModelValid: false,
                 isFirstNameOk: false,
-                isLastNameOk: false
+                isLastNameOk: false,
+                isEmailOk: false,
+                isPasswordOk: false,
+                isOrganizationOk: false
             }
         },
         computed: {
@@ -229,20 +230,28 @@
 
                     this.isPasswordConfirmMsgOn = false;
                     this.isPasswordOk = true;
-                    return '';
+                    return "";
                 }
             },
             confirmOrganization: function () {
-                if (this.organization.on === true && this.organization.name.length === 0) {
-                    return "Organization is required"
-                }
-                else {
+                if (this.organization.name.length != 0) {
+                    this.isOrganizationOk = true;
                     return "";
+                }
+
+                else {
+                    this.isOrganizationOk = false;
+                    if (this.organization.on === true) {
+                        return "Organization is required";
+                    }
+                    else {
+                        return "";
+                    }
                 }
             },
             disableSubmitButton: function () {
                 if (!this.isFirstNameOk || !this.isLastNameOk || !this.isEmailOk || !this.isPasswordOk
-                    || this.organization.name.length === 0) {
+                    || !this.isOrganizationOk) {
                     return true;
                 }
                 else {
@@ -253,7 +262,7 @@
 
         methods: {
             goToLogin: function () {
-                this.$router.push('/login');
+                this.$router.push("/login");
             },
             formSubmit: function (e) {
                 e.preventDefault();
@@ -281,11 +290,11 @@
                             self.email.duplicate = true;
                         }
                         else {
-                            self.$router.push({name: 'profile', params: newUser});
+                            self.$router.push({name: "profile", params: newUser});
                         }
                     },
                     error: function () {
-                        alert("trouble with sending data to server in register.vue formSubmit()")
+                        alert("An error occured while executing data submission to the server.")
                     }
                 })
 
