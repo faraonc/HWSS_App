@@ -355,5 +355,4 @@
     #registerPage .center-block {
         position: fixed;
     }
-    /* test*/
 </style>
