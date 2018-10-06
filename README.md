@@ -1,5 +1,5 @@
 # Humpback Whale Social Call
-[Official HWSC Web Application](https://faraonc.github.io/HWSC_App/)
+[Official HWSC Web Application](https://faraonc.github.io/hwsc-gateway-svc/)
 
 ## Overview
 The project is a web application that biologists can use to consolidate and to track data about humpback whales and other marine mammals. These data includes media files and source codes that biologists use for their research.
@@ -13,13 +13,20 @@ The web application is client-rendering, therefore an added initial time is adde
 Each microservice corresponds to specific functionality. This enables the usage of containers for deployment later on.
 ### Application Gateway
 Services the user as the gateway, and the middleware between services.
-- [HWSC_App](https://github.com/faraonc/HWSC_App)
+- [hwsc-gateway-svc](https://github.com/faraonc/hwsc-gateway-svc)
+### Frontend Service
+Handles graphical user interface for Vue components.
+- [hwsc-frontend-svc](https://github.com/faraonc/hwsc-frontend-svc)
 ### User Service
-Handles user network.
-- [HWSC_User_Svc](https://github.com/faraonc/HWSC_User_Svc)
+Handles user social network.
+- [hwsc-user-svc](https://github.com/faraonc/hwsc-user-svc)
 ### File Service
 Handles file processing.
-- [HWSC_File_Svc](https://github.com/faraonc/HWSC_File_Svc)
+- [hwsc-file-svc](https://github.com/faraonc/hwsc-file-svc)
+
+## API
+The contract for hwsc-gateway-svc to consume other services.
+- [hwsc-api-blocks](https://github.com/faraonc/hwsc-api-blocks)
 
 ## Team 
 
