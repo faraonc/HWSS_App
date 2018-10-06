@@ -14,5 +14,7 @@
 </script>
 
 <style scoped>
-
+    .btn{
+        cursor: pointer;
+    }
 </style>

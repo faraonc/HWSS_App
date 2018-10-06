@@ -45,4 +45,25 @@
         margin: 0 auto 20px auto;
         max-width: 343px;
     }
+
+    /*******************************************
+        Multi Select Searchacle Drop Down Menu
+    *******************************************/
+    .multi-select-dropdown {
+        display: inline-block;
+        margin: 0 0 0 12px;
+    }
+
+    .multi-select-dropdown .dropdown-menu {
+        max-width: 400px;
+        overflow-y: scroll;
+        max-height: 400px;
+        padding: 0;
+        font-size: .9em;
+    }
+
+    .added-category {
+        display: inline-block;
+
+    }
 </style>

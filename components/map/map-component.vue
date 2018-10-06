@@ -433,5 +433,87 @@
 </script>
 
 <style scoped>
+    html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+    }
 
+    .container {
+        height: 100%;
+        width: 100%;
+        margin: 0;
+        padding: 0;
+    }
+
+    #map-container {
+        height: 100%;
+    }
+
+    #map-canvas {
+        height: 100%;
+        z-index: -1;
+        top: -40px;
+    }
+
+    .no-match-err {
+        display: inline-block;
+        margin: 30px auto 0 auto;
+        text-align: center;
+        width: 450px;
+
+    }
+
+    /*Container for the body.*/
+    #site-canvas {
+        width: 100%;
+        height: 100.38%;
+        position: relative;
+        /*Do no touch duplicates*/
+        -moz-transform: translateX(0);
+        -moz-transform: translate3d(0, 0, 0);
+        -webkit-transform: translateX(0);
+        -webkit-transform: translate3d(0, 0, 0);
+        transform: translateX(0);
+        transform: translate3d(0, 0, 0);
+        transition: 300ms ease all;
+        backface-visibility: hidden;
+    }
+
+    /*Do not change showNav to show-nav, VueJS has a bug.*/
+    .showNav #site-canvas {
+        /*Do no touch duplicates*/
+        -moz-transform: translateX(500px);
+        -moz-transform: translate3d(500px, 0, 0);
+        -webkit-transform: translateX(500px);
+        -webkit-transform: translate3d(500px, 0, 0);
+        transform: translateX(500px);
+        transform: translate3d(500px, 0, 0);
+    }
+
+    #site-wrapper {
+        height: 100%;
+        position: relative;
+        overflow-x: hidden;
+        overflow-y: hidden;
+    }
+
+    /*#site-menu {*/
+        /*width: 500px;*/
+        /*height: 100%;*/
+        /*position: absolute;*/
+        /*top: 0;*/
+        /*left: -500px;*/
+        /*background: #FFF;*/
+        /*padding: 15px;*/
+    /*}*/
+
+    /*!*Styles for contents of the off-canvas menu.*!*/
+    /*#site-menu > div:first-child > div:first-child > p:first-child {*/
+        /*text-decoration: none;*/
+        /*font-size: 20px;*/
+        /*color: #2a6d4c;*/
+        /*display: block;*/
+        /*transition: 0.5s;*/
+    /*}*/
 </style>

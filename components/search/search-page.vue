@@ -266,5 +266,160 @@
 </script>
 
 <style scoped>
+    * {
+        font-family: 'Montserrat', sans-serif;
 
+    }
+    h1 {
+        font-size: 4.5em;
+    }
+    #searchPage {
+        margin-top: 60px;
+        text-align: center;
+    }
+
+    .category-dropdown-container {
+        width: 502px;
+        /*background: burlywood;*/
+        margin: 0 auto;
+    }
+
+    /*******************************************
+        Main Drop Down Menu
+    *******************************************/
+    #dropdownMenuButton:after {
+        /* controls the carat positioning*/
+        right: -30px;
+        position: relative;
+    }
+
+    #dropdownMenuButton {
+        width: 250px;
+        cursor: pointer;
+    }
+
+    .btn-group .dropdown-menu a {
+        width: 248px;
+        padding: 15px;
+    }
+
+    .btn-group .search {
+        margin-left: 20px;
+        cursor: pointer;
+    }
+
+    /******************************************
+        Container that holds all added categories
+    ******************************************/
+    .added-categories {
+        /*background: antiquewhite;*/
+        margin: 10px auto 0 auto;
+
+    }
+
+    /******************************************
+        Drop Down Check box styling
+    ******************************************/
+    .added-category input[type=checkbox] {
+        margin-right: 10px;
+        position:relative;
+        top: -2px;
+    }
+
+
+    /*!********************************************/
+        /*Force scrollbar visibility*/
+    /********************************************!*/
+    /*::-webkit-scrollbar {*/
+        /*-webkit-appearance: none;*/
+        /*width: 8px;*/
+    /*}*/
+
+    /*::-webkit-scrollbar-thumb {*/
+        /*border-radius: 5px;*/
+        /*background-color: rgba(0,0,0,.5);*/
+        /*-webkit-box-shadow: 0 0 1px rgba(255,255,255,.5);*/
+    /*}*/
+
+    /*******************************************
+        Multi Select Searchacle Drop Down Menu
+    *******************************************/
+    .category-dropdown-container .loader {
+        margin-top: 50px;
+    }
+
+    /*******************************************
+        Multi Select Searchacle Drop Down Menu
+    *******************************************/
+    /*.multi-select-dropdown {*/
+        /*display: inline-block;*/
+        /*margin: 0 0 0 12px;*/
+    /*}*/
+
+    /*.multi-select-dropdown .dropdown-menu {*/
+        /*max-width: 400px;*/
+        /*overflow-y: scroll;*/
+        /*max-height: 400px;*/
+        /*padding: 0;*/
+        /*font-size: .9em;*/
+    /*}*/
+
+    /*.form-control-wrapper {*/
+        /*position: sticky;*/
+        /*position: -webkit-sticky;*/
+        /*top: 0;*/
+        /*background: #fff;*/
+        /*z-index: 1;*/
+        /*height: 49px;*/
+        /*width: 390px;*/
+        /*padding-top: 8px;*/
+    /*}*/
+    /*.multi-select-dropdown .form-control {*/
+        /*margin: 0 auto;*/
+        /*width: 380px;*/
+    /*}*/
+
+
+    /*.multi-select-dropdown li {*/
+        /*padding: 15px;*/
+    /*}*/
+
+    /*.multi-select-dropdown label {*/
+        /*margin: 0;*/
+    /*}*/
+
+    /*.multi-select-dropdown li, .multi-select-dropdown label {*/
+        /*cursor: pointer;*/
+        /*width: 100%;*/
+    /*}*/
+
+    .btn {
+        cursor: pointer;
+    }
+
+
+
+    /*.added-category span {*/
+        /*display: inline-block;*/
+
+    /*}*/
+
+    .error-msg {
+        margin-top: 20px;
+        height: 23px;
+        color: #e02020;
+        font-size: .8em;
+    }
+
+    #searchPage .footer {
+        margin-top: 200px;
+        font-size: .8em;
+    }
+
+    #showUpload{
+        position:absolute;
+        transition: .5s ease;
+        top: 3%;
+        left: 10%;
+    }
 </style>

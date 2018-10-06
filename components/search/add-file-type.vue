@@ -38,5 +38,19 @@
 </script>
 
 <style scoped>
+    .form-control-wrapper {
+        position: sticky;
+        position: -webkit-sticky;
+        top: 0;
+        background: #fff;
+        z-index: 1;
+        height: 49px;
+        width: 390px;
+        padding-top: 8px;
+    }
 
+    .form-control {
+        margin: 0 auto;
+        width: 380px;
+    }
 </style>

@@ -21,5 +21,7 @@
     .category {
         width: 182px;
     }
-
+    .btn{
+        cursor: pointer;
+    }
 </style>
