@@ -10,11 +10,15 @@ The user can access the application uses a device with a browser to search for d
 The web application is client-rendering, therefore an added initial time is added to load the JavaScript files and to download other libraries needed by the browser to run and to render the application. This reduces network traffic between the client and the server, therefore enabling the client to work remotely and only communicate back to the server if data is needed. 
 
 ## Microservices
+Each microservice corresponds to specific functionality. This enables the usage of containers for deployment later on.
 ### Application Gateway
+Services the user as the gateway, and the middleware between services.
 - [HWSC_App](https://github.com/faraonc/HWSC_App)
 ### User Service
+Handles user network.
 - [HWSC_User_Svc](https://github.com/faraonc/HWSC_User_Svc)
-### Application Gateway
+### File Service
+Handles file processing.
 - [HWSC_File_Svc](https://github.com/faraonc/HWSC_File_Svc)
 
 ## Team 
