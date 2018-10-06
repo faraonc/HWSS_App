@@ -9,6 +9,14 @@ This is a non-profit project dedicated for educational and research purposes.
 The user can access the application uses a device with a browser to search for data related to humpback whales. The user can also get data using the web api provided, and data are returned as JSON.
 The web application is client-rendering, therefore an added initial time is added to load the JavaScript files and to download other libraries needed by the browser to run and to render the application. This reduces network traffic between the client and the server, therefore enabling the client to work remotely and only communicate back to the server if data is needed. 
 
+## Microservices
+### Application Gateway
+- [HWSC_App](https://github.com/faraonc/HWSC_App)
+### User Service
+- [HWSC_User_Svc](https://github.com/faraonc/HWSC_User_Svc)
+### Application Gateway
+- [HWSC_File_Svc](https://github.com/faraonc/HWSC_File_Svc)
+
 ## Team 
 
 ### Owners
