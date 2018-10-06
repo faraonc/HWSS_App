@@ -41,8 +41,6 @@ The contract for hwsc-gateway-svc to consume other services.
 - Ashley 
 - Mandy 
 - Alex
-
-### Alumnus
 - Lisa
 
 ## Links
