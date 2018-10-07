@@ -23,6 +23,9 @@ Handles user social network.
 ### File Service
 Handles file processing.
 - [hwsc-file-svc](https://github.com/faraonc/hwsc-file-svc)
+### Metadata Service
+Handles metadata query.
+- [hwsc-metadata-svc](https://github.com/faraonc/hwsc-metadata-svc)
 
 ## API
 The contract for hwsc-gateway-svc to consume other services.
