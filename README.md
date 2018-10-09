@@ -26,6 +26,8 @@ Handles file processing.
 ### Metadata Service
 Handles metadata query.
 - [hwsc-metadata-svc](https://github.com/faraonc/hwsc-metadata-svc)
+### Tutorial gRPC Service in GoLang
+- [hwsc-grpc-sample](https://github.com/faraonc/hwsc-grpc-sample)
 
 ## API
 The contract for hwsc-gateway-svc to consume other services.
