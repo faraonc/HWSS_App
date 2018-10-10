@@ -14,20 +14,20 @@ Each microservice corresponds to specific functionality. This enables the usage 
 ### Application Gateway
 Services the user as the gateway, and the middleware between services.
 - [hwsc-gateway-svc](https://github.com/faraonc/hwsc-gateway-svc)
-### Frontend Service
+### Frontend Service [TODO](https://github.com/faraonc/hwsc-gateway-svc/issues/34)
 Handles graphical user interface for Vue components.
 - [hwsc-frontend-svc](https://github.com/faraonc/hwsc-frontend-svc)
 ### User Service
 Handles user social network.
 - [hwsc-user-svc](https://github.com/faraonc/hwsc-user-svc)
 ### File Service
-Handles file processing.
+Handles file operation.
 - [hwsc-file-svc](https://github.com/faraonc/hwsc-file-svc)
 ### Metadata Service
-Handles metadata query.
-- [hwsc-metadata-svc](https://github.com/faraonc/hwsc-metadata-svc)
+Handles file metadata query.
+- [hwsc-metadata-file-svc](https://github.com/faraonc/hwsc-metadata-file-svc)
 ### Tutorial gRPC Service in GoLang
-- [hwsc-grpc-sample](https://github.com/faraonc/hwsc-grpc-sample)
+- [hwsc-grpc-sample-svc](https://github.com/faraonc/hwsc-grpc-sample-svc)
 
 ## API
 The contract for hwsc-gateway-svc to consume other services.
