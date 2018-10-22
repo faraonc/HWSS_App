@@ -47,6 +47,7 @@ The contract for hwsc-gateway-svc to consume other services.
 - Mandy 
 - Alex
 - Lisa
+- Wai
 
 ## Links
 - [Q1 Website](https://hwss.azurewebsites.net/#/)
