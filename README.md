@@ -20,12 +20,12 @@ Handles graphical user interface for Vue components.
 ### User Service
 Handles user social network.
 - [hwsc-user-svc](https://github.com/faraonc/hwsc-user-svc)
-### File Service
+### File Transaction Service
 Handles file operation.
-- [hwsc-file-svc](https://github.com/faraonc/hwsc-file-svc)
-### Metadata Service
-Handles file metadata query.
-- [hwsc-metadata-file-svc](https://github.com/faraonc/hwsc-metadata-file-svc)
+- [hwsc-file-transaction-svc](https://github.com/faraonc/hwsc-file-transaction-svc)
+### File Metadata Service
+Handles file metadata CRUD.
+- [hwsc-file-metadata-svc](https://github.com/faraonc/hwsc-file-metadata-svc)
 ### Tutorial gRPC Service in GoLang
 - [hwsc-grpc-sample-svc](https://github.com/faraonc/hwsc-grpc-sample-svc)
 
