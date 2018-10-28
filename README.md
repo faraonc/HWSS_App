@@ -16,7 +16,7 @@ Services the user as the gateway, and the middleware between services.
 - [hwsc-gateway-svc](https://github.com/faraonc/hwsc-gateway-svc)
 ### Frontend Service [TODO](https://github.com/faraonc/hwsc-gateway-svc/issues/34)
 Handles graphical user interface for Vue components.
-- [hwsc-frontend-svc](https://github.com/faraonc/hwsc-frontend-svc)
+- [hwsc-frontend](https://github.com/faraonc/hwsc-frontend)
 ### User Service
 Handles user social network.
 - [hwsc-user-svc](https://github.com/faraonc/hwsc-user-svc)
