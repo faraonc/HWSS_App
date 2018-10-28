@@ -14,7 +14,7 @@ Each microservice corresponds to specific functionality. This enables the usage 
 ### Application Gateway
 Services the user as the gateway, and the middleware between services.
 - [hwsc-gateway-svc](https://github.com/faraonc/hwsc-gateway-svc)
-### Frontend Service [TODO](https://github.com/faraonc/hwsc-gateway-svc/issues/34)
+### Frontend Service
 Handles graphical user interface for Vue components.
 - [hwsc-frontend](https://github.com/faraonc/hwsc-frontend)
 ### User Service
