@@ -13,24 +13,24 @@ The web application is client-rendering, therefore an added initial time is adde
 Each microservice corresponds to specific functionality. This enables the usage of containers for deployment later on.
 ### Application Gateway
 Services the user as the gateway, and the middleware between services.
-- [hwsc-gateway-svc](https://github.com/faraonc/hwsc-gateway-svc)
+- [hwsc-app-gateway-svc](https://github.com/faraonc/hwsc-app-gateway-svc)
 ### Frontend Service
 Handles graphical user interface for Vue components.
 - [hwsc-frontend](https://github.com/faraonc/hwsc-frontend)
 ### User Service
-Handles user social network.
+Provides services to hwsc-app-gateway-svc for managing HWSC users.
 - [hwsc-user-svc](https://github.com/faraonc/hwsc-user-svc)
 ### File Transaction Service
-Handles file operation.
+Provides services to hwsc-app-gateway-svc for managing files.
 - [hwsc-file-transaction-svc](https://github.com/faraonc/hwsc-file-transaction-svc)
-### File Metadata Service
-Handles file metadata CRUD.
-- [hwsc-file-metadata-svc](https://github.com/faraonc/hwsc-file-metadata-svc)
+### Document Service
+ Provides services to hwsc-app-gateway-svc for CRUD of documents and file metadata in Azure CosmosDB.
+- [hwsc-document-svc](https://github.com/faraonc/hwsc-document-svc)
 ### Tutorial gRPC Service in GoLang
 - [hwsc-grpc-sample-svc](https://github.com/faraonc/hwsc-grpc-sample-svc)
 
 ## API
-The contract for hwsc-gateway-svc to consume other services.
+API for hwsc-app-gateway-svc to consume various hwsc services.
 - [hwsc-api-blocks](https://github.com/faraonc/hwsc-api-blocks)
 
 ## Team 
